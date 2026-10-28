@@ -1,6 +1,6 @@
-# <AppName> — Project Overview
+# FinFit — Project Overview
 
-<One paragraph: what the app is and who it is for.>
+FinFit is an iPhone app built with SwiftUI.
 
 This document describes **what is built**, and nothing else. It is the only project-specific rule
 file; the other four are shared across projects.
@@ -9,9 +9,8 @@ file; the other four are shared across projects.
 
 ## The screens
 
-| Screen | What it does |
-|---|---|
-| **<Screen>** | <One line> |
+There are no feature screens yet. The app launches to an empty root screen inside the app's
+`NavigationStack`.
 
 Each screen's behaviour is specified in its module's `Docs/` folder.
 
@@ -19,35 +18,30 @@ Each screen's behaviour is specified in its module's `Docs/` folder.
 
 ## Rules in force
 
-<Product rules that constrain code: orientation, devices, what leaves the device, persistence,
-accessibility targets, performance targets.>
+- iPhone only, portrait only.
 
 ---
 
 ## Testing
 
-<One of:>
-- **There are no tests.** Do not write unit, UI or snapshot tests, and do not offer to. Do not add a
-  test target, a test file, or a testing dependency. Verify by building and running the app.
-- **Tests are written for <layers>.** <Framework, where test targets live, what must be covered.>
+No testing policy has been set. Ask before writing any tests.
 
 ---
 
 ## Jira
 
-Board: **<Board name>** — project `<KEY>`, <https://….atlassian.net/browse/KEY>
+Board: **OnlyFunds** — project `OFN`, <https://thorssons.atlassian.net/browse/OFN>
 
 ---
 
 ## Technical notes
 
-- Platform and deployment target: <iOS NN, iPhone/iPad, Swift version and language mode>
-- Third-party dependencies: Factory, <…>
+- Platform and deployment target: iOS 26, iPhone, Swift 6 language mode
+- Third-party dependencies: Factory 3.5.1
 - Schemes / targets:
 
   | Scheme | Target | Bundle id | Purpose |
   |---|---|---|---|
-  | `<App>` | <App> | `<bundle id>` | Release |
-  | `<App> Staging` | <App> Staging | `<bundle id>` | Testing |
+  | `FinFit` | FinFit | `com.thorssons.finfit` | Development and release |
 
-- DEBUG-only launch arguments: <…>
+- DEBUG-only launch arguments: none

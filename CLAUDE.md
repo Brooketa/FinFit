@@ -25,10 +25,9 @@ and nothing else.
 
 | Location | Tier | Holds | Depends on |
 |---|---|---|---|
-| `Home/` | Feature | The Home and About screens, the counter store, the module's routing protocol. A placeholder to replace with the first real feature | `Core`, `CoreUI`, Factory |
 | `CoreUI/` | CoreUI | `Palette`, `TextStyle`, `Spacing`, alignment and padding helpers, `PrimaryButton` | — |
 | `Core/` | Core | `Bundle.marketingVersion` | — |
-| `Starter/App/` | App target | `StarterApp` (entry point, creates and registers the router), `RootView`, `AppRouter`, `DependencyInjection/Container+Routing.swift` | All packages |
+| `FinFit/App/` | App target | `FinFitApp` (entry point, creates and registers the router), `RootView`, `AppRouter`, `DependencyInjection/Container+Routing.swift` | All packages |
 
 Swift 6 language mode, iOS 26, iPhone, portrait. Factory 3.5.1 is the only third-party dependency.
 
