@@ -14,7 +14,7 @@ public struct PrimaryButton: View {
     public var body: some View {
         Button(action: action) {
             Text(title)
-                .textStyle(.headline)
+                .textStyle(.bodyLargeMedium)
                 .alignHorizontalCenter()
         }
         .buttonStyle(.borderedProminent)

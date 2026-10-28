@@ -5,7 +5,7 @@ The design system every feature draws with.
 | Area | Holds |
 |---|---|
 | `Palette` | The design's colors, each a color set in `Assets.xcassets` with a single, light appearance — see **Colors** below |
-| `TextStyle` | `title`, `headline`, `body` on the system font, scaling with Dynamic Type; applied with `.textStyle(_:)` |
+| `TextStyle` | The design's type scale on the system font, at fixed sizes; applied with `.textStyle(_:)` — see **Typography** below |
 | `Spacing` | A 4pt grid: `extraSmall` 4, `small` 8, `medium` 12, `large` 16, `extraLarge` 24, `extraExtraLarge` 32; applied with `.padding(_:)` |
 | Alignment | `alignLeading/Trailing/HorizontalCenter`, `alignTop/Bottom/VerticalCenter`, the four corners and `alignCenter` — each expands the view and pins it |
 | `PrimaryButton` | Full-width, primary-filled button with a localized title |
@@ -38,3 +38,21 @@ The app is light-only, so every color has one value.
 | Dark & selection | `darkBackground` | `#1E0F44` | Dark, high-emphasis areas |
 | Dark & selection | `selected` | `#261452` | Fill of a selected item |
 | Dark & selection | `selectedSubtle` | `#F3EEFF` | Light fill behind a selected item |
+
+## Typography
+
+Every style uses the system font at a fixed size. Tracking is a percentage of the font size.
+
+| Token | Weight | Size | Tracking | Use |
+|---|---|---|---|---|
+| `headingExtraLarge` | Bold | 48 | −2% | Largest display heading |
+| `headingLarge` | Bold | 36 | −1.5% | Screen titles |
+| `headingMedium` | Bold | 30 | −1% | Prominent headings |
+| `headingSmall` | Semibold | 24 | −0.5% | Section headings |
+| `headingExtraSmall` | Semibold | 20 | −0.3% | Small headings |
+| `bodyLarge` | Regular | 16 | 0 | Body text |
+| `bodyMedium` | Regular | 14 | 0 | Secondary body text |
+| `bodySmall` | Regular | 12 | 0 | Captions |
+| `bodyLargeMedium` | Medium | 16 | +0.2% | Emphasised body text, button labels |
+| `bodyMediumMedium` | Medium | 14 | +0.2% | Emphasised secondary text |
+| `bodySmallMedium` | Medium | 12 | +0.2% | Emphasised captions |
