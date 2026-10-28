@@ -6,7 +6,8 @@ The design system every feature draws with.
 |---|---|
 | `Palette` | The design's colors, each a color set in `Assets.xcassets` with a single, light appearance — see **Colors** below |
 | `TextStyle` | The design's type scale on the system font, at fixed sizes; applied with `.textStyle(_:)` — see **Typography** below |
-| `Spacing` | A 4pt grid: `extraSmall` 4, `small` 8, `medium` 12, `large` 16, `extraLarge` 24, `extraExtraLarge` 32; applied with `.padding(_:)` |
+| `Spacing` | The design's spacing scale on a 4pt grid; applied with `.padding(_:)` — see **Spacing** below |
+| `CornerRadius` | The design's corner radii — see **Spacing** below |
 | Alignment | `alignLeading/Trailing/HorizontalCenter`, `alignTop/Bottom/VerticalCenter`, the four corners and `alignCenter` — each expands the view and pins it |
 | `PrimaryButton` | Full-width, primary-filled button with a localized title |
 
@@ -56,3 +57,18 @@ Every style uses the system font at a fixed size. Tracking is a percentage of th
 | `bodyLargeMedium` | Medium | 16 | +0.2% | Emphasised body text, button labels |
 | `bodyMediumMedium` | Medium | 14 | +0.2% | Emphasised secondary text |
 | `bodySmallMedium` | Medium | 12 | +0.2% | Emphasised captions |
+
+## Spacing
+
+| Token | Figma | Value |
+|---|---|---|
+| `Spacing.extraSmall` | `xs` | 4 |
+| `Spacing.small` | `sm` | 8 |
+| `Spacing.medium` | `md` | 12 |
+| `Spacing.large` | `lg` | 16 |
+| `Spacing.extraLarge` | `xl` | 20 |
+| `Spacing.extraLarge2` | `2xl` | 24 |
+| `Spacing.extraLarge3` | `3xl` | 32 |
+| `Spacing.extraLarge4` | `4xl` | 48 |
+| `Spacing.extraLarge5` | `5xl` | 64 |
+| `CornerRadius.medium` | `radius/md` | 12 |
