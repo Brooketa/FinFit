@@ -2,7 +2,7 @@ import SwiftUI
 import FactoryKit
 
 @main
-struct StarterApp: App {
+struct FinFitApp: App {
 
     private let router = AppRouter()
 
