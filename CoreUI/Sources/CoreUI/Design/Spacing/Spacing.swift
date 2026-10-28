@@ -3,22 +3,31 @@ import CoreGraphics
 public struct Spacing: Sendable {
 
     /// 4pt padding or spacing.
-    public static let extraSmall = grid(1)
+    public static let extraSmall = units(1)
 
     /// 8pt padding or spacing.
-    public static let small = grid(2)
+    public static let small = units(2)
 
     /// 12pt padding or spacing.
-    public static let medium = grid(3)
+    public static let medium = units(3)
 
     /// 16pt padding or spacing.
-    public static let large = grid(4)
+    public static let large = units(4)
+
+    /// 20pt padding or spacing.
+    public static let extraLarge = units(5)
 
     /// 24pt padding or spacing.
-    public static let extraLarge = grid(6)
+    public static let extraLarge2 = units(6)
 
     /// 32pt padding or spacing.
-    public static let extraExtraLarge = grid(8)
+    public static let extraLarge3 = units(8)
+
+    /// 48pt padding or spacing.
+    public static let extraLarge4 = units(12)
+
+    /// 64pt padding or spacing.
+    public static let extraLarge5 = units(16)
 
     /// The spacing in points.
     public let value: CGFloat
@@ -37,8 +46,8 @@ private extension Spacing {
 
     }
 
-    static func grid(_ multiplier: CGFloat) -> Spacing {
-        Spacing(value: Constants.base * multiplier)
+    static func units(_ count: CGFloat) -> Spacing {
+        Spacing(value: Constants.base * count)
     }
 
 }
