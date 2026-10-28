@@ -651,11 +651,10 @@ Do not write `Color(white:)`, `Color(red:green:blue:)`, `Color(hue:saturation:br
 **named token** from `CoreUI`'s `Palette` (`Palette.textSecondary`, `Palette.backgroundSecondary`, …)
 or, if it genuinely does not exist yet, a **new color set in the asset catalog** — never an inline literal.
 
-Every color is defined as a **color set in `CoreUI`'s asset catalog**, with both an **Any (light)** and
-a **Dark** appearance, and exposed through a `public` token on `Palette`
-(`public static let textSecondary = Color(.textSecondary)`). The asset catalog is what makes a color
-adapt to dark mode and high contrast without a single `colorScheme` check in a view; a color defined
-in code has one value and cannot. Tokens live on `Palette` rather than on `Color` because Xcode
+Every color is defined as a **color set in `CoreUI`'s asset catalog** and exposed through a `public`
+token on `Palette` (`public static let textSecondary = Color(.textSecondary)`). The asset catalog keeps
+every value in one place, so a color can change, or gain another appearance, without touching a single
+view. Tokens live on `Palette` rather than on `Color` because Xcode
 already generates an internal `Color` symbol for every color set, and a `public` one of the same name
 would collide with it.
 
