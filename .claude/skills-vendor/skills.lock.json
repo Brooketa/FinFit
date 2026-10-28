@@ -1,0 +1,23 @@
+{
+  "generated": "2026-10-28T17:53:47Z",
+  "skills": {
+    "swiftui-expert-skill": {
+      "repo": "https://github.com/AvdLee/SwiftUI-Agent-Skill",
+      "ref": "5.2.1",
+      "subpath": "skills/swiftui-expert-skill",
+      "commit": "9897311e3e42cc77e87603226e74bea711092fbd"
+    },
+    "swift-concurrency": {
+      "repo": "https://github.com/AvdLee/Swift-Concurrency-Agent-Skill",
+      "ref": "2.3.0",
+      "subpath": "skills/swift-concurrency",
+      "commit": "45fa49e4e0b2af4d43b1cb458903f8030ac993bd"
+    },
+    "factory-dependency-injection": {
+      "repo": "https://github.com/hmlongco/Factory",
+      "ref": "3.5.1",
+      "subpath": ".claude/skills/factory-dependency-injection",
+      "commit": "aa8596de32192b1b7f6c8c2f7f7f073e5c93658f"
+    }
+  }
+}
