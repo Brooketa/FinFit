@@ -25,7 +25,7 @@ and nothing else.
 
 | Location | Tier | Holds | Depends on |
 |---|---|---|---|
-| `CoreUI/` | CoreUI | `Palette`, `TextStyle`, `Spacing`, alignment and padding helpers, `PrimaryButton` | — |
+| `CoreUI/` | CoreUI | `Palette`, `TextStyle`, `Spacing`, `CornerRadius`, alignment and padding helpers, `ActionButton` | — |
 | `Core/` | Core | `Bundle.marketingVersion` | — |
 | `FinFit/App/` | App target | `FinFitApp` (entry point, creates and registers the router), `RootView`, `AppRouter`, `DependencyInjection/Container+Routing.swift` | All packages |
 

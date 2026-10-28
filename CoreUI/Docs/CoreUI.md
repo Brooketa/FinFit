@@ -9,7 +9,7 @@ The design system every feature draws with.
 | `Spacing` | The design's spacing scale on a 4pt grid; applied with `.padding(_:)` — see **Spacing** below |
 | `CornerRadius` | The design's corner radii — see **Spacing** below |
 | Alignment | `alignLeading/Trailing/HorizontalCenter`, `alignTop/Bottom/VerticalCenter`, the four corners and `alignCenter` — each expands the view and pins it |
-| `PrimaryButton` | Full-width, primary-filled button with a localized title |
+| `ActionButton` | Full-width capsule button in a primary, secondary or destructive style — see **Buttons** below |
 
 ## Colors
 
@@ -72,3 +72,19 @@ Every style uses the system font at a fixed size. Tracking is a percentage of th
 | `Spacing.extraLarge4` | `4xl` | 48 |
 | `Spacing.extraLarge5` | `5xl` | 64 |
 | `CornerRadius.medium` | `radius/md` | 12 |
+
+## Buttons
+
+`ActionButton` takes a localized title, a `Style`, an optional leading and trailing `Image`, and an action.
+It fills the available width and is at least 60pt tall, growing if its title wraps.
+
+| Style | Fill | Outline | Title and icons | Use |
+|---|---|---|---|---|
+| `primary` | `primary` | — | `textOnPrimary` | The main action on a screen |
+| `secondary` | `background` | 1.5pt `primary` | `primary` | An alternative action |
+| `destructive` | `error` | — | `textOnPrimary` | Deleting, or an action that can't be undone |
+
+- **Layout:** capsule shape, 32pt horizontal padding, 8pt between icons and title, 24pt icons, title in `bodyMediumMedium`
+- **Pressed:** the whole button drops to 80% opacity
+- **Disabled:** set with `.disabled(_:)`; the whole button drops to 50% opacity and ignores taps
+- **VoiceOver:** reads the title as a button; icons are hidden from it
