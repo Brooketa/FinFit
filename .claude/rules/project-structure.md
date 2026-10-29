@@ -16,9 +16,13 @@ in the hierarchy — never on a sibling feature module or a module above it.
 ```
 App (main target)
  └── Feature modules        (e.g. Profile, Checkout, Settings)
-      └── CoreUI
+      ├── CoreUI
+      │    └── Core
+      └── Networking
            └── Core
 ```
+
+`CoreUI` and `Networking` sit side by side: a feature may use either or both, and neither imports the other.
 
 No circular dependencies are permitted. Feature modules never import each other; the app target
 connects them through their routing protocols (see `architecture.md` → Navigation).
@@ -85,12 +89,28 @@ CoreUI/Sources/CoreUI/
 
 **Dependencies:** `Core` only.
 
+### Networking
+
+The shared HTTP layer: the base network client every feature's own network client delegates to.
+
+**What belongs here:**
+- The base network client and its protocol — the abstraction over `URLSession`
+- What a request is made of: HTTP methods, request descriptions, the errors a request can fail with
+- The JSON encoders and decoders requests and responses share
+
+**What does not belong here:**
+- Feature-specific network clients, endpoints and their models — those live in the feature's data stack
+  (see **Layers**)
+- Anything that imports SwiftUI or UIKit
+
+**Dependencies:** `Core` and third-party only.
+
 ### Feature Modules
 
 Each feature module is **one user-facing product area**. It owns its screens, its routing protocol,
 its String Catalog, its asset catalog and its own `Module+Factory.swift`.
 
-**Dependencies:** `Core` and `CoreUI`. Never another feature module.
+**Dependencies:** `Core`, `CoreUI` and `Networking`. Never another feature module.
 
 ---
 
@@ -100,7 +120,8 @@ its String Catalog, its asset catalog and its own `Module+Factory.swift`.
 |---|---|
 | `Core` | Third-party only |
 | `CoreUI` | `Core` |
-| Feature module | `Core`, `CoreUI` |
+| `Networking` | `Core`, third-party |
+| Feature module | `Core`, `CoreUI`, `Networking` |
 | App target | All modules |
 
 - **No feature-to-feature imports.** If two features need to share something, move it down: non-UI
@@ -127,6 +148,7 @@ MyApp/
 │   └── Info.plist
 ├── Core/
 ├── CoreUI/
+├── Networking/
 ├── <SharedModule>/
 ├── <FeatureModule>/
 ├── .claude/

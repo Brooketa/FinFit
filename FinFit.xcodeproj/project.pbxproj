@@ -10,6 +10,7 @@
 		A10000000000000000000021 /* Core in Frameworks */ = {isa = PBXBuildFile; productRef = A10000000000000000000031 /* Core */; };
 		A10000000000000000000022 /* CoreUI in Frameworks */ = {isa = PBXBuildFile; productRef = A10000000000000000000032 /* CoreUI */; };
 		A10000000000000000000023 /* HealthCheck in Frameworks */ = {isa = PBXBuildFile; productRef = A10000000000000000000033 /* HealthCheck */; };
+		A10000000000000000000025 /* Networking in Frameworks */ = {isa = PBXBuildFile; productRef = A10000000000000000000036 /* Networking */; };
 		A10000000000000000000024 /* FactoryKit in Frameworks */ = {isa = PBXBuildFile; productRef = A10000000000000000000034 /* FactoryKit */; };
 /* End PBXBuildFile section */
 
@@ -18,6 +19,7 @@
 		A10000000000000000000011 /* Core */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Core; sourceTree = "<group>"; };
 		A10000000000000000000012 /* CoreUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = CoreUI; sourceTree = "<group>"; };
 		A10000000000000000000013 /* HealthCheck */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = HealthCheck; sourceTree = "<group>"; };
+		A10000000000000000000014 /* Networking */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Networking; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -36,6 +38,7 @@
 				A10000000000000000000021 /* Core in Frameworks */,
 				A10000000000000000000022 /* CoreUI in Frameworks */,
 				A10000000000000000000023 /* HealthCheck in Frameworks */,
+				A10000000000000000000025 /* Networking in Frameworks */,
 				A10000000000000000000024 /* FactoryKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -50,6 +53,7 @@
 				A10000000000000000000011 /* Core */,
 				A10000000000000000000012 /* CoreUI */,
 				A10000000000000000000013 /* HealthCheck */,
+				A10000000000000000000014 /* Networking */,
 				A10000000000000000000004 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -88,6 +92,7 @@
 				A10000000000000000000031 /* Core */,
 				A10000000000000000000032 /* CoreUI */,
 				A10000000000000000000033 /* HealthCheck */,
+				A10000000000000000000036 /* Networking */,
 				A10000000000000000000034 /* FactoryKit */,
 			);
 			productName = FinFit;
@@ -307,6 +312,10 @@
 		A10000000000000000000033 /* HealthCheck */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = HealthCheck;
+		};
+		A10000000000000000000036 /* Networking */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Networking;
 		};
 		A10000000000000000000034 /* FactoryKit */ = {
 			isa = XCSwiftPackageProductDependency;

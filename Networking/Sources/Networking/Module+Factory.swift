@@ -1,0 +1,3 @@
+import FactoryKit
+
+extension Container {}
