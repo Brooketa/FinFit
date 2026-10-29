@@ -21,6 +21,12 @@ extension Container {
         promised()
     }
 
+    // MARK: Use cases
+
+    private var questionnaireUseCase: any QuestionnaireUseCaseProtocol {
+        self { QuestionnaireUseCase(questionnaireRepository: self.questionnaireRepository) }.resolve()
+    }
+
     // MARK: Repositories
 
     private var questionnaireRepository: any QuestionnaireRepositoryProtocol {

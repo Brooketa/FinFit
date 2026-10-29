@@ -52,3 +52,32 @@ data comes from; today the data source is the only source, so every call goes to
 models one to one, mapped up for session responses and down for answers.
 
 The repository is registered privately in the `HealthCheck` container.
+
+## Use case
+
+`QuestionnaireUseCase` is what the questionnaire screens call. It sits on top of the repository, offers the same two
+calls, and reshapes the session for the screens. The session id is always passed in: the use case does not remember
+it.
+
+Both calls return a `SessionUseCaseModel`:
+
+| Case | Carries |
+|---|---|
+| `inProgress(question:progress:)` | The question to show, and the progress through the session |
+| `completed(result:)` | The score and the category the server decided |
+
+A question carries `isRequired` (`false` when the server sends no rule) and its `type`, which holds only what that
+kind of question needs:
+
+| Type | Carries | Missing limits become |
+|---|---|---|
+| `singleChoice(options:)` | The options | — |
+| `multipleChoice(options:selectionRange:)` | The options, and how many may be selected | Lower: 1 if required, otherwise 0. Upper: the number of options |
+| `number(valueRange:)` | The allowed values | Unbounded on that side |
+
+An upper limit below the lower one is raised to match it, so a range always exists.
+
+A session the server reports as in progress without a question, or completed without a result, throws
+`QuestionnaireUseCaseError.invalidSession`.
+
+The use case is registered privately in the `HealthCheck` container.
