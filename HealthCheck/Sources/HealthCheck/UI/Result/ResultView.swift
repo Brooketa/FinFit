@@ -12,16 +12,7 @@ public struct ResultView: View {
         VStack(spacing: Spacing.extraLarge3.value) {
             CircularProgressBar(progress: presenter.model.progress)
 
-            VStack(spacing: Spacing.medium.value) {
-                Text(presenter.model.title)
-                    .textStyle(.headingLarge)
-                    .foregroundStyle(Palette.textPrimary)
-
-                Text(presenter.model.subtitle)
-                    .textStyle(.bodyMedium)
-                    .foregroundStyle(Palette.textSecondary)
-            }
-            .multilineTextAlignment(.center)
+            summary
         }
         .padding(.horizontal, .extraLarge2)
         .padding(.top, .extraLarge2)
@@ -30,6 +21,19 @@ public struct ResultView: View {
             footer
         }
         .background(Palette.background)
+    }
+
+    private var summary: some View {
+        VStack(spacing: Spacing.medium.value) {
+            Text(presenter.model.category.title)
+                .textStyle(.headingLarge)
+                .foregroundStyle(Palette.textPrimary)
+
+            Text(presenter.model.category.subtitle)
+                .textStyle(.bodyMedium)
+                .foregroundStyle(Palette.textSecondary)
+        }
+        .multilineTextAlignment(.center)
     }
 
     private var footer: some View {
@@ -56,8 +60,28 @@ extension ResultView {
     struct Model {
 
         let progress: Double
-        let title: LocalizedStringResource
-        let subtitle: LocalizedStringResource
+        let category: ResultCategory
+
+    }
+
+}
+
+extension ResultView.Model {
+
+    init(for score: Int) {
+        let progress = Double(score) / Constants.maximumScore
+        let category = ResultCategory(for: score)
+
+        self.init(progress: progress, category: category)
+    }
+
+}
+
+private extension ResultView.Model {
+
+    enum Constants {
+
+        static let maximumScore: Double = 100
 
     }
 
