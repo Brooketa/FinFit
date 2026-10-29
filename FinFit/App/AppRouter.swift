@@ -1,4 +1,5 @@
 import Observation
+import HealthCheck
 
 @MainActor
 @Observable
@@ -9,3 +10,7 @@ final class AppRouter {
     var path: [Destination] = []
 
 }
+
+// MARK: HealthCheckRoutingProtocol
+
+extension AppRouter: HealthCheckRoutingProtocol {}
