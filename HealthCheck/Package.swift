@@ -10,6 +10,7 @@ let package = Package(
     ],
     dependencies: [
         .package(name: "CoreUI", path: "../CoreUI"),
+        .package(name: "Networking", path: "../Networking"),
         .package(url: "https://github.com/hmlongco/Factory", exact: "3.5.1")
     ],
     targets: [
@@ -17,6 +18,7 @@ let package = Package(
             name: "HealthCheck",
             dependencies: [
                 "CoreUI",
+                "Networking",
                 .product(name: "FactoryKit", package: "Factory")
             ],
             resources: [.process("Resources")])
