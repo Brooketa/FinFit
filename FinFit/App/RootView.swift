@@ -7,7 +7,7 @@ struct RootView: View {
 
     var body: some View {
         NavigationStack(path: $router.path) {
-            Palette.backgroundPrimary
+            Palette.background
                 .ignoresSafeArea()
         }
     }

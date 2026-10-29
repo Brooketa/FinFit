@@ -19,6 +19,8 @@ Each screen's behaviour is specified in its module's `Docs/` folder.
 ## Rules in force
 
 - iPhone only, portrait only.
+- Light mode only: the app sets its interface style to Light, and every color set in `CoreUI` has a
+  single appearance.
 
 ---
 
