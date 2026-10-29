@@ -12,6 +12,7 @@ The design system every feature draws with.
 | `ActionButton` | Full-width capsule button in a primary, secondary or destructive style — see **Buttons** below |
 | `TextInput` | Full-width text field with an optional label and prefix, and a normal or error status — see **Text Input** below |
 | `SingleSelectGroup`, `RadioListItem` | Single-choice list of option rows, and the row on its own — see **Radio Buttons** below |
+| `MultiSelectGroup`, `CheckboxListItem` | Multiple-choice list of option rows, and the row on its own — see **Multi Select** below |
 
 ## Colors
 
@@ -73,6 +74,7 @@ Every style uses the system font at a fixed size. Tracking is a percentage of th
 | `Spacing.extraLarge3` | `3xl` | 32 |
 | `Spacing.extraLarge4` | `4xl` | 48 |
 | `Spacing.extraLarge5` | `5xl` | 64 |
+| `CornerRadius.small` | — | 8 |
 | `CornerRadius.medium` | `radius/md` | 12 |
 | `CornerRadius.large` | — | 16 |
 
@@ -142,4 +144,27 @@ lay options out themselves.
 
 - **Row layout:** at least 64pt tall, 20pt horizontal padding, 12pt between indicator and title, `CornerRadius.large` corners
 - **Tapping:** the whole row is tappable, not just the indicator
+- **Disabled:** set with `.disabled(_:)`; the row drops to 50% opacity and ignores taps
+
+## Multi Select
+
+`MultiSelectGroup` shows a list of options where any number can be checked. It takes `MultiSelectGroup.Option`s
+(an id and a `String` title), the set of checked ids and an `onToggle` callback.
+
+- **Toggling:** tapping an option calls `onToggle` with its id. The group shows whatever `selection` it is given,
+  so the caller adds the id to or removes it from the set. Each option toggles on its own.
+- **Layout:** full-width rows stacked 12pt apart.
+
+`CheckboxListItem` is one row on its own, taking a `String` title, `isChecked` and an action, for screens that lay
+options out themselves.
+
+| Part | Checked | Unchecked |
+|---|---|---|
+| Row fill | `selectedSubtle` | `background` |
+| Row outline | 2pt `selected` | 1pt `border` |
+| Checkbox (24pt, `CornerRadius.small` corners) | `selected` fill with a bold 14pt `checkmark` SF Symbol in `background` | 2pt `border` outline |
+| Title | `bodyMediumMedium`, `textPrimary` | same |
+
+- **Row layout:** at least 64pt tall, 20pt horizontal padding, 12pt between checkbox and title, `CornerRadius.large` corners
+- **Tapping:** the whole row is tappable, not just the checkbox
 - **Disabled:** set with `.disabled(_:)`; the row drops to 50% opacity and ignores taps
