@@ -44,3 +44,11 @@ one: session responses are mapped up from the client models, answers down to `An
 always passed in: the data source does not remember it.
 
 The data source and the network client are registered privately in the `HealthCheck` container.
+
+## Repository
+
+`QuestionnaireRepository` sits on top of the data source and offers the same two calls. It decides where session
+data comes from; today the data source is the only source, so every call goes to it. Its models copy the data source
+models one to one, mapped up for session responses and down for answers.
+
+The repository is registered privately in the `HealthCheck` container.
