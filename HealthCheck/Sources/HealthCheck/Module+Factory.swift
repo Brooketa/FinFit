@@ -6,7 +6,7 @@ extension Container {
 
     @MainActor
     public var introPresenter: Factory<IntroPresenter> {
-        self { IntroPresenter(router: self.healthCheckRouting()!) }
+        self { IntroPresenter() }
     }
 
     @MainActor

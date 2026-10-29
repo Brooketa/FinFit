@@ -1,6 +1,2 @@
 @MainActor
-public protocol HealthCheckRoutingProtocol: AnyObject {
-
-    func navigateToResult()
-
-}
+public protocol HealthCheckRoutingProtocol: AnyObject {}
