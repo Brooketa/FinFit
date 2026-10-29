@@ -41,6 +41,13 @@ public struct ResultView: View {
                 .foregroundStyle(Palette.textSecondary)
         }
         .multilineTextAlignment(.center)
+        .animation(
+            .easeOut(duration: Constants.summaryAnimationDuration)
+                .delay(Constants.summaryAnimationDelay)) { content in
+            content
+                .offset(y: hasAppeared ? 0 : Constants.summaryRise)
+                .opacity(hasAppeared ? 1 : 0)
+        }
     }
 
     private var footer: some View {
@@ -66,7 +73,10 @@ private extension ResultView {
 
     enum Constants {
 
-		static let progressAnimationDuration = 0.75
+        static let progressAnimationDuration = 0.75
+        static let summaryAnimationDuration = 0.5
+        static let summaryAnimationDelay = 0.25
+        static let summaryRise: CGFloat = 12
 
     }
 

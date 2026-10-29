@@ -15,9 +15,11 @@ the screen before it.
   the title and 12pt between the title and the subtitle. The buttons are pinned to the bottom of the safe area, 12pt
   apart and 16pt below the content above them. Everything has 24pt side padding on a `background` fill
 - **Score:** a fixed placeholder score of 78, so the screen always shows the Excellent category
-- **Ring animation:** when the screen appears, the ring starts empty and fills clockwise to the score over 1s, easing
-  out, while the percentage counts up from 0 in step with it. Nothing else on the screen moves, and the buttons can be
-  tapped while it plays
+- **Ring animation:** when the screen appears, the ring starts empty and fills clockwise to the score over 0.75s,
+  easing in and out, while the percentage counts up from 0 in step with it
+- **Summary animation:** 0.25s after the screen appears, the title and subtitle fade in and rise 12pt into place over
+  0.5s, easing out. Only their position and opacity animate, so the layout around them never changes
+- **Buttons during the animations:** the buttons stay still and can be tapped while the animations play
 - **Finish:** tapping the button does nothing yet
 - **Retake:** tapping the button does nothing yet
 
