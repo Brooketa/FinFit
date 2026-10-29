@@ -21,6 +21,12 @@ extension Container {
         promised()
     }
 
+    // MARK: Repositories
+
+    private var questionnaireRepository: any QuestionnaireRepositoryProtocol {
+        self { QuestionnaireRepository(questionnaireDataSource: self.questionnaireDataSource) }.resolve()
+    }
+
     // MARK: Data sources
 
     private var questionnaireDataSource: any QuestionnaireDataSourceProtocol {
