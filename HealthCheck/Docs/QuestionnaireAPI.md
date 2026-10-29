@@ -35,3 +35,12 @@ The response is decoded straight into the client models, which mirror the JSON f
 | `ValidationClientModel` | `required`, `min` and `max` (number questions), `minSelections` and `maxSelections` (multiple choice); all optional |
 | `ResultClientModel` | `score` (0–100), `category` (`poor`, `fair`, `good` or `excellent`, decided by the server) |
 | `ProgressClientModel` | `current`, `total` |
+
+## Data source
+
+`QuestionnaireDataSource` sits on top of the network client and offers the same two calls,
+`startOrResumeSession(id:)` and `submitAnswer(sessionID:questionID:answer:)`. Its models copy the client models one to
+one: session responses are mapped up from the client models, answers down to `AnswerClientModel`. The session id is
+always passed in: the data source does not remember it.
+
+The data source and the network client are registered privately in the `HealthCheck` container.
