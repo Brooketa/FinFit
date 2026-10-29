@@ -6,13 +6,20 @@ public struct ResultView: View {
 
     @InjectedObservable(\.resultPresenter) private var presenter
 
+    @State private var hasAppeared = false
+
     public init() {}
 
     public var body: some View {
         VStack(spacing: Spacing.extraLarge3.value) {
-            CircularProgressBar(progress: presenter.model.progress)
+            CircularProgressBar(progress: hasAppeared ? presenter.model.progress : 0)
 
             summary
+        }
+        .onAppear {
+            withAnimation(.easeInOut(duration: Constants.progressAnimationDuration)) {
+                hasAppeared = true
+            }
         }
         .padding(.horizontal, .extraLarge2)
         .padding(.top, .extraLarge2)
@@ -51,6 +58,16 @@ public struct ResultView: View {
         }
         .padding(.horizontal, .extraLarge2)
         .padding(.top, .large)
+    }
+
+}
+
+private extension ResultView {
+
+    enum Constants {
+
+		static let progressAnimationDuration = 0.75
+
     }
 
 }

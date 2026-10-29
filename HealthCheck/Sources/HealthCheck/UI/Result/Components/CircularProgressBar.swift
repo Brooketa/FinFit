@@ -1,9 +1,10 @@
 import SwiftUI
 import CoreUI
 
+@Animatable
 struct CircularProgressBar: View {
 
-    let progress: Double
+    var progress: Double
 
     var body: some View {
         ZStack {
