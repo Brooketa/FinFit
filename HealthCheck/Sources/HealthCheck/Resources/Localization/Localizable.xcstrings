@@ -33,6 +33,17 @@
           }
         }
       }
+    },
+    "result_score_maximum" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "/100"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
