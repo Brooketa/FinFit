@@ -12,6 +12,7 @@ An iPhone app built with SwiftUI on a modular, Clean Architecture codebase.
 | `FinFit.xcodeproj`, `FinFit/` | The app target: entry point, root view, router, routing registration |
 | `Core/` | Non-UI foundation package |
 | `CoreUI/` | Design system package: palette, typography, spacing, layout helpers, components |
+| `Networking/` | Shared networking package for modules that talk to the internet |
 | `HealthCheck/` | Feature package for the health-check flow |
 
 Swift 6 language mode, iOS 26, iPhone, portrait. [Factory](https://github.com/hmlongco/Factory)
