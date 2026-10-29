@@ -10,6 +10,7 @@ The design system every feature draws with.
 | `CornerRadius` | The design's corner radii — see **Spacing** below |
 | Alignment | `alignLeading/Trailing/HorizontalCenter`, `alignTop/Bottom/VerticalCenter`, the four corners and `alignCenter` — each expands the view and pins it |
 | `ActionButton` | Full-width capsule button in a primary, secondary or destructive style — see **Buttons** below |
+| `TextInput` | Full-width text field with an optional label and prefix, and a normal or error status — see **Text Input** below |
 
 ## Colors
 
@@ -72,6 +73,7 @@ Every style uses the system font at a fixed size. Tracking is a percentage of th
 | `Spacing.extraLarge4` | `4xl` | 48 |
 | `Spacing.extraLarge5` | `5xl` | 64 |
 | `CornerRadius.medium` | `radius/md` | 12 |
+| `CornerRadius.large` | — | 16 |
 
 ## Buttons
 
@@ -88,3 +90,32 @@ It fills the available width and is at least 60pt tall, growing if its title wra
 - **Pressed:** the whole button drops to 80% opacity
 - **Disabled:** set with `.disabled(_:)`; the whole button drops to 50% opacity and ignores taps
 - **VoiceOver:** reads the title as a button; icons are hidden from it
+
+## Text Input
+
+`TextInput` edits a `String` binding and takes a localized placeholder, plus an optional localized label, an
+optional `String` prefix and a `Status`: `.normal` (the default) or `.error(message)`. It fills the available
+width and the field is at least 56pt tall.
+
+The input only draws the status it is given. Whether a value is valid, and when to start showing the error, is
+decided by the screen using it.
+
+| Part | Look |
+|---|---|
+| Field | `background` fill, 16pt horizontal padding, `CornerRadius.large` corners |
+| Placeholder | `bodyLarge`, `textSecondary` |
+| Entered text | `bodyLarge`, `textPrimary`; the cursor is `primary` |
+| Prefix | `bodyLargeMedium`, `textSecondary`, 8pt before the text |
+| Label | `bodySmallMedium`, `textPrimary`, 4pt above the field |
+| Error message | `bodySmall`, `error`, 4pt below the field |
+
+| State | Border |
+|---|---|
+| Default | 1pt `border` |
+| Focused | 2pt `primary` |
+| Error (`status: .error(message)`) | 2pt `error`, also while focused; the message shows below the field |
+| Disabled (set with `.disabled(_:)`) | The whole input drops to 50% opacity and can't be focused |
+
+- **Focus:** tapping anywhere on the field focuses it, not only the text
+- **Keyboard:** `.keyboardType(_:)` and `.textContentType(_:)` applied to the input reach the field
+- **VoiceOver:** the field is named by its label, or by its placeholder when there is no label; the visible label is not read twice, and the error message is read after the field
