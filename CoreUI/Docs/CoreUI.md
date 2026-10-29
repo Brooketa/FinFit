@@ -11,6 +11,7 @@ The design system every feature draws with.
 | Alignment | `alignLeading/Trailing/HorizontalCenter`, `alignTop/Bottom/VerticalCenter`, the four corners and `alignCenter` — each expands the view and pins it |
 | `ActionButton` | Full-width capsule button in a primary, secondary or destructive style — see **Buttons** below |
 | `TextInput` | Full-width text field with an optional label and prefix, and a normal or error status — see **Text Input** below |
+| `SingleSelectGroup`, `RadioListItem` | Single-choice list of option rows, and the row on its own — see **Radio Buttons** below |
 
 ## Colors
 
@@ -119,3 +120,26 @@ decided by the screen using it.
 - **Focus:** tapping anywhere on the field focuses it, not only the text
 - **Keyboard:** `.keyboardType(_:)` and `.textContentType(_:)` applied to the input reach the field
 - **VoiceOver:** the field is named by its label, or by its placeholder when there is no label; the visible label is not read twice, and the error message is read after the field
+
+## Radio Buttons
+
+`SingleSelectGroup` shows a list of options where one can be chosen. It takes `SingleSelectGroup.Option`s (an id and a
+`String` title), the currently selected id (`nil` when nothing is chosen yet) and an `onSelect` callback.
+
+- **Selection:** tapping an option calls `onSelect` with its id. The group shows whatever `selection` it is
+  given, so the caller stores the new id and the previous option is shown unselected.
+- **Layout:** full-width rows stacked 12pt apart.
+
+`RadioListItem` is one row on its own, taking a `String` title, `isSelected` and an action, for screens that
+lay options out themselves.
+
+| Part | Selected | Unselected |
+|---|---|---|
+| Row fill | `selectedSubtle` | `background` |
+| Row outline | 2pt `selected` | 1pt `border` |
+| Indicator (24pt) | `selected` circle with a 10pt `background` dot | 2pt `border` ring |
+| Title | `bodyMediumMedium`, `textPrimary` | same |
+
+- **Row layout:** at least 64pt tall, 20pt horizontal padding, 12pt between indicator and title, `CornerRadius.large` corners
+- **Tapping:** the whole row is tappable, not just the indicator
+- **Disabled:** set with `.disabled(_:)`; the row drops to 50% opacity and ignores taps
