@@ -8,6 +8,12 @@ struct RootView: View {
     var body: some View {
         NavigationStack(path: $router.path) {
             IntroView()
+                .navigationDestination(for: AppRouter.Destination.self) { destination in
+                    switch destination {
+                    case .result:
+                        ResultView()
+                    }
+                }
         }
     }
 
