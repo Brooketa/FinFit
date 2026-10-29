@@ -1,2 +1,6 @@
 @MainActor
-public protocol HealthCheckRoutingProtocol: AnyObject {}
+public protocol HealthCheckRoutingProtocol: AnyObject {
+
+    func navigateToQuestionnaire()
+
+}
