@@ -5,9 +5,12 @@ navigation stack.
 
 | Part | Content |
 |---|---|
-| Title | "Financial health check", centered, `headingLarge` in `textPrimary` |
-| Start button | Primary `ActionButton` titled "Start", full width at the bottom |
+| Logo | A 180pt `primarySubtle` circle holding a 120pt circle with a leading-to-trailing gradient from `primary` to `darkBackground` and a soft shadow below it; the white trending-up `intro_logo_symbol` image sits in the center |
+| Title | "How healthy are your" and "finances?" on two lines, centered, `headingLarge` in `textPrimary` |
+| Subtitle | "5 questions, 2 minutes.", centered, `bodyMedium` in `textSecondary` |
+| Start button | Primary `ActionButton` titled "Start" with the trailing `arrow_right` image |
 
-- **Layout:** the title fills the space above the button; the screen has 24pt padding on every edge and a
-  `background` fill
+- **Layout:** the logo, title and subtitle stack at the top, 48pt below the safe area, with 48pt between the logo
+  and the title and 12pt between the title and the subtitle. The start button is pinned to the bottom of the safe
+  area, 16pt below the content above it. Everything has 24pt side padding on a `background` fill
 - **Start:** tapping the button does nothing yet

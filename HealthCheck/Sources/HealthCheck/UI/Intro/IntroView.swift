@@ -9,20 +9,39 @@ public struct IntroView: View {
     public init() {}
 
     public var body: some View {
-        VStack(spacing: Spacing.extraLarge3.value) {
-            Text(.introTitle)
-                .textStyle(.headingLarge)
-                .foregroundStyle(Palette.textPrimary)
-                .multilineTextAlignment(.center)
-                .alignCenter()
+        VStack(spacing: Spacing.extraLarge4.value) {
+            Logo()
 
-            ActionButton(title: .introStartButton, style: .primary) {
-                presenter.onStartTapped()
+            VStack(spacing: Spacing.medium.value) {
+                Text(.introTitle)
+                    .textStyle(.headingLarge)
+                    .foregroundStyle(Palette.textPrimary)
+
+                Text(.introSubtitle)
+                    .textStyle(.bodyMedium)
+                    .foregroundStyle(Palette.textSecondary)
             }
+            .multilineTextAlignment(.center)
         }
-        .padding(.extraLarge2)
+        .padding(.horizontal, .extraLarge2)
+        .padding(.top, .extraLarge4)
+        .alignTop()
+        .safeAreaInset(edge: .bottom) {
+			footer
+        }
         .background(Palette.background)
     }
+
+	private var footer: some View {
+		ActionButton(
+			title: .introStartButton,
+			style: .primary,
+			trailingIcon: Image(.arrowRight)) {
+			presenter.onStartTapped()
+		}
+		.padding(.horizontal, .extraLarge2)
+		.padding(.top, .large)
+	}
 
 }
 
