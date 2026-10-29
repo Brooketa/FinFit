@@ -24,6 +24,9 @@ asks for.
 - **Building:** the request URL is the base URL followed by the endpoint's path and query parameters. Every request
   is sent as `application/json`; the endpoint's headers are set after that, so they can override it
 - **Success:** any 2xx status; the body is decoded as JSON
+- **Access:** one shared client, resolved from the container as `baseNetworkClient`
+- **Base URL:** read from the app's Info.plist key `APIBaseURL` (`https://api.peakers.workers.dev`). When the key is
+  missing, every request fails with `invalidURL`
 
 ## Errors
 
