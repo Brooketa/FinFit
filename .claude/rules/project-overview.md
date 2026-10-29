@@ -52,3 +52,5 @@ Board: **OnlyFunds** — project `OFN`, <https://thorssons.atlassian.net/browse/
   | `FinFit` | FinFit | `com.thorssons.finfit` | Development and release |
 
 - DEBUG-only launch arguments: none
+- API base URL: the `APIBaseURL` key in `FinFit/Info.plist`, which Xcode merges with the generated Info.plist.
+  `Info.plist` is excluded from the `FinFit` folder's target membership so it is not also copied as a resource
