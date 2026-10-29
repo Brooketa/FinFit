@@ -13,6 +13,7 @@ The design system every feature draws with.
 | `TextInput` | Full-width text field with an optional label and prefix, and a normal or error status — see **Text Input** below |
 | `SingleSelectGroup`, `RadioListItem` | Single-choice list of option rows, and the row on its own — see **Radio Buttons** below |
 | `MultiSelectGroup`, `CheckboxListItem` | Multiple-choice list of option rows, and the row on its own — see **Multi Select** below |
+| `ProgressBar` | Full-width bar filled to a progress value from 0 to 1 — see **Progress Bar** below |
 
 ## Colors
 
@@ -168,3 +169,16 @@ options out themselves.
 - **Row layout:** at least 64pt tall, 20pt horizontal padding, 12pt between checkbox and title, `CornerRadius.large` corners
 - **Tapping:** the whole row is tappable, not just the checkbox
 - **Disabled:** set with `.disabled(_:)`; the row drops to 50% opacity and ignores taps
+
+## Progress Bar
+
+`ProgressBar` shows how far the user has got through a flow. It takes a `progress` `Double` from `0` (empty) to `1`
+(full); the screen using it works the value out, for example the current step divided by the total.
+
+| Part | Look |
+|---|---|
+| Track | `border` rectangle with square corners, full width, 4pt tall |
+| Fill | `primary` rectangle with square corners, growing from the leading edge |
+
+- **Out of range:** a `progress` below 0 shows empty, above 1 shows full
+- **Animation:** the fill animates with `.smooth` whenever `progress` changes
