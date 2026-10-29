@@ -34,6 +34,28 @@
         }
       }
     },
+    "result_finish_button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finish"
+          }
+        }
+      }
+    },
+    "result_retake_button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retake"
+          }
+        }
+      }
+    },
     "result_score_maximum" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -41,6 +63,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "/100"
+          }
+        }
+      }
+    },
+    "result_subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Good habits, small gains still available"
+          }
+        }
+      }
+    },
+    "result_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Solid ground"
           }
         }
       }
