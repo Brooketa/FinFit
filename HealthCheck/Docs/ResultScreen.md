@@ -3,13 +3,26 @@
 The last screen of the health-check flow. It is pushed onto the app's navigation stack, so it has a back button to
 the screen before it.
 
-- **Content:** none yet; the screen is an empty `background` fill
+| Part | Content |
+|---|---|
+| Ring | The circular progress bar, showing a fixed placeholder result of 0.78 |
+| Title | "Solid ground", centered, `headingLarge` in `textPrimary` |
+| Subtitle | "Good habits, small gains still available", centered, `bodyMedium` in `textSecondary` |
+| Finish button | Primary `ActionButton` titled "Finish" |
+| Retake button | Secondary `ActionButton` titled "Retake" with the leading `retake` image |
+
+- **Layout:** the ring, title and subtitle stack at the top, 24pt below the safe area, with 32pt between the ring and
+  the title and 12pt between the title and the subtitle. The buttons are pinned to the bottom of the safe area, 12pt
+  apart and 16pt below the content above them. Everything has 24pt side padding on a `background` fill
+- **Content:** the result, title and subtitle are placeholders; they are the same every time
+- **Finish:** tapping the button does nothing yet
+- **Retake:** tapping the button does nothing yet
 
 ## Components
 
 ### Circular progress bar
 
-A ring that shows a progress value from 0 to 1 as a percentage. It is not placed on the screen yet.
+A ring that shows a progress value from 0 to 1 as a percentage.
 
 | Part | Content |
 |---|---|
