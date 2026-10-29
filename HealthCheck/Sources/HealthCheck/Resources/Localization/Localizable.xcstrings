@@ -12,13 +12,24 @@
         }
       }
     },
+    "intro_subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "5 questions, 2 minutes."
+          }
+        }
+      }
+    },
     "intro_title" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Financial health check"
+            "value" : "How healthy are your\nfinances?"
           }
         }
       }
