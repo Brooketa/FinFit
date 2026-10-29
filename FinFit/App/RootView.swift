@@ -1,5 +1,5 @@
 import SwiftUI
-import CoreUI
+import HealthCheck
 
 struct RootView: View {
 
@@ -7,8 +7,7 @@ struct RootView: View {
 
     var body: some View {
         NavigationStack(path: $router.path) {
-            Palette.background
-                .ignoresSafeArea()
+            IntroView()
         }
     }
 

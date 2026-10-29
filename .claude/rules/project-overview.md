@@ -9,8 +9,12 @@ file; the other four are shared across projects.
 
 ## The screens
 
-There are no feature screens yet. The app launches to an empty root screen inside the app's
+The app launches to the `HealthCheck` module's Intro screen, at the root of the app's
 `NavigationStack`.
+
+| Screen | Module | Spec |
+|---|---|---|
+| Intro | `HealthCheck` | `HealthCheck/Docs/IntroScreen.md` |
 
 Each screen's behaviour is specified in its module's `Docs/` folder.
 
