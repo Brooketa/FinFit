@@ -9,6 +9,11 @@ extension Container {
         self { IntroPresenter() }
     }
 
+    @MainActor
+    public var resultPresenter: Factory<ResultPresenter> {
+        self { ResultPresenter() }
+    }
+
     // MARK: Routing
 
     public var healthCheckRouting: Factory<(any HealthCheckRoutingProtocol)?> {
