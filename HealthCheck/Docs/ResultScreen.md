@@ -15,6 +15,9 @@ the screen before it.
   the title and 12pt between the title and the subtitle. The buttons are pinned to the bottom of the safe area, 12pt
   apart and 16pt below the content above them. Everything has 24pt side padding on a `background` fill
 - **Score:** a fixed placeholder score of 78, so the screen always shows the Excellent category
+- **Ring animation:** when the screen appears, the ring starts empty and fills clockwise to the score over 1s, easing
+  out, while the percentage counts up from 0 in step with it. Nothing else on the screen moves, and the buttons can be
+  tapped while it plays
 - **Finish:** tapping the button does nothing yet
 - **Retake:** tapping the button does nothing yet
 
@@ -44,4 +47,5 @@ A ring that shows a progress value from 0 to 1 as a percentage.
 
 - **Size:** fills the largest square its frame allows, up to 240×240pt; the 20pt stroke sits inside that square
 - **Range:** values below 0 draw an empty ring showing 0, and values above 1 a full ring showing 100
-- **Changes:** a new value is drawn immediately, without animating
+- **Changes:** a new value is drawn immediately; when the change is animated, the fill and the percentage both follow
+  the animated value, so they always agree
