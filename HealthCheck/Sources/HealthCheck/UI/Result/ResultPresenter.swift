@@ -4,10 +4,7 @@ import Observation
 @Observable
 public final class ResultPresenter {
 
-    let model = ResultView.Model(
-        progress: 0.78,
-        title: .resultTitle,
-        subtitle: .resultSubtitle)
+    let model = ResultView.Model(for: 78)
 
     func onFinishTapped() {}
 

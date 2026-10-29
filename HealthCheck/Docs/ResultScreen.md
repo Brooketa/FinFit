@@ -5,18 +5,29 @@ the screen before it.
 
 | Part | Content |
 |---|---|
-| Ring | The circular progress bar, showing a fixed placeholder result of 0.78 |
-| Title | "Solid ground", centered, `headingLarge` in `textPrimary` |
-| Subtitle | "Good habits, small gains still available", centered, `bodyMedium` in `textSecondary` |
+| Ring | The circular progress bar, showing the score out of 100 |
+| Title | The score category's title, centered, `headingLarge` in `textPrimary` |
+| Subtitle | The score category's subtitle, centered, `bodyMedium` in `textSecondary` |
 | Finish button | Primary `ActionButton` titled "Finish" |
 | Retake button | Secondary `ActionButton` titled "Retake" with the leading `retake` image |
 
 - **Layout:** the ring, title and subtitle stack at the top, 24pt below the safe area, with 32pt between the ring and
   the title and 12pt between the title and the subtitle. The buttons are pinned to the bottom of the safe area, 12pt
   apart and 16pt below the content above them. Everything has 24pt side padding on a `background` fill
-- **Content:** the result, title and subtitle are placeholders; they are the same every time
+- **Score:** a fixed placeholder score of 78, so the screen always shows the Excellent category
 - **Finish:** tapping the button does nothing yet
 - **Retake:** tapping the button does nothing yet
+
+## Score categories
+
+The score, from 0 to 100, falls into one of four equal categories, which sets the title and subtitle.
+
+| Category | Score | Title | Subtitle |
+|---|---|---|---|
+| Poor | below 25 | Just starting out | Small steps now go a long way. |
+| Fair | 25–49 | Making progress | Good start, some gaps worth closing. |
+| Good | 50–74 | Solid ground | Good habits, small gains still available. |
+| Excellent | 75 and above | Excellent shape | Strong savings, low debt, solid planning. |
 
 ## Components
 
