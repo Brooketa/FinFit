@@ -1,4 +1,5 @@
 import FactoryKit
+import Networking
 
 extension Container {
 
@@ -18,6 +19,18 @@ extension Container {
 
     public var healthCheckRouting: Factory<(any HealthCheckRoutingProtocol)?> {
         promised()
+    }
+
+    // MARK: Data sources
+
+    private var questionnaireDataSource: any QuestionnaireDataSourceProtocol {
+        self { QuestionnaireDataSource(questionnaireNetworkClient: self.questionnaireNetworkClient) }.resolve()
+    }
+
+    // MARK: Clients
+
+    private var questionnaireNetworkClient: any QuestionnaireNetworkClientProtocol {
+        self { QuestionnaireNetworkClient(baseNetworkClient: self.baseNetworkClient()) }.resolve()
     }
 
 }
