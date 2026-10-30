@@ -37,7 +37,7 @@ Result screen opens.
 |---|---|---|
 | Single choice | The options in a `SingleSelectGroup`, none selected at first. Tapping an option selects it and replaces any earlier choice | An option is selected |
 | Multiple choice | The options in a `MultiSelectGroup`, none checked at first. Tapping an option checks or unchecks it; once as many are checked as the question allows, further options don't check | At least one is checked, and the number checked is within the question's limits |
-| Number | A `TextInput` with the placeholder "Enter a number" and a decimal keyboard | The text is a number within the question's range |
+| Number | A `TextInput` with the placeholder "Enter a number", a decimal keyboard and the instruction (see below) as its label | The text is a number within the question's range |
 
 Every question needs an answer, including one the server marks as optional. When the question has no selection
 limits, up to all of its options can be checked. A number question without a minimum or maximum is unbounded on that
@@ -46,11 +46,16 @@ side.
 The answer is sent as the selected option's id, the checked options' ids in the order the options are listed, or the
 number.
 
-A typed number outside the range outlines the field in the error color, with a message below it, which names the
-limits in the user's number format:
+A typed number outside the range outlines the field in the error color, with "Please enter a number within the range above." below it.
 
-| Limits | Message |
+## Instruction
+
+A number question with limits shows a line above its field, as the text input's label, telling the user what value it
+expects. Numbers are in the user's number format. Choice questions show none.
+
+| Limits | Instruction |
 |---|---|
-| Minimum and maximum | "Enter a number between {minimum} and {maximum}" |
-| Minimum only | "Enter a number of at least {minimum}" |
-| Maximum only | "Enter a number of at most {maximum}" |
+| Minimum and maximum | "Enter a value between {minimum} and {maximum}" |
+| Minimum only | "Enter a value of at least {minimum}" |
+| Maximum only | "Enter a value of at most {maximum}" |
+| Neither | None |

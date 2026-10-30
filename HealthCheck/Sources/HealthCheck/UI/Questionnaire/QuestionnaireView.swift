@@ -75,13 +75,12 @@ public struct QuestionnaireView: View {
                 options: options.map { MultiSelectGroup.Option(id: $0.id, title: $0.title) },
                 selection: presenter.answerSelection.selectedAnswerIDs,
                 onToggle: presenter.onMultipleChoiceAnswerToggled(answerID:))
-        case .number(let valueRange):
+        case .number:
             TextInput(
-                text: Binding(
-                    get: { presenter.answerSelection.numberText },
-                    set: presenter.onNumberAnswerChanged(text:)),
+                text: presenter.numberAnswerText,
                 placeholder: .questionnaireNumberPlaceholder,
-                status: presenter.isNumberAnswerOutOfRange ? .error(rangeMessage(for: valueRange)) : .normal)
+                label: answer.rangeInstruction,
+                status: presenter.numberAnswerStatus)
             .keyboardType(.decimalPad)
         }
     }
@@ -99,20 +98,6 @@ public struct QuestionnaireView: View {
         .enabled(presenter.isNextEnabled)
         .padding(.horizontal, .extraLarge2)
         .padding(.top, .large)
-    }
-
-    private func rangeMessage(for valueRange: ClosedRange<Double>) -> LocalizedStringResource {
-        let minimum = valueRange.lowerBound.formatted()
-        let maximum = valueRange.upperBound.formatted()
-
-        switch (valueRange.lowerBound.isFinite, valueRange.upperBound.isFinite) {
-        case (true, true):
-            return .questionnaireNumberRangeError(minimum: minimum, maximum: maximum)
-        case (true, false):
-            return .questionnaireNumberMinimumError(minimum: minimum)
-        default:
-            return .questionnaireNumberMaximumError(maximum: maximum)
-        }
     }
 
 }

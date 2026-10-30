@@ -45,24 +45,13 @@
         }
       }
     },
-    "questionnaire_number_maximum_error" : {
+    "questionnaire_number_out_of_range" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Enter a number of at most %(maximum)@"
-          }
-        }
-      }
-    },
-    "questionnaire_number_minimum_error" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Enter a number of at least %(minimum)@"
+            "value" : "Please enter a number within the range above."
           }
         }
       }
@@ -78,13 +67,35 @@
         }
       }
     },
-    "questionnaire_number_range_error" : {
+    "questionnaire_range_number_between" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Enter a number between %1$(minimum)@ and %2$(maximum)@"
+            "value" : "Enter a value between %1$(minimum)@ and %2$(maximum)@"
+          }
+        }
+      }
+    },
+    "questionnaire_range_number_maximum" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter a value of at most %(maximum)@"
+          }
+        }
+      }
+    },
+    "questionnaire_range_number_minimum" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter a value of at least %(minimum)@"
           }
         }
       }
