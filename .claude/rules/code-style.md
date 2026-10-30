@@ -30,7 +30,6 @@ after the event that occurred, not the work the presenter does in response:
 func onAddItemTapped()
 func onConfirmDelete()
 func onSelect(item: ItemModel)
-func onAppear()
 
 // ❌
 func addItemTapped()
@@ -52,6 +51,24 @@ func onEnterBackground() {
 
 Private helpers inside a Presenter are not events. They keep verb names (`loadSettings()`,
 `rebuildList()`) regardless of which event function calls them.
+
+**Exception: the work a screen starts when it appears.** A view's `.task` or `.onAppear` calls a presenter
+function named for the work it does, not `onAppear()` — "appeared" says nothing about what happens next.
+The name must say exactly what is done; a vague one is still wrong:
+
+```swift
+// ✅
+.task {
+    await presenter.startOrResumeSession()
+}
+
+// ❌
+.task {
+    await presenter.onAppear()
+}
+
+func initialSetup()
+```
 
 ### Injected Dependencies
 
@@ -544,7 +561,7 @@ final class ItemPresenter {
         selectedItem?.name ?? ""
     }
 
-    func onAppear() async { ... }
+    func loadItems() async { ... }
 
 }
 ```

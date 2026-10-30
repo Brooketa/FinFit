@@ -5,7 +5,12 @@ import HealthCheck
 @Observable
 final class AppRouter {
 
-    enum Destination: Hashable {}
+    enum Destination: Hashable {
+
+        case questionnaire
+        case result(HealthCheckResult)
+
+    }
 
     var path: [Destination] = []
 
@@ -13,4 +18,14 @@ final class AppRouter {
 
 // MARK: HealthCheckRoutingProtocol
 
-extension AppRouter: HealthCheckRoutingProtocol {}
+extension AppRouter: HealthCheckRoutingProtocol {
+
+    func navigateToQuestionnaire() {
+        path.append(.questionnaire)
+    }
+
+    func navigateToResult(_ result: HealthCheckResult) {
+        path.append(.result(result))
+    }
+
+}

@@ -15,6 +15,7 @@ The app launches to the `HealthCheck` module's Intro screen, at the root of the 
 | Screen | Module | Spec |
 |---|---|---|
 | Intro | `HealthCheck` | `HealthCheck/Docs/IntroScreen.md` |
+| Questionnaire | `HealthCheck` | `HealthCheck/Docs/QuestionnaireScreen.md` |
 | Result | `HealthCheck` | `HealthCheck/Docs/ResultScreen.md` |
 
 Each screen's behaviour is specified in its module's `Docs/` folder.
