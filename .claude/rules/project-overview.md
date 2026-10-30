@@ -40,7 +40,8 @@ Unit tests use **Swift Testing** (`import Testing`, `@Suite`, `@Test`, `#expect`
   app's router. `CoreUI` holds tokens and views only and is not unit tested.
 - **Where:** a package's tests live in `Tests/<Module>Tests/`, declared as a `.testTarget` in its `Package.swift`, and
   every test target is added to the `FinFit` scheme's test action, so ⌘U and `xcodebuild test -scheme FinFit` run
-  them all. Inside it, each subject gets its own folder, `<Subject>Tests/`, holding `<Subject>Tests.swift` and, as
+  them all. The app target's tests live in `FinFitTests/` at the repository root, a unit-test target hosted by the
+  app, so they can `@testable import FinFit`. Inside a test target, each subject gets its own folder, `<Subject>Tests/`, holding `<Subject>Tests.swift` and, as
   needed, `Fixtures/`, `Mocks/` and `Models/` (types that exist only for the tests).
 - **Shape:** a test is a `final class <Subject>Tests` marked `@Suite("<Subject>")`. Its `init` builds the subject
   and any throwaway resources, its `deinit` cleans them up, and each `@Test("…")` describes the behaviour it checks
@@ -70,6 +71,7 @@ Board: **OnlyFunds** — project `OFN`, <https://thorssons.atlassian.net/browse/
   | Scheme | Target | Bundle id | Purpose |
   |---|---|---|---|
   | `FinFit` | FinFit | `com.thorssons.finfit` | Development and release |
+  | `FinFit` | FinFitTests | `com.thorssons.finfitTests` | Unit tests for the app target, hosted by the app |
 
 - DEBUG-only launch arguments: none
 - Launch screen: the `UILaunchScreen` entry in `FinFit/Info.plist` shows the `launch_logo` image (the purple F) centered
