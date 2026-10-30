@@ -15,6 +15,9 @@ let package = Package(
             name: "Networking",
             dependencies: [
                 .product(name: "FactoryKit", package: "Factory")
-            ])
+            ]),
+        .testTarget(
+            name: "NetworkingTests",
+            dependencies: ["Networking"])
     ]
 )
