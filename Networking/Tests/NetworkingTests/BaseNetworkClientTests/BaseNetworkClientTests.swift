@@ -112,8 +112,10 @@ final class BaseNetworkClientTests {
 
     @Test("A body that can't be encoded throws encodingFailed")
     func unencodableBodyThrows() async throws {
+        let endpoint = TestEndpoint.fixture(body: UnencodableBody())
+
         let error = await #expect(throws: APIError.self) {
-            let _: TestResponse = try await self.baseNetworkClient.request(TestEndpoint.fixture(body: UnencodableBody()))
+            let _: TestResponse = try await self.baseNetworkClient.request(endpoint)
         }
 
         #expect(error?.isEncodingFailed == true)
