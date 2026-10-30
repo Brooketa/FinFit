@@ -50,7 +50,10 @@ final class QuestionnaireDataSourceTests {
                 title: "What are you investing for?",
                 description: "Select up to three goals.",
                 type: .multipleChoice,
-                options: [.fixture(id: "retirement", title: "Retirement"), .fixture(id: "home", title: "Buying a home")],
+                options: [
+                    .fixture(id: "retirement", title: "Retirement"),
+                    .fixture(id: "home", title: "Buying a home")
+                ],
                 validation: .fixture(required: true, min: 1, max: 9, minSelections: 1, maxSelections: 3)),
             progress: .fixture(current: 2, total: 5)))
 
