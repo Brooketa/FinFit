@@ -1,5 +1,6 @@
 import Foundation
 import Observation
+import SwiftUI
 import CoreUI
 
 @MainActor
@@ -25,10 +26,19 @@ public final class QuestionnairePresenter {
         return answerSelection.isComplete(for: question)
     }
 
-    var isNumberAnswerOutOfRange: Bool {
-        guard case .loaded(let question) = state else { return false }
+    var numberAnswerText: Binding<String> {
+        Binding(
+            get: { [weak self] in self?.answerSelection.numberText ?? "" },
+            set: { [weak self] in self?.onNumberAnswerChanged(text: $0) })
+    }
 
-        return answerSelection.isNumberOutOfRange(for: question)
+    var numberAnswerStatus: TextInput.Status {
+        guard
+            case .loaded(let question) = state,
+            answerSelection.isNumberOutOfRange(for: question)
+        else { return .normal }
+
+        return .error(.questionnaireNumberOutOfRange)
     }
 
     func startOrResumeSession() async {
