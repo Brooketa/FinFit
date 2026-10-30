@@ -5,9 +5,10 @@ app's navigation stack.
 
 ## Loading
 
-Opening the screen starts a new session with a fresh id and shows a centered spinner in `primary` until the server
-sends the first question. If the request fails, the spinner stays. If the session comes back already completed, the
-Result screen opens.
+Opening the screen resumes the saved session if there is one (see **Session store** in `QuestionnaireAPI.md`), or
+starts a new session with a fresh id, and shows a centered spinner in `primary` until the server sends the current
+question. Once the server has started the session, its id is saved. If the request fails, the spinner stays and
+nothing is saved. If the session comes back already completed, its id is removed and the Result screen opens.
 
 ## Question
 

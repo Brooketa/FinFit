@@ -11,12 +11,19 @@ public final class QuestionnairePresenter {
     private(set) var answerSelection = AnswerSelection()
     private(set) var isSubmitting = false
 
-    private let sessionID = UUID()
+    private let sessionID: UUID
     private let questionnaireUseCase: any QuestionnaireUseCaseProtocol
+    private let sessionStore: any SessionStoreProtocol
     private let router: any HealthCheckRoutingProtocol
 
-    init(questionnaireUseCase: any QuestionnaireUseCaseProtocol, router: any HealthCheckRoutingProtocol) {
+    init(
+        questionnaireUseCase: any QuestionnaireUseCaseProtocol,
+        sessionStore: any SessionStoreProtocol,
+        router: any HealthCheckRoutingProtocol
+    ) {
+        self.sessionID = sessionStore.sessionID ?? UUID()
         self.questionnaireUseCase = questionnaireUseCase
+        self.sessionStore = sessionStore
         self.router = router
     }
 
@@ -46,6 +53,7 @@ public final class QuestionnairePresenter {
 
         do {
             let session = try await questionnaireUseCase.startOrResumeSession(id: sessionID)
+            sessionStore.save(sessionID: sessionID)
             handle(session: session)
         } catch {
             state = .error
@@ -91,6 +99,7 @@ public final class QuestionnairePresenter {
             state = .loaded(Question(from: question, progress: progress))
             answerSelection = AnswerSelection()
         case .completed(let result):
+            sessionStore.removeSessionID()
             router.navigateToResult(score: result.score)
         }
     }

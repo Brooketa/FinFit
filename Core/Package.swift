@@ -7,7 +7,14 @@ let package = Package(
     products: [
         .library(name: "Core", targets: ["Core"])
     ],
+    dependencies: [
+        .package(url: "https://github.com/hmlongco/Factory", exact: "3.5.1")
+    ],
     targets: [
-        .target(name: "Core")
+        .target(
+            name: "Core",
+            dependencies: [
+                .product(name: "FactoryKit", package: "Factory")
+            ])
     ]
 )

@@ -81,3 +81,20 @@ A session the server reports as in progress without a question, or completed wit
 `QuestionnaireUseCaseError.invalidSession`.
 
 The use case is registered privately in the `HealthCheck` container.
+
+## Session store
+
+`SessionStoreProtocol` remembers the id of the unfinished session, so a session survives the app being force-quit.
+It is built on Core's `UserDefaultsService` and shared by the module's screens.
+
+| Call | Does |
+|---|---|
+| `sessionID` | The saved session id, or `nil` when no session is unfinished |
+| `save(sessionID:)` | Saves the id, replacing any saved one |
+| `removeSessionID()` | Removes the saved id |
+
+- **Saved:** once the server has started or resumed the session
+- **Removed:** when the session completes, so a saved id always means an unfinished session
+
+The store is registered privately in the `HealthCheck` container.
+

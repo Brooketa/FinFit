@@ -1,4 +1,5 @@
 import FactoryKit
+import Core
 import Networking
 
 extension Container {
@@ -15,6 +16,7 @@ extension Container {
         self {
             QuestionnairePresenter(
                 questionnaireUseCase: self.questionnaireUseCase,
+                sessionStore: self.sessionStore,
                 router: self.healthCheckRouting()!)
         }
     }
@@ -34,6 +36,12 @@ extension Container {
 
     private var questionnaireUseCase: any QuestionnaireUseCaseProtocol {
         self { QuestionnaireUseCase(questionnaireRepository: self.questionnaireRepository) }.resolve()
+    }
+
+    // MARK: Stores
+
+    private var sessionStore: any SessionStoreProtocol {
+        self { UserDefaultsSessionStore(userDefaultsService: self.userDefaultsService()) }.resolve()
     }
 
     // MARK: Repositories
