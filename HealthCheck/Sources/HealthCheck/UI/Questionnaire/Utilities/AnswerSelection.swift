@@ -10,17 +10,29 @@ struct AnswerSelection {
         try? Double(numberText, format: .number, lenient: false)
     }
 
-    func isComplete(for question: Question) -> Bool {
+    func answer(for question: Question) -> AnswerUseCaseModel? {
         switch question.answer {
         case .singleChoice:
-            return selectedAnswerID != nil || !question.isRequired
-        case .multipleChoice(_, let selectionRange):
-            return selectionRange.contains(selectedAnswerIDs.count)
-        case .number(let valueRange):
-            guard !numberText.isEmpty else { return !question.isRequired }
+            return selectedAnswerID.map { .option($0) }
+        case .multipleChoice(let options, let selectionRange):
+            guard
+                !selectedAnswerIDs.isEmpty,
+                selectionRange.contains(selectedAnswerIDs.count)
+            else { return nil }
 
-            return number.map { valueRange.contains($0) } ?? false
+            return .options(options.map(\.id).filter { selectedAnswerIDs.contains($0) })
+        case .number(let valueRange):
+            guard
+                let number,
+                valueRange.contains(number)
+            else { return nil }
+
+            return .number(number)
         }
+    }
+
+    func isComplete(for question: Question) -> Bool {
+        answer(for: question) != nil
     }
 
     func isNumberOutOfRange(for question: Question) -> Bool {

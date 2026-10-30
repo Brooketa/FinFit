@@ -8,6 +8,7 @@ final class AppRouter {
     enum Destination: Hashable {
 
         case questionnaire
+        case result(score: Int)
 
     }
 
@@ -21,6 +22,10 @@ extension AppRouter: HealthCheckRoutingProtocol {
 
     func navigateToQuestionnaire() {
         path.append(.questionnaire)
+    }
+
+    func navigateToResult(score: Int) {
+        path = [.result(score: score)]
     }
 
 }

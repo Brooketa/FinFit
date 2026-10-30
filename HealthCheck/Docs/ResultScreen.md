@@ -1,6 +1,7 @@
 # Result Screen
 
-The last screen of the health-check flow. Nothing in the app opens it yet.
+The last screen of the health-check flow. It replaces the Questionnaire screen once the session is completed, so the
+navigation bar's back button returns to the Intro screen.
 
 | Part | Content |
 |---|---|
@@ -13,7 +14,7 @@ The last screen of the health-check flow. Nothing in the app opens it yet.
 - **Layout:** the ring, title and subtitle stack at the top, 24pt below the safe area, with 32pt between the ring and
   the title and 12pt between the title and the subtitle. The buttons are pinned to the bottom of the safe area, 12pt
   apart and 16pt below the content above them. Everything has 24pt side padding on a `background` fill
-- **Score:** a fixed placeholder score of 78, so the screen always shows the Excellent category
+- **Score:** the session's score, passed in when the screen opens
 - **Ring animation:** when the screen appears, the ring starts empty and fills clockwise to the score over 0.75s,
   easing in and out, while the percentage counts up from 0 in step with it
 - **Summary animation:** 0.25s after the screen appears, the title and subtitle fade in and rise 12pt into place over

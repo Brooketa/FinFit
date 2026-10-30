@@ -4,11 +4,13 @@ import CoreUI
 
 public struct ResultView: View {
 
-    @InjectedObservable(\.resultPresenter) private var presenter
+    @InjectedObservable private var presenter: ResultPresenter
 
     @State private var hasAppeared = false
 
-    public init() {}
+    public init(score: Int) {
+        _presenter = InjectedObservable(Container.shared.resultPresenter(score))
+    }
 
     public var body: some View {
         VStack(spacing: Spacing.extraLarge3.value) {
@@ -115,5 +117,5 @@ private extension ResultView.Model {
 }
 
 #Preview {
-    ResultView()
+    ResultView(score: 78)
 }

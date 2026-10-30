@@ -9,6 +9,7 @@ struct ActionButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .foregroundStyle(style.content)
+            .tint(style.content)
             .background(style.fill, in: .capsule)
             .overlay {
                 Capsule()

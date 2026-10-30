@@ -12,12 +12,16 @@ extension Container {
 
     @MainActor
     public var questionnairePresenter: Factory<QuestionnairePresenter> {
-        self { QuestionnairePresenter(questionnaireUseCase: self.questionnaireUseCase) }
+        self {
+            QuestionnairePresenter(
+                questionnaireUseCase: self.questionnaireUseCase,
+                router: self.healthCheckRouting()!)
+        }
     }
 
     @MainActor
-    public var resultPresenter: Factory<ResultPresenter> {
-        self { ResultPresenter() }
+    public var resultPresenter: ParameterFactory<Int, ResultPresenter> {
+        self { score in ResultPresenter(score: score) }
     }
 
     // MARK: Routing
