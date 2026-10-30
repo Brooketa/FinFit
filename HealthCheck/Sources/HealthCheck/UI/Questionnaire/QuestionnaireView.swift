@@ -6,6 +6,8 @@ public struct QuestionnaireView: View {
 
     @InjectedObservable private var presenter: QuestionnairePresenter
 
+    @FocusState private var isTextInputFocused: Bool
+
     public init(sessionID: UUID) {
         _presenter = InjectedObservable(Container.shared.questionnairePresenter(sessionID))
     }
@@ -94,7 +96,8 @@ public struct QuestionnaireView: View {
                 text: presenter.numberAnswerText,
                 placeholder: .questionnaireNumberPlaceholder,
                 label: answer.rangeInstruction,
-                status: presenter.numberAnswerStatus)
+                status: presenter.numberAnswerStatus,
+                isFocused: $isTextInputFocused)
             .keyboardType(.decimalPad)
         }
     }
@@ -105,6 +108,7 @@ public struct QuestionnaireView: View {
             style: .primary,
             trailingIcon: Image(.arrowRight),
             isLoading: presenter.isSubmitting) {
+            removeTextInputFocus()
             Task {
                 await presenter.onNextTapped()
             }
@@ -112,6 +116,10 @@ public struct QuestionnaireView: View {
         .enabled(presenter.isNextEnabled)
         .padding(.horizontal, .extraLarge2)
         .padding(.top, .large)
+    }
+
+    private func removeTextInputFocus() {
+        isTextInputFocused = false
     }
 
 }
