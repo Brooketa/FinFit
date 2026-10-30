@@ -1,0 +1,12 @@
+{
+  "sessionId": "59ed129d-0dae-4e37-b7c3-40f560e86820",
+  "status": "completed",
+  "result": {
+    "score": 12,
+    "category": "poor"
+  },
+  "progress": {
+    "current": 5,
+    "total": 5
+  }
+}

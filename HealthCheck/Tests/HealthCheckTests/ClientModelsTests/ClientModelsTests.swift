@@ -5,17 +5,17 @@ import Testing
 @Suite("Questionnaire client models")
 final class ClientModelsTests {
 
-    private let decoder = JSONDecoder()
     private let encoder = JSONEncoder()
 
-    @Test("An in-progress single-choice session decodes from API JSON")
+    @Test("An in-progress single-choice session decodes from the API's response")
     func singleChoiceSessionDecodes() throws {
-        let session = try decoder.decode(SessionClientModel.self, from: SessionJSON.singleChoiceInProgress)
+        let session = try SessionClientModel.fixture(json: JSONFixture.Name.singleChoiceSession)
 
-        #expect(session.sessionId == UUID(uuidString: "9CF3DC4B-7E4E-4073-BD4C-12AADFDF4930"))
+        #expect(session.sessionId == UUID(uuidString: "59ED129D-0DAE-4E37-B7C3-40F560E86820"))
         #expect(session.status == .inProgress)
+        #expect(session.question?.id == "investment_dependency")
         #expect(session.question?.type == .singleChoice)
-        #expect(session.question?.options?.map(\.id) == ["very_stable", "unpredictable"])
+        #expect(session.question?.options?.map(\.id) == ["high", "medium", "low"])
         #expect(session.question?.validation?.required == true)
         #expect(session.question?.description == nil)
         #expect(session.result == nil)
@@ -23,19 +23,20 @@ final class ClientModelsTests {
         #expect(session.progress.total == 5)
     }
 
-    @Test("An in-progress multiple-choice session decodes its selection limits")
+    @Test("An in-progress multiple-choice session decodes a minimum without a maximum")
     func multipleChoiceSessionDecodes() throws {
-        let session = try decoder.decode(SessionClientModel.self, from: SessionJSON.multipleChoiceInProgress)
+        let session = try SessionClientModel.fixture(json: JSONFixture.Name.multipleChoiceSession)
 
         #expect(session.question?.type == .multipleChoice)
-        #expect(session.question?.description == "Select up to three goals.")
+        #expect(session.question?.description == "Select all that apply.")
+        #expect(session.question?.options?.count == 6)
         #expect(session.question?.validation?.minSelections == 1)
-        #expect(session.question?.validation?.maxSelections == 3)
+        #expect(session.question?.validation?.maxSelections == nil)
     }
 
     @Test("An in-progress number session decodes its range and has no options")
     func numberSessionDecodes() throws {
-        let session = try decoder.decode(SessionClientModel.self, from: SessionJSON.numberInProgress)
+        let session = try SessionClientModel.fixture(json: JSONFixture.Name.numberSession)
 
         #expect(session.question?.type == .number)
         #expect(session.question?.options == nil)
@@ -45,19 +46,20 @@ final class ClientModelsTests {
 
     @Test("A question without validation decodes with no validation")
     func questionWithoutValidationDecodes() throws {
-        let session = try decoder.decode(SessionClientModel.self, from: SessionJSON.questionWithoutValidation)
+        let session = try SessionClientModel.fixture(json: JSONFixture.Name.sessionWithoutValidation)
 
         #expect(session.question?.validation == nil)
     }
 
     @Test("A completed session decodes its result and has no question")
     func completedSessionDecodes() throws {
-        let session = try decoder.decode(SessionClientModel.self, from: SessionJSON.completed)
+        let session = try SessionClientModel.fixture(json: JSONFixture.Name.completedSession)
 
         #expect(session.status == .completed)
         #expect(session.question == nil)
-        #expect(session.result?.score == 78)
-        #expect(session.result?.category == .good)
+        #expect(session.result?.score == 12)
+        #expect(session.result?.category == .poor)
+        #expect(session.progress.current == 5)
     }
 
     @Test("A single option encodes as its id")

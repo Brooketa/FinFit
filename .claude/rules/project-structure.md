@@ -164,6 +164,7 @@ Every package has the same outer shape:
 ├── Docs/                               # Behavioural specs — see workflow.md → Feature Spec Files
 ├── Tests/
 │   └── <Module>Tests/                  # The module's test target
+│       ├── Resources/JSON/             # Backend responses, for client-layer tests
 │       ├── Fixtures/                   # Fixtures shared by several subjects
 │       └── <Subject>Tests/             # One folder per subject under test
 │           ├── <Subject>Tests.swift

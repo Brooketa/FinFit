@@ -13,6 +13,10 @@ extension SessionClientModel {
         SessionClientModel(sessionId: sessionId, status: status, question: question, result: result, progress: progress)
     }
 
+    static func fixture(json name: String) throws -> SessionClientModel {
+        try JSONDecoder().decode(SessionClientModel.self, from: JSONFixture.data(named: name))
+    }
+
 }
 
 extension QuestionClientModel {

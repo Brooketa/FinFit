@@ -1,0 +1,30 @@
+{
+  "sessionId": "59ed129d-0dae-4e37-b7c3-40f560e86820",
+  "status": "in_progress",
+  "question": {
+    "id": "investment_dependency",
+    "title": "How dependent are you on the money you plan to invest?",
+    "type": "single_choice",
+    "options": [
+      {
+        "id": "high",
+        "title": "I may need it for essential expenses"
+      },
+      {
+        "id": "medium",
+        "title": "I may need some of it, but not immediately"
+      },
+      {
+        "id": "low",
+        "title": "I don't expect to need it for everyday expenses"
+      }
+    ],
+    "validation": {
+      "required": true
+    }
+  },
+  "progress": {
+    "current": 1,
+    "total": 5
+  }
+}
