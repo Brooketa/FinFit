@@ -1,3 +1,4 @@
+import Foundation
 import FactoryKit
 import Core
 import Networking
@@ -8,13 +9,14 @@ extension Container {
 
     @MainActor
     public var introPresenter: Factory<IntroPresenter> {
-        self { IntroPresenter(router: self.healthCheckRouting()!) }
+        self { IntroPresenter(sessionStore: self.sessionStore, router: self.healthCheckRouting()!) }
     }
 
     @MainActor
-    public var questionnairePresenter: Factory<QuestionnairePresenter> {
-        self {
+    public var questionnairePresenter: ParameterFactory<UUID, QuestionnairePresenter> {
+        self { sessionID in
             QuestionnairePresenter(
+                sessionID: sessionID,
                 questionnaireUseCase: self.questionnaireUseCase,
                 sessionStore: self.sessionStore,
                 router: self.healthCheckRouting()!)
@@ -23,7 +25,7 @@ extension Container {
 
     @MainActor
     public var resultPresenter: ParameterFactory<HealthCheckResult, ResultPresenter> {
-        self { result in ResultPresenter(result: result) }
+        self { result in ResultPresenter(result: result, router: self.healthCheckRouting()!) }
     }
 
     // MARK: Routing

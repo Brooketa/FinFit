@@ -1,7 +1,8 @@
 # Result Screen
 
 The last screen of the health-check flow. It is pushed on top of the Questionnaire screen once the session is
-completed, so the navigation bar's back button returns to the Questionnaire screen.
+completed, carrying the session's `HealthCheckResult`: the score and category the server sent. It hides the navigation
+bar's back button, so Finish and Retake are the only ways to leave it.
 
 | Part | Content |
 |---|---|
@@ -20,8 +21,8 @@ completed, so the navigation bar's back button returns to the Questionnaire scre
 - **Summary animation:** 0.25s after the screen appears, the title and subtitle fade in and rise 12pt into place over
   0.5s, easing out. Only their position and opacity animate, so the layout around them never changes
 - **Buttons during the animations:** the buttons stay still and can be tapped while the animations play
-- **Finish:** tapping the button does nothing yet
-- **Retake:** tapping the button does nothing yet
+- **Finish:** tapping the button pops back to the Intro screen
+- **Retake:** tapping the button goes back to the Questionnaire screen below it, which starts a new session
 
 ## Score categories
 

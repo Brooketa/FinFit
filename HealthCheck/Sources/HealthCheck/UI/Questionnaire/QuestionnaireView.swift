@@ -4,9 +4,11 @@ import CoreUI
 
 public struct QuestionnaireView: View {
 
-    @InjectedObservable(\.questionnairePresenter) private var presenter
+    @InjectedObservable private var presenter: QuestionnairePresenter
 
-    public init() {}
+    public init(sessionID: UUID) {
+        _presenter = InjectedObservable(Container.shared.questionnairePresenter(sessionID))
+    }
 
     public var body: some View {
         content
@@ -104,6 +106,6 @@ public struct QuestionnaireView: View {
 
 #Preview {
     NavigationStack {
-        QuestionnaireView()
+        QuestionnaireView(sessionID: UUID())
     }
 }
