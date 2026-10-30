@@ -31,6 +31,10 @@ Result screen opens.
   title and further taps are ignored. Once the server accepts the answer, the session's id is saved, so a session is
   only remembered after its first answer. The server replies with the next question, which replaces the current one
   with nothing selected, or with the result after the last question
+- **Transitions:** when the next question arrives, the answered question slides out to the leading edge and fades
+  while the new one slides in from the trailing edge and fades in, over 0.35s with a smooth curve. The progress bar
+  fills to the new progress in step and the Next button stays in place. The new question starts scrolled to the top.
+  The first question fades in over the loading spinner
 - **Finishing:** once the server returns the result, the Result screen is pushed on top of the questionnaire, showing
   the score and category
 - **Submit failure:** the answer stays as it was and Next can be tapped again
