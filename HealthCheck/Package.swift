@@ -23,6 +23,9 @@ let package = Package(
                 "Networking",
                 .product(name: "FactoryKit", package: "Factory")
             ],
-            resources: [.process("Resources")])
+            resources: [.process("Resources")]),
+        .testTarget(
+            name: "HealthCheckTests",
+            dependencies: ["HealthCheck"])
     ]
 )
