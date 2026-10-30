@@ -126,9 +126,15 @@ final class QuestionnairePresenterTests {
         }
         #expect(questionnairePresenter.isSubmitting)
 
-        await questionnairePresenter.onNextTapped()
-        questionnaireUseCaseMock.releaseSubmission()
+        let secondSubmission = Task {
+            await questionnairePresenter.onNextTapped()
+        }
+        for _ in 0..<Constants.yieldCount {
+            await Task.yield()
+        }
+        questionnaireUseCaseMock.releaseSubmissions()
         await firstSubmission.value
+        await secondSubmission.value
 
         #expect(questionnaireUseCaseMock.submissions.count == 1)
     }
@@ -181,6 +187,16 @@ final class QuestionnairePresenterTests {
 
         questionnairePresenter.onNumberAnswerChanged(text: "twenty")
         #expect(questionnairePresenter.numberAnswerStatus == .normal)
+    }
+
+}
+
+private extension QuestionnairePresenterTests {
+
+    enum Constants {
+
+        static let yieldCount = 10
+
     }
 
 }

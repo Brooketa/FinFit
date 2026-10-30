@@ -18,7 +18,7 @@ final class QuestionnaireUseCaseMock: QuestionnaireUseCaseProtocol, @unchecked S
     private(set) var startedSessionIDs: [UUID] = []
     private(set) var submissions: [Submission] = []
 
-    private var heldSubmission: CheckedContinuation<Void, Never>?
+    private var heldSubmissions: [CheckedContinuation<Void, Never>] = []
 
     func startOrResumeSession(id: UUID) async throws -> SessionUseCaseModel {
         startedSessionIDs.append(id)
@@ -34,15 +34,16 @@ final class QuestionnaireUseCaseMock: QuestionnaireUseCaseProtocol, @unchecked S
         submissions.append(Submission(sessionID: sessionID, questionID: questionID, answer: answer))
 
         if holdsSubmissions {
-            await withCheckedContinuation { heldSubmission = $0 }
+            await withCheckedContinuation { heldSubmissions.append($0) }
         }
 
         return try submitResult.get()
     }
 
-    func releaseSubmission() {
-        heldSubmission?.resume()
-        heldSubmission = nil
+    func releaseSubmissions() {
+        holdsSubmissions = false
+        heldSubmissions.forEach { $0.resume() }
+        heldSubmissions.removeAll()
     }
 
 }
