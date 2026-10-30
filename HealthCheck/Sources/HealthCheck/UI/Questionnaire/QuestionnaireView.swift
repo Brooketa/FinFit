@@ -73,10 +73,11 @@ public struct QuestionnaireView: View {
                 options: options.map { SingleSelectGroup.Option(id: $0.id, title: $0.title) },
                 selection: presenter.answerSelection.selectedAnswerID,
                 onSelect: presenter.onSingleChoiceAnswerSelected(answerID:))
-        case .multipleChoice(let options, _):
+        case .multipleChoice(let options, let selectionRange):
             MultiSelectGroup(
                 options: options.map { MultiSelectGroup.Option(id: $0.id, title: $0.title) },
                 selection: presenter.answerSelection.selectedAnswerIDs,
+                maximumSelection: selectionRange.upperBound,
                 onToggle: presenter.onMultipleChoiceAnswerToggled(answerID:))
         case .number:
             TextInput(

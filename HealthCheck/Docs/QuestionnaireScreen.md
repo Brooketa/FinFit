@@ -42,7 +42,7 @@ Result screen opens.
 | Type | Answers | Next is enabled when |
 |---|---|---|
 | Single choice | The options in a `SingleSelectGroup`, none selected at first. Tapping an option selects it and replaces any earlier choice | An option is selected |
-| Multiple choice | The options in a `MultiSelectGroup`, none checked at first. Tapping an option checks or unchecks it; once as many are checked as the question allows, further options don't check | At least one is checked, and the number checked is within the question's limits |
+| Multiple choice | The options in a `MultiSelectGroup`, none checked at first. Tapping an option checks or unchecks it; once as many are checked as the question allows, the unchecked options are disabled until one is unchecked | At least one is checked, and the number checked is within the question's limits |
 | Number | A `TextInput` with the placeholder "Enter a number", a decimal keyboard and the instruction (see below) as its label | The text is a number within the question's range |
 
 Every question needs an answer, including one the server marks as optional. When the question has no selection
