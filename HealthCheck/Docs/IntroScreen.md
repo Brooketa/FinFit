@@ -19,4 +19,5 @@ navigation stack.
   1.6s each way. The gradient circle pulses on the same 1.6s loop between full size and 104%, starting 0.4s later,
   so the two never grow and shrink in step. Only size and opacity animate, so the logo never moves and the layout
   around it never changes
-- **Start:** tapping the button opens the Questionnaire screen
+- **Start:** tapping the button pushes the Questionnaire screen, on the saved unfinished session if there is one,
+  otherwise on a new session

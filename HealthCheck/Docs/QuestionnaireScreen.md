@@ -1,14 +1,16 @@
 # Questionnaire Screen
 
-The screen of the health-check flow that asks the questions. The Intro screen's Start button pushes it onto the
-app's navigation stack.
+The screen of the health-check flow that asks the questions. It is pushed onto the app's navigation stack for a given
+session id by the Intro screen's Start button. The screen that opens it decides which session it shows, with one
+exception: when the Result screen's Retake button goes back to it after its session completed, it starts a new
+session with a fresh id itself.
 
 ## Loading
 
-Opening the screen resumes the saved session if there is one (see **Session store** in `QuestionnaireAPI.md`), or
-starts a new session with a fresh id, and shows a centered spinner in `primary` until the server sends the current
-question. Once the server has started the session, its id is saved. If the request fails, the spinner stays and
-nothing is saved. If the session comes back already completed, its id is removed and the Result screen opens.
+Opening the screen starts or resumes the session it was given (see **Session store** in `QuestionnaireAPI.md`), and
+shows a centered spinner in `primary` until the server sends the current question. Once the server has started the
+session, its id is saved. If the request fails, the spinner stays and nothing is saved. If the session comes back
+already completed, its id is removed and the Result screen opens.
 
 ## Question
 

@@ -30,6 +30,7 @@ public struct ResultView: View {
             footer
         }
         .background(Palette.background)
+        .navigationBarBackButtonHidden()
     }
 
     private var summary: some View {

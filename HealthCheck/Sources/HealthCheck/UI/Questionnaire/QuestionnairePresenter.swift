@@ -11,17 +11,20 @@ public final class QuestionnairePresenter {
     private(set) var answerSelection = AnswerSelection()
     private(set) var isSubmitting = false
 
-    private let sessionID: UUID
     private let questionnaireUseCase: any QuestionnaireUseCaseProtocol
     private let sessionStore: any SessionStoreProtocol
     private let router: any HealthCheckRoutingProtocol
 
+    private var sessionID: UUID
+    private var isSessionCompleted = false
+
     init(
+        sessionID: UUID,
         questionnaireUseCase: any QuestionnaireUseCaseProtocol,
         sessionStore: any SessionStoreProtocol,
         router: any HealthCheckRoutingProtocol
     ) {
-        self.sessionID = sessionStore.sessionID ?? UUID()
+        self.sessionID = sessionID
         self.questionnaireUseCase = questionnaireUseCase
         self.sessionStore = sessionStore
         self.router = router
@@ -49,6 +52,10 @@ public final class QuestionnairePresenter {
     }
 
     func startOrResumeSession() async {
+        if isSessionCompleted {
+            sessionID = UUID()
+            isSessionCompleted = false
+        }
         state = .loading
 
         do {
@@ -99,6 +106,7 @@ public final class QuestionnairePresenter {
             state = .loaded(Question(from: question, progress: progress))
             answerSelection = AnswerSelection()
         case .completed(let result):
+            isSessionCompleted = true
             sessionStore.removeSessionID()
             router.navigateToResult(HealthCheckResult(from: result))
         }
