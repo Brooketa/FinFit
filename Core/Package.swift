@@ -15,6 +15,9 @@ let package = Package(
             name: "Core",
             dependencies: [
                 .product(name: "FactoryKit", package: "Factory")
-            ])
+            ]),
+        .testTarget(
+            name: "CoreTests",
+            dependencies: ["Core"])
     ]
 )
