@@ -22,8 +22,8 @@ extension Container {
     }
 
     @MainActor
-    public var resultPresenter: ParameterFactory<Int, ResultPresenter> {
-        self { score in ResultPresenter(score: score) }
+    public var resultPresenter: ParameterFactory<HealthCheckResult, ResultPresenter> {
+        self { result in ResultPresenter(result: result) }
     }
 
     // MARK: Routing

@@ -4,10 +4,10 @@ import Observation
 @Observable
 public final class ResultPresenter {
 
-    let model: ResultView.Model
+    let summary: ResultSummary
 
-    init(score: Int) {
-        model = ResultView.Model(for: score)
+    init(result: HealthCheckResult) {
+        summary = ResultSummary(from: result)
     }
 
     func onFinishTapped() {}
