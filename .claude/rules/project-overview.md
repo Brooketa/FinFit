@@ -54,5 +54,9 @@ Board: **OnlyFunds** — project `OFN`, <https://thorssons.atlassian.net/browse/
   | `FinFit` | FinFit | `com.thorssons.finfit` | Development and release |
 
 - DEBUG-only launch arguments: none
+- Launch screen: the `UILaunchScreen` entry in `FinFit/Info.plist` shows the `launch_logo` image (the purple F) centered
+  on `launch_background`. Both live in the app target's `Assets.xcassets`, because iOS reads the launch screen only from
+  the app bundle; `launch_background` is a copy of CoreUI's `background` (white), so the hand-off to the Intro screen
+  doesn't flash. `INFOPLIST_KEY_UILaunchScreen_Generation` is off so the entry isn't replaced by a generated one
 - API base URL: the `APIBaseURL` key in `FinFit/Info.plist`, which Xcode merges with the generated Info.plist.
   `Info.plist` is excluded from the `FinFit` folder's target membership so it is not also copied as a resource
