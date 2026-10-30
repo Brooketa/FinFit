@@ -159,6 +159,8 @@ lay options out themselves.
 
 - **Toggling:** tapping an option calls `onToggle` with its id. The group shows whatever `selection` it is given,
   so the caller adds the id to or removes it from the set. Each option toggles on its own.
+- **Limit:** with an optional `maximumSelection`, once that many options are checked the unchecked ones are
+  disabled, so only checked options can be tapped until one is unchecked.
 - **Layout:** full-width rows stacked 12pt apart.
 
 `CheckboxListItem` is one row on its own, taking a `String` title, `isChecked` and an action, for screens that lay

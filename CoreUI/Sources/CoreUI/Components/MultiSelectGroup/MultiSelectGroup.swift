@@ -4,25 +4,41 @@ public struct MultiSelectGroup<ID: Hashable>: View {
 
     private let options: [Option]
     private let selection: Set<ID>
+    private let maximumSelection: Int?
     private let onToggle: (ID) -> Void
 
     /// A list of `options` stacked 12pt apart, where every option whose id is in `selection` is shown checked.
     /// Tapping an option calls `onToggle` with its id; the caller adds it to or removes it from `selection`, so each
-    /// option toggles on its own.
-    public init(options: [Option], selection: Set<ID>, onToggle: @escaping (ID) -> Void) {
+    /// option toggles on its own. Once `selection` holds `maximumSelection` options, the unchecked ones are disabled.
+    public init(
+        options: [Option],
+        selection: Set<ID>,
+        maximumSelection: Int? = nil,
+        onToggle: @escaping (ID) -> Void
+    ) {
         self.options = options
         self.selection = selection
+        self.maximumSelection = maximumSelection
         self.onToggle = onToggle
     }
 
     public var body: some View {
         VStack(spacing: Spacing.medium.value) {
             ForEach(options) { option in
-                CheckboxListItem(title: option.title, isChecked: selection.contains(option.id)) {
+                let isChecked = selection.contains(option.id)
+
+                CheckboxListItem(title: option.title, isChecked: isChecked) {
                     onToggle(option.id)
                 }
+                .disabled(isLimitReached && !isChecked)
             }
         }
+    }
+
+    private var isLimitReached: Bool {
+        guard let maximumSelection else { return false }
+
+        return selection.count >= maximumSelection
     }
 
 }
@@ -64,6 +80,15 @@ public extension MultiSelectGroup {
                     selection.insert(id)
                 }
             }
+
+        MultiSelectGroup(
+            options: [
+                MultiSelectGroup.Option(id: 1, title: "Checked"),
+                MultiSelectGroup.Option(id: 2, title: "Checked"),
+                MultiSelectGroup.Option(id: 3, title: "Disabled at the limit")
+            ],
+            selection: [1, 2],
+            maximumSelection: 2) { _ in }
 
         MultiSelectGroup(
             options: [
