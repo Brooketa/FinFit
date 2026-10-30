@@ -146,6 +146,7 @@ MyApp/
 │   │       └── Container+Routing.swift
 │   ├── Assets.xcassets                 # App icons only
 │   └── Info.plist
+├── MyAppTests/                         # Unit tests for the app target, hosted by the app
 ├── Core/
 ├── CoreUI/
 ├── Networking/

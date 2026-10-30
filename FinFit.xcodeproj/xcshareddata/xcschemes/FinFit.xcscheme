@@ -58,6 +58,16 @@
                ReferencedContainer = "container:HealthCheck">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "A10000000000000000000070"
+               BuildableName = "FinFitTests.xctest"
+               BlueprintName = "FinFitTests"
+               ReferencedContainer = "container:FinFit.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

@@ -30,6 +30,7 @@ and nothing else.
 | `Networking/` | Networking | `Endpoint`, `HTTPMethod`, `APIError`, `BaseNetworkClient` | — |
 | `HealthCheck/` | Feature | The health-check flow: `IntroView`, `ContinueSessionView`, `QuestionnaireView` and `ResultView` with their presenters, the questionnaire data stack, the session store, `HealthCheckRoutingProtocol` | `Core`, `CoreUI`, `Networking` |
 | `FinFit/App/` | App target | `FinFitApp` (entry point, creates and registers the router), `RootView`, `AppRouter`, `DependencyInjection/Container+Routing.swift` | All packages |
+| `FinFitTests/` | App tests | Unit tests for the app target (`AppRouter`), hosted by the app | App target |
 
 Swift 6 language mode, iOS 26, iPhone, portrait. Factory 3.5.1 is the only third-party dependency.
 
