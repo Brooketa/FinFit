@@ -12,6 +12,8 @@ struct RootView: View {
                     switch destination {
                     case .questionnaire:
                         QuestionnaireView()
+                    case .result(let score):
+                        ResultView(score: score)
                     }
                 }
         }

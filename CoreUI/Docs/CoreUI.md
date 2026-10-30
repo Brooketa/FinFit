@@ -94,7 +94,9 @@ It fills the available width and is at least 60pt tall, growing if its title wra
 
 - **Layout:** capsule shape, 32pt horizontal padding, 8pt between icons and title, 24pt icons, title in `bodyMediumMedium`
 - **Pressed:** the whole button drops to 80% opacity
-- **Disabled:** set with `.disabled(_:)`; the whole button drops to 50% opacity and ignores taps
+- **Disabled:** set with `.disabled(_:)` or `.enabled(_:)`; the whole button drops to 50% opacity and ignores taps
+- **Loading:** `isLoading: true` replaces the title and icons with a spinner in the content color; the button keeps
+  its size and ignores taps
 - **VoiceOver:** reads the title as a button; icons are hidden from it
 
 ## Text Input

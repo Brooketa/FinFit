@@ -4,7 +4,11 @@ import Observation
 @Observable
 public final class ResultPresenter {
 
-    let model = ResultView.Model(for: 78)
+    let model: ResultView.Model
+
+    init(score: Int) {
+        model = ResultView.Model(for: score)
+    }
 
     func onFinishTapped() {}
 

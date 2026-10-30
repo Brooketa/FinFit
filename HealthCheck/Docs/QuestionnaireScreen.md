@@ -6,7 +6,8 @@ app's navigation stack.
 ## Loading
 
 Opening the screen starts a new session with a fresh id and shows a centered spinner in `primary` until the server
-sends the first question. If the request fails, or the session comes back already completed, the spinner stays.
+sends the first question. If the request fails, the spinner stays. If the session comes back already completed, the
+Result screen opens.
 
 ## Question
 
@@ -22,20 +23,28 @@ sends the first question. If the request fails, or the session comes back alread
   description stack 24pt down, with 12pt between them, and the answers follow 32pt below. They scroll when they
   don't fit. The Next button is pinned to the bottom of the safe area, 16pt below the content above it. Everything
   except the progress bar has 24pt side padding on a `background` fill
-- **Next:** enabled only while the answer is acceptable (see below); disabled, it dims to half opacity. Tapping it
-  does nothing yet
+- **Next:** enabled only while the answer is acceptable (see below); disabled, it dims to half opacity
+- **Submitting:** tapping Next sends the answer to the server. While it is being sent, a spinner replaces the button's
+  title and further taps are ignored. The server replies with the next question, which replaces the current one with
+  nothing selected, or with the result after the last question
+- **Finishing:** once the server returns the result, the Result screen replaces the questionnaire, showing the score
+- **Submit failure:** the answer stays as it was and Next can be tapped again
 - **Back:** the navigation bar's system back button returns to the Intro screen
 
 ## Answers by question type
 
 | Type | Answers | Next is enabled when |
 |---|---|---|
-| Single choice | The options in a `SingleSelectGroup`, none selected at first. Tapping an option selects it and replaces any earlier choice | An option is selected, or the question is optional |
-| Multiple choice | The options in a `MultiSelectGroup`, none checked at first. Tapping an option checks or unchecks it; once as many are checked as the question allows, further options don't check | The number checked is within the question's limits |
-| Number | A `TextInput` with the placeholder "Enter a number" and a decimal keyboard | The text is a number within the question's range, or the field is empty and the question is optional |
+| Single choice | The options in a `SingleSelectGroup`, none selected at first. Tapping an option selects it and replaces any earlier choice | An option is selected |
+| Multiple choice | The options in a `MultiSelectGroup`, none checked at first. Tapping an option checks or unchecks it; once as many are checked as the question allows, further options don't check | At least one is checked, and the number checked is within the question's limits |
+| Number | A `TextInput` with the placeholder "Enter a number" and a decimal keyboard | The text is a number within the question's range |
 
-When the question has no selection limits, a required multiple-choice question needs at least one option checked,
-and up to all of them can be. A number question without a minimum or maximum is unbounded on that side.
+Every question needs an answer, including one the server marks as optional. When the question has no selection
+limits, up to all of its options can be checked. A number question without a minimum or maximum is unbounded on that
+side.
+
+The answer is sent as the selected option's id, the checked options' ids in the order the options are listed, or the
+number.
 
 A typed number outside the range outlines the field in the error color, with a message below it, which names the
 limits in the user's number format:

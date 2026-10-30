@@ -90,8 +90,11 @@ public struct QuestionnaireView: View {
         ActionButton(
             title: .questionnaireNextButton,
             style: .primary,
-            trailingIcon: Image(.arrowRight)) {
-            presenter.onNextTapped()
+            trailingIcon: Image(.arrowRight),
+            isLoading: presenter.isSubmitting) {
+            Task {
+                await presenter.onNextTapped()
+            }
         }
         .enabled(presenter.isNextEnabled)
         .padding(.horizontal, .extraLarge2)
