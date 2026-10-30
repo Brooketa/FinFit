@@ -8,13 +8,13 @@ public struct ResultView: View {
 
     @State private var hasAppeared = false
 
-    public init(score: Int) {
-        _presenter = InjectedObservable(Container.shared.resultPresenter(score))
+    public init(result: HealthCheckResult) {
+        _presenter = InjectedObservable(Container.shared.resultPresenter(result))
     }
 
     public var body: some View {
         VStack(spacing: Spacing.extraLarge3.value) {
-            CircularProgressBar(progress: hasAppeared ? presenter.model.progress : 0)
+            CircularProgressBar(progress: hasAppeared ? presenter.summary.progress : 0)
 
             summary
         }
@@ -34,11 +34,11 @@ public struct ResultView: View {
 
     private var summary: some View {
         VStack(spacing: Spacing.medium.value) {
-            Text(presenter.model.category.title)
+            Text(presenter.summary.title)
                 .textStyle(.headingLarge)
                 .foregroundStyle(Palette.textPrimary)
 
-            Text(presenter.model.category.subtitle)
+            Text(presenter.summary.subtitle)
                 .textStyle(.bodyMedium)
                 .foregroundStyle(Palette.textSecondary)
         }
@@ -84,38 +84,6 @@ private extension ResultView {
 
 }
 
-extension ResultView {
-
-    struct Model {
-
-        let progress: Double
-        let category: ResultCategory
-
-    }
-
-}
-
-extension ResultView.Model {
-
-    init(for score: Int) {
-        let progress = Double(score) / Constants.maximumScore
-        let category = ResultCategory(for: score)
-
-        self.init(progress: progress, category: category)
-    }
-
-}
-
-private extension ResultView.Model {
-
-    enum Constants {
-
-        static let maximumScore: Double = 100
-
-    }
-
-}
-
 #Preview {
-    ResultView(score: 78)
+    ResultView(result: HealthCheckResult(score: 78, category: .good))
 }

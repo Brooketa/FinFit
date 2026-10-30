@@ -28,7 +28,8 @@ nothing is saved. If the session comes back already completed, its id is removed
 - **Submitting:** tapping Next sends the answer to the server. While it is being sent, a spinner replaces the button's
   title and further taps are ignored. The server replies with the next question, which replaces the current one with
   nothing selected, or with the result after the last question
-- **Finishing:** once the server returns the result, the Result screen replaces the questionnaire, showing the score
+- **Finishing:** once the server returns the result, the Result screen is pushed on top of the questionnaire, showing
+  the score and category
 - **Submit failure:** the answer stays as it was and Next can be tapped again
 - **Back:** the navigation bar's system back button returns to the Intro screen
 

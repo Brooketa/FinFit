@@ -100,7 +100,7 @@ public final class QuestionnairePresenter {
             answerSelection = AnswerSelection()
         case .completed(let result):
             sessionStore.removeSessionID()
-            router.navigateToResult(score: result.score)
+            router.navigateToResult(HealthCheckResult(from: result))
         }
     }
 

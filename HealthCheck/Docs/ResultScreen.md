@@ -1,7 +1,7 @@
 # Result Screen
 
-The last screen of the health-check flow. It replaces the Questionnaire screen once the session is completed, so the
-navigation bar's back button returns to the Intro screen.
+The last screen of the health-check flow. It is pushed on top of the Questionnaire screen once the session is
+completed, so the navigation bar's back button returns to the Questionnaire screen.
 
 | Part | Content |
 |---|---|
@@ -14,7 +14,7 @@ navigation bar's back button returns to the Intro screen.
 - **Layout:** the ring, title and subtitle stack at the top, 24pt below the safe area, with 32pt between the ring and
   the title and 12pt between the title and the subtitle. The buttons are pinned to the bottom of the safe area, 12pt
   apart and 16pt below the content above them. Everything has 24pt side padding on a `background` fill
-- **Score:** the session's score, passed in when the screen opens
+- **Result:** the session's score and category, as the server sent them, passed in when the screen opens
 - **Ring animation:** when the screen appears, the ring starts empty and fills clockwise to the score over 0.75s,
   easing in and out, while the percentage counts up from 0 in step with it
 - **Summary animation:** 0.25s after the screen appears, the title and subtitle fade in and rise 12pt into place over
@@ -25,14 +25,14 @@ navigation bar's back button returns to the Intro screen.
 
 ## Score categories
 
-The score, from 0 to 100, falls into one of four equal categories, which sets the title and subtitle.
+The server decides the category for the score, which sets the title and subtitle.
 
-| Category | Score | Title | Subtitle |
-|---|---|---|---|
-| Poor | below 25 | Just starting out | Small steps now go a long way. |
-| Fair | 25–49 | Making progress | Good start, some gaps worth closing. |
-| Good | 50–74 | Solid ground | Good habits, small gains still available. |
-| Excellent | 75 and above | Excellent shape | Strong savings, low debt, solid planning. |
+| Category | Title | Subtitle |
+|---|---|---|
+| Poor | Just starting out | Small steps now go a long way. |
+| Fair | Making progress | Good start, some gaps worth closing. |
+| Good | Solid ground | Good habits, small gains still available. |
+| Excellent | Excellent shape | Strong savings, low debt, solid planning. |
 
 ## Components
 
