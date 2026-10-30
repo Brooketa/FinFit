@@ -12,7 +12,7 @@ extension Container {
 
     @MainActor
     public var questionnairePresenter: Factory<QuestionnairePresenter> {
-        self { QuestionnairePresenter() }
+        self { QuestionnairePresenter(questionnaireUseCase: self.questionnaireUseCase) }
     }
 
     @MainActor

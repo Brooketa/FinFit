@@ -9,11 +9,13 @@ The design system every feature draws with.
 | `Spacing` | The design's spacing scale on a 4pt grid; applied with `.padding(_:)` — see **Spacing** below |
 | `CornerRadius` | The design's corner radii — see **Spacing** below |
 | Alignment | `alignLeading/Trailing/HorizontalCenter`, `alignTop/Bottom/VerticalCenter`, the four corners and `alignCenter` — each expands the view and pins it |
+| `enabled(_:)` | Enables the view's controls while the flag is true and disables them otherwise — the positive form of `.disabled(_:)` |
 | `ActionButton` | Full-width capsule button in a primary, secondary or destructive style — see **Buttons** below |
 | `TextInput` | Full-width text field with an optional label and prefix, and a normal or error status — see **Text Input** below |
 | `SingleSelectGroup`, `RadioListItem` | Single-choice list of option rows, and the row on its own — see **Radio Buttons** below |
 | `MultiSelectGroup`, `CheckboxListItem` | Multiple-choice list of option rows, and the row on its own — see **Multi Select** below |
 | `ProgressBar` | Full-width bar filled to a progress value from 0 to 1 — see **Progress Bar** below |
+| `ViewState` | The idle, loading, error and loaded stages of a screen's content — see **View State** below |
 
 ## Colors
 
@@ -182,3 +184,15 @@ options out themselves.
 
 - **Out of range:** a `progress` below 0 shows empty, above 1 shows full
 - **Animation:** the fill animates with `.smooth` whenever `progress` changes
+
+## View State
+
+`ViewState<Content>` holds what a screen is showing while it loads. A screen's presenter keeps one and its view
+switches on it.
+
+| Case | Means |
+|---|---|
+| `idle` | Nothing has been requested yet |
+| `loading` | The content is being loaded |
+| `error` | Loading the content failed |
+| `loaded(Content)` | The content has loaded and carries it |
