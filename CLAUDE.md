@@ -26,9 +26,9 @@ and nothing else.
 | Location | Tier | Holds | Depends on |
 |---|---|---|---|
 | `CoreUI/` | CoreUI | `Palette`, `TextStyle`, `Spacing`, `CornerRadius`, alignment and padding helpers, `enabled(_:)`, `ActionButton`, `TextInput`, `SingleSelectGroup`, `MultiSelectGroup`, `ViewState` | — |
-| `Core/` | Core | `Bundle.marketingVersion` | — |
+| `Core/` | Core | `Bundle.marketingVersion`, `UserDefaultsService` | — |
 | `Networking/` | Networking | `Endpoint`, `HTTPMethod`, `APIError`, `BaseNetworkClient` | — |
-| `HealthCheck/` | Feature | The health-check flow: `IntroView`, `QuestionnaireView` and `ResultView` with their presenters, the questionnaire data stack, `HealthCheckRoutingProtocol` | `CoreUI`, `Networking` |
+| `HealthCheck/` | Feature | The health-check flow: `IntroView`, `QuestionnaireView` and `ResultView` with their presenters, the questionnaire data stack, the session store, `HealthCheckRoutingProtocol` | `Core`, `CoreUI`, `Networking` |
 | `FinFit/App/` | App target | `FinFitApp` (entry point, creates and registers the router), `RootView`, `AppRouter`, `DependencyInjection/Container+Routing.swift` | All packages |
 
 Swift 6 language mode, iOS 26, iPhone, portrait. Factory 3.5.1 is the only third-party dependency.
