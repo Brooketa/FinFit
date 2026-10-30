@@ -8,6 +8,12 @@ extension ViewState {
         return content
     }
 
+    var isLoading: Bool {
+        guard case .loading = self else { return false }
+
+        return true
+    }
+
     var isError: Bool {
         guard case .error = self else { return false }
 

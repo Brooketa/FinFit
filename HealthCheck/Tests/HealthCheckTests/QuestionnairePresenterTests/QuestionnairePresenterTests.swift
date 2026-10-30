@@ -98,30 +98,151 @@ final class QuestionnairePresenterTests {
         #expect(questionnaireUseCaseMock.submissions.isEmpty)
     }
 
-    @Test("A failed submission keeps the question and the selection, and saves nothing")
-    func failedSubmissionKeepsState() async {
+    @Test("A failed submission shows the error state and saves nothing")
+    func failedSubmissionShowsError() async {
         await questionnairePresenter.startOrResumeSession()
         questionnairePresenter.onSingleChoiceAnswerSelected(answerID: "option_1")
         questionnaireUseCaseMock.submitResult = .failure(TestError.fixture())
 
         await questionnairePresenter.onNextTapped()
 
-        #expect(questionnairePresenter.state.loadedContent?.id == "income_stability")
-        #expect(questionnairePresenter.answerSelection.selectedAnswerID == "option_1")
+        #expect(questionnairePresenter.state.isError)
         #expect(sessionStoreMock.savedSessionIDs.isEmpty)
         #expect(!questionnairePresenter.isSubmitting)
+    }
+
+    @Test("Try again reloads the same session and shows its current question")
+    func tryAgainShowsCurrentQuestion() async {
+        questionnaireUseCaseMock.startResult = .failure(TestError.fixture())
+        await questionnairePresenter.startOrResumeSession()
+        questionnaireUseCaseMock.startResult = .success(.fixture(question: .fixture(id: "monthly_income")))
+
+        await questionnairePresenter.tryAgain()
+
+        #expect(questionnaireUseCaseMock.startedSessionIDs == [sessionID, sessionID])
+        #expect(questionnairePresenter.state.loadedContent?.id == "monthly_income")
+    }
+
+    @Test("Try again on a session that has completed opens its result")
+    func tryAgainOpensResultOfCompletedSession() async {
+        await questionnairePresenter.startOrResumeSession()
+        questionnairePresenter.onSingleChoiceAnswerSelected(answerID: "option_1")
+        questionnaireUseCaseMock.submitResult = .failure(TestError.fixture())
+        await questionnairePresenter.onNextTapped()
+        questionnaireUseCaseMock.startResult = .success(.completedFixture(result: .fixture(score: 64, category: .fair)))
+
+        await questionnairePresenter.tryAgain()
+
+        #expect(questionnaireUseCaseMock.startedSessionIDs.last == sessionID)
+        #expect(routerSpy.calls == [.result(HealthCheckResult(score: 64, category: .fair))])
+    }
+
+    @Test("Try again after a failed retake starts a new session instead of reopening the old result")
+    func tryAgainAfterFailedRetakeStartsNewSession() async throws {
+        questionnaireUseCaseMock.startResult = .success(.completedFixture())
+        await questionnairePresenter.startOrResumeSession()
+        questionnaireUseCaseMock.startResult = .failure(TestError.fixture())
+        await questionnairePresenter.startOrResumeSession()
+        questionnaireUseCaseMock.startResult = .success(.fixture())
+
+        await questionnairePresenter.tryAgain()
+
+        let retriedSessionID = try #require(questionnaireUseCaseMock.startedSessionIDs.last)
+        #expect(retriedSessionID != sessionID)
+        #expect(questionnairePresenter.state.loadedContent != nil)
+        #expect(routerSpy.calls.count == 1)
+    }
+
+    @Test("Try again that fails again keeps the error state")
+    func failedTryAgainKeepsError() async {
+        questionnaireUseCaseMock.startResult = .failure(TestError.fixture())
+        await questionnairePresenter.startOrResumeSession()
+
+        await questionnairePresenter.tryAgain()
+
+        #expect(questionnaireUseCaseMock.startedSessionIDs.count == 2)
+        #expect(questionnairePresenter.state.isError)
+    }
+
+    @Test("Start a new session loads a new one with a new id, then removes the saved session")
+    func startNewSessionUsesNewID() async throws {
+        sessionStoreMock.save(sessionID: sessionID)
+        questionnaireUseCaseMock.startResult = .failure(TestError.fixture())
+        await questionnairePresenter.startOrResumeSession()
+        questionnaireUseCaseMock.startResult = .success(.fixture())
+
+        await questionnairePresenter.startNewSession()
+
+        #expect(sessionStoreMock.removeCount == 1)
+        #expect(sessionStoreMock.sessionID == nil)
+        let newSessionID = try #require(questionnaireUseCaseMock.startedSessionIDs.last)
+        #expect(newSessionID != sessionID)
+        #expect(questionnairePresenter.state.loadedContent != nil)
+        #expect(!questionnairePresenter.state.isError)
+    }
+
+    @Test("Start a new session that fails keeps the saved session and the current session id")
+    func failedStartNewSessionKeepsSavedSession() async throws {
+        sessionStoreMock.save(sessionID: sessionID)
+        questionnaireUseCaseMock.startResult = .failure(TestError.fixture())
+        await questionnairePresenter.startOrResumeSession()
+
+        await questionnairePresenter.startNewSession()
+
+        #expect(questionnairePresenter.state.isError)
+        #expect(sessionStoreMock.removeCount == 0)
+        #expect(sessionStoreMock.sessionID == sessionID)
+
+        questionnaireUseCaseMock.startResult = .success(.fixture())
+        await questionnairePresenter.tryAgain()
+
+        #expect(questionnaireUseCaseMock.startedSessionIDs.last == sessionID)
+        #expect(questionnairePresenter.state.loadedContent != nil)
+    }
+
+    @Test("While Try again runs, the screen shows loading and another tap is ignored")
+    func tryAgainInFlightShowsLoadingAndIgnoresTaps() async {
+        questionnaireUseCaseMock.startResult = .failure(TestError.fixture())
+        await questionnairePresenter.startOrResumeSession()
+        questionnaireUseCaseMock.startResult = .success(.fixture())
+        questionnaireUseCaseMock.holdStarts()
+
+        let retry = Task {
+            await questionnairePresenter.tryAgain()
+        }
+        while questionnaireUseCaseMock.heldStartCount == 0 {
+            await Task.yield()
+        }
+        #expect(questionnairePresenter.state.isLoading)
+
+        await questionnairePresenter.startNewSession()
+        questionnaireUseCaseMock.releaseStarts()
+        await retry.value
+
+        #expect(questionnaireUseCaseMock.startedSessionIDs.count == 2)
+        #expect(questionnairePresenter.state.loadedContent != nil)
+    }
+
+    @Test("Retrying keeps the error state on screen until the session loads")
+    func retryKeepsErrorUntilLoaded() async {
+        questionnaireUseCaseMock.startResult = .failure(TestError.fixture())
+        await questionnairePresenter.startOrResumeSession()
+
+        await questionnairePresenter.tryAgain()
+
+        #expect(questionnairePresenter.state.isError)
     }
 
     @Test("Tapping Next while a submission is in flight doesn't submit again")
     func nextDuringSubmissionIsIgnored() async {
         await questionnairePresenter.startOrResumeSession()
         questionnairePresenter.onSingleChoiceAnswerSelected(answerID: "option_1")
-        questionnaireUseCaseMock.holdsSubmissions = true
+        questionnaireUseCaseMock.holdSubmissions()
 
         let firstSubmission = Task {
             await questionnairePresenter.onNextTapped()
         }
-        while questionnaireUseCaseMock.submissions.isEmpty {
+        while questionnaireUseCaseMock.heldSubmissionCount == 0 {
             await Task.yield()
         }
         #expect(questionnairePresenter.isSubmitting)

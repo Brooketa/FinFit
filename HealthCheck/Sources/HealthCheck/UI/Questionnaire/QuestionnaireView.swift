@@ -25,10 +25,13 @@ public struct QuestionnaireView: View {
     @ViewBuilder
     private var content: some View {
         switch presenter.state {
-        case .idle, .loading, .error:
+        case .idle, .loading:
             ProgressView()
                 .tint(Palette.primary)
                 .alignCenter()
+                .transition(.opacity)
+        case .error:
+            SessionUnavailable(action: presenter.onSessionUnavailableAction)
                 .transition(.opacity)
         case .loaded(let question):
             loadedContent(for: question)
