@@ -1,0 +1,44 @@
+{
+  "sessionId": "6f6bcb03-0980-4160-945d-51dac2d7e589",
+  "status": "in_progress",
+  "question": {
+    "id": "investment_products",
+    "title": "Which investment products have you used before?",
+    "description": "Select all that apply.",
+    "type": "multiple_choice",
+    "options": [
+      {
+        "id": "stocks",
+        "title": "Individual stocks"
+      },
+      {
+        "id": "etfs",
+        "title": "ETFs"
+      },
+      {
+        "id": "funds",
+        "title": "Investment funds"
+      },
+      {
+        "id": "bonds",
+        "title": "Bonds"
+      },
+      {
+        "id": "crypto",
+        "title": "Cryptocurrency"
+      },
+      {
+        "id": "none",
+        "title": "None of these"
+      }
+    ],
+    "validation": {
+      "required": true,
+      "minSelections": 1
+    }
+  },
+  "progress": {
+    "current": 3,
+    "total": 5
+  }
+}

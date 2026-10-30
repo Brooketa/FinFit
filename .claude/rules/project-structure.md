@@ -146,6 +146,7 @@ MyApp/
 │   │       └── Container+Routing.swift
 │   ├── Assets.xcassets                 # App icons only
 │   └── Info.plist
+├── MyAppTests/                         # Unit tests for the app target, hosted by the app
 ├── Core/
 ├── CoreUI/
 ├── Networking/
@@ -161,6 +162,15 @@ Every package has the same outer shape:
 <Module>/
 ├── Package.swift
 ├── Docs/                               # Behavioural specs — see workflow.md → Feature Spec Files
+├── Tests/
+│   └── <Module>Tests/                  # The module's test target
+│       ├── Resources/JSON/             # Backend responses, for client-layer tests
+│       ├── Fixtures/                   # Fixtures shared by several subjects
+│       └── <Subject>Tests/             # One folder per subject under test
+│           ├── <Subject>Tests.swift
+│           ├── Fixtures/               # <Type>+Fixtures.swift
+│           ├── Mocks/
+│           └── Models/                 # Types that exist only for the tests
 └── Sources/
     └── <Module>/
         ├── Module+Factory.swift        # The module's own registrations, if it has any

@@ -33,7 +33,32 @@ Each screen's behaviour is specified in its module's `Docs/` folder.
 
 ## Testing
 
-No testing policy has been set. Ask before writing any tests.
+Unit tests use **Swift Testing** (`import Testing`, `@Suite`, `@Test`, `#expect`).
+
+- **What is tested:** every module with logic has its own test target — the services in `Core`, the base network
+  client in `Networking`, every layer of the `HealthCheck` data stack, its session store and its presenters, and the
+  app's router. `CoreUI` holds tokens and views only and is not unit tested.
+- **Where:** a package's tests live in `Tests/<Module>Tests/`, declared as a `.testTarget` in its `Package.swift`, and
+  every test target is added to the `FinFit` scheme's test action, so ⌘U and `xcodebuild test -scheme FinFit` run
+  them all. The app target's tests live in `FinFitTests/` at the repository root, a unit-test target hosted by the
+  app, so they can `@testable import FinFit`. Inside a test target, each subject gets its own folder,
+  `<Subject>Tests/`, holding `<Subject>Tests.swift` and, as needed, `Fixtures/`, `Mocks/` and `Models/` (types that
+  exist only for the tests).
+- **Shape:** a test is a `final class <Subject>Tests` marked `@Suite("<Subject>")`. Its `init` builds the subject
+  and any throwaway resources, its `deinit` cleans them up, and each `@Test("…")` describes the behaviour it checks
+  in a sentence.
+- **Isolation:** each layer is tested against fakes of the protocol below it. No test talks to the real network or
+  to `UserDefaults.standard`; storage tests use a throwaway `UserDefaults` suite, created in `init` and deleted in
+  `deinit`.
+- **Fixtures:** test data comes from fixtures, one file per type named `<Type>+Fixtures.swift`, holding an
+  `extension <Type>` with a `static func fixture(…)` that has a default for every parameter. A test writes
+  `.fixture()` and overrides only what it is about. Fixtures used by one subject sit in its `Fixtures/`; fixtures
+  shared by several subjects move up to `Tests/<Module>Tests/Fixtures/`.
+- **JSON fixtures:** responses captured from the real backend are kept as `.json` files in the test target's
+  `Resources/JSON/`, declared with `resources: [.process("Resources")]`, and loaded through `JSONFixture`. Only the
+  client layer uses them, through `fixture(json:)` on its `Decodable` models, so a change in the API's shape fails a
+  decoding test. Layers above the client have no `Decodable` models and keep their `.fixture()` builders, so each
+  layer's tests stay independent of the mappers below it.
 
 ---
 
@@ -52,6 +77,7 @@ Board: **OnlyFunds** — project `OFN`, <https://thorssons.atlassian.net/browse/
   | Scheme | Target | Bundle id | Purpose |
   |---|---|---|---|
   | `FinFit` | FinFit | `com.thorssons.finfit` | Development and release |
+  | `FinFit` | FinFitTests | `com.thorssons.finfitTests` | Unit tests for the app target, hosted by the app |
 
 - DEBUG-only launch arguments: none
 - Launch screen: the `UILaunchScreen` entry in `FinFit/Info.plist` shows the `launch_logo` image (the purple F) centered
