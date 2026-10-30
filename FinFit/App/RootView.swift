@@ -10,6 +10,8 @@ struct RootView: View {
             IntroView()
                 .navigationDestination(for: AppRouter.Destination.self) { destination in
                     switch destination {
+                    case .continueSession(let sessionID):
+                        ContinueSessionView(sessionID: sessionID)
                     case .questionnaire(let sessionID):
                         QuestionnaireView(sessionID: sessionID)
                     case .result(let result):

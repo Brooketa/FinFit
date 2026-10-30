@@ -13,6 +13,7 @@ public struct QuestionnaireView: View {
     public var body: some View {
         content
             .background(Palette.background)
+            .backButton(action: presenter.onBackTapped)
             .task {
                 await presenter.startOrResumeSession()
             }

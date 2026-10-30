@@ -33,7 +33,8 @@ already completed, its id is removed and the Result screen opens.
 - **Finishing:** once the server returns the result, the Result screen is pushed on top of the questionnaire, showing
   the score and category
 - **Submit failure:** the answer stays as it was and Next can be tapped again
-- **Back:** the navigation bar's system back button returns to the Intro screen
+- **Back:** a back button in the navigation bar, in place of the system one, returns straight to the Intro screen,
+  skipping any screen between them such as Continue session. Swiping back is turned off
 
 ## Answers by question type
 
