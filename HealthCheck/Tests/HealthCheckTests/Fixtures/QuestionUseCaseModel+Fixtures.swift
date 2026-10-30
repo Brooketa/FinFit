@@ -6,7 +6,7 @@ extension QuestionUseCaseModel {
         id: String = "income_stability",
         title: String = "How predictable is your income?",
         description: String? = nil,
-        type: QuestionType = .singleChoice(options: [.fixture()]),
+        type: QuestionType = .singleChoice(options: [.fixture(id: "option_1"), .fixture(id: "option_2")]),
         isRequired: Bool = true
     ) -> QuestionUseCaseModel {
         QuestionUseCaseModel(id: id, title: title, description: description, type: type, isRequired: isRequired)
