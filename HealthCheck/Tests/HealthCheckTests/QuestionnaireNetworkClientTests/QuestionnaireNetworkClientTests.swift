@@ -43,15 +43,15 @@ final class QuestionnaireNetworkClientTests {
 
     @Test("The session the base client returns is returned unchanged")
     func returnsTheBaseClientSession() async throws {
-        let session = SessionClientModel.fixture(progress: .fixture(current: 3, total: 5))
+        let session = try SessionClientModel.fixture(json: JSONFixture.Name.numberSession)
         baseNetworkClientMock.result = .success(session)
 
         let returnedSession = try await questionnaireNetworkClient.startOrResumeSession(id: UUID())
 
         #expect(returnedSession.sessionId == session.sessionId)
         #expect(returnedSession.status == session.status)
-        #expect(returnedSession.question?.id == session.question?.id)
-        #expect(returnedSession.progress.current == 3)
+        #expect(returnedSession.question?.id == "emergency_fund")
+        #expect(returnedSession.progress.current == 2)
     }
 
     @Test("Errors from the base client are rethrown")

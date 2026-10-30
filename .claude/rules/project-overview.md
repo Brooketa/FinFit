@@ -54,6 +54,11 @@ Unit tests use **Swift Testing** (`import Testing`, `@Suite`, `@Test`, `#expect`
   `extension <Type>` with a `static func fixture(…)` that has a default for every parameter. A test writes
   `.fixture()` and overrides only what it is about. Fixtures used by one subject sit in its `Fixtures/`; fixtures
   shared by several subjects move up to `Tests/<Module>Tests/Fixtures/`.
+- **JSON fixtures:** responses captured from the real backend are kept as `.json` files in the test target's
+  `Resources/JSON/`, declared with `resources: [.process("Resources")]`, and loaded through `JSONFixture`. Only the
+  client layer uses them, through `fixture(json:)` on its `Decodable` models, so a change in the API's shape fails a
+  decoding test. Layers above the client have no `Decodable` models and keep their `.fixture()` builders, so each
+  layer's tests stay independent of the mappers below it.
 
 ---
 

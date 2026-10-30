@@ -1,0 +1,14 @@
+{
+  "sessionId": "59ed129d-0dae-4e37-b7c3-40f560e86820",
+  "status": "in_progress",
+  "question": {
+    "id": "emergency_fund",
+    "title": "How many months of expenses could your emergency fund cover?",
+    "description": "Think about money you can access quickly without selling investments.",
+    "type": "number"
+  },
+  "progress": {
+    "current": 2,
+    "total": 5
+  }
+}
