@@ -6,7 +6,7 @@ session is saved (see **Session store** in `QuestionnaireAPI.md`), passing the s
 | Part | Content |
 |---|---|
 | Title | "Pick up where you left off", leading-aligned, `headingLarge` in `textPrimary` |
-| Subtitle | "You've already started your financial health check. Let's pick up where you left off.", leading-aligned, `bodyMedium` in `textSecondary` |
+| Subtitle | "You have a financial health check in progress. You can continue or start over.", leading-aligned, `bodyMedium` in `textSecondary` |
 | Continue button | Primary `ActionButton` titled "Continue" with the trailing `arrow_right` image |
 | Start over button | Destructive `ActionButton` titled "Start over" with the leading `retake` image |
 

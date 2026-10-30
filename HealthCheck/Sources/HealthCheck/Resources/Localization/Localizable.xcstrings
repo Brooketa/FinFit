@@ -29,7 +29,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "You've already started your financial health check. Let's pick up where you left off."
+            "value" : "You have a financial health check in progress. You can continue or start over."
           }
         }
       }
