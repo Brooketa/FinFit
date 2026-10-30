@@ -9,8 +9,30 @@ session with a fresh id itself.
 
 Opening the screen starts or resumes the session it was given (see **Session store** in `QuestionnaireAPI.md`), and
 shows a centered spinner in `primary` until the server sends the current question. Starting a session saves nothing.
-If the request fails, the spinner stays. If the session comes back already completed, its id is removed and the
-Result screen opens.
+If the request fails, the error screen replaces the spinner (see **Errors**). If the session comes back already
+completed, its id is removed and the Result screen opens.
+
+## Errors
+
+When loading the session or submitting an answer fails, for any reason, an error screen replaces the spinner or the
+question. The navigation bar's back button stays.
+
+| Part | Content |
+|---|---|
+| Title | "Something went wrong", leading-aligned, `headingLarge` in `textPrimary` |
+| Message | "We couldn't reach the server. Check your connection and try again.", `bodyMedium` in `textSecondary` |
+| Try again button | Primary `ActionButton` titled "Try again" |
+| Start a new session button | Secondary `ActionButton` titled "Start a new session" |
+
+- **Layout:** the title and message stack at the top, 24pt below the safe area, 12pt apart. The buttons are pinned
+  to the bottom of the safe area, 12pt apart and 16pt below the content above them. Everything has 24pt side padding
+- **Try again:** loads the same session again. A session in progress shows its current question; a completed one
+  opens the Result screen; a session the server doesn't know starts fresh under the same id. If loading fails again,
+  the error screen stays
+- **Start a new session:** starts a new session with a new id. Only once the server has started it is the saved
+  session removed and the new session's first question shown; if it fails, nothing changes, so the unfinished session
+  is still saved and still offered on the next Start
+- **While retrying:** the loading spinner replaces the error screen until the server answers
 
 ## Question
 
@@ -37,7 +59,7 @@ Result screen opens.
   The first question fades in over the loading spinner
 - **Finishing:** once the server returns the result, the Result screen is pushed on top of the questionnaire, showing
   the score and category
-- **Submit failure:** the answer stays as it was and Next can be tapped again
+- **Submit failure:** the error screen replaces the question (see **Errors**)
 - **Back:** a back button in the navigation bar, in place of the system one, returns straight to the Intro screen,
   skipping any screen between them such as Continue session. Swiping back is turned off
 

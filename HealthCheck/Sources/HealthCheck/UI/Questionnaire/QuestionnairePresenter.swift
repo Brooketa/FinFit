@@ -51,19 +51,24 @@ public final class QuestionnairePresenter {
         return .error(.questionnaireNumberOutOfRange)
     }
 
-    func startOrResumeSession() async {
-        if isSessionCompleted {
-            sessionID = UUID()
-            isSessionCompleted = false
-        }
-        state = .loading
+    private var sessionIDToResume: UUID {
+        isSessionCompleted ? UUID() : sessionID
+    }
 
-        do {
-            let session = try await questionnaireUseCase.startOrResumeSession(id: sessionID)
-            handle(session: session)
-        } catch {
-            state = .error
-        }
+    func startOrResumeSession() async {
+        await loadSession(with: sessionIDToResume)
+    }
+
+    func tryAgain() async {
+        guard case .error = state else { return }
+
+        await loadSession(with: sessionIDToResume)
+    }
+
+    func startNewSession() async {
+        guard case .error = state else { return }
+
+        await loadSession(with: UUID())
     }
 
     func onSingleChoiceAnswerSelected(answerID: String) {
@@ -94,14 +99,43 @@ public final class QuestionnairePresenter {
         isSubmitting = true
         defer { isSubmitting = false }
 
-        let session = try? await questionnaireUseCase.submitAnswer(
-            sessionID: sessionID,
-            questionID: question.id,
-            answer: answer)
-        guard let session else { return }
+        do {
+            let session = try await questionnaireUseCase.submitAnswer(
+                sessionID: sessionID,
+                questionID: question.id,
+                answer: answer)
+            sessionStore.save(sessionID: sessionID)
+            handle(session: session)
+        } catch {
+            state = .error
+        }
+    }
 
-        sessionStore.save(sessionID: sessionID)
-        handle(session: session)
+    func onSessionUnavailableAction(_ action: SessionUnavailable.Action) {
+        Task {
+            switch action {
+            case .tryAgain:
+                await tryAgain()
+            case .startNewSession:
+                await startNewSession()
+            }
+        }
+    }
+
+    private func loadSession(with loadedSessionID: UUID) async {
+        state = .loading
+
+        do {
+            let session = try await questionnaireUseCase.startOrResumeSession(id: loadedSessionID)
+            if loadedSessionID != sessionID {
+                sessionStore.removeSessionID()
+                sessionID = loadedSessionID
+                isSessionCompleted = false
+            }
+            handle(session: session)
+        } catch {
+            state = .error
+        }
     }
 
     private func handle(session: SessionUseCaseModel) {

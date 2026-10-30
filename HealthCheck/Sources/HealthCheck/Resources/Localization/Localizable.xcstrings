@@ -78,6 +78,50 @@
         }
       }
     },
+    "questionnaire_error_message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "We couldn't reach the server. Check your connection and try again."
+          }
+        }
+      }
+    },
+    "questionnaire_error_start_new_session_button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start a new session"
+          }
+        }
+      }
+    },
+    "questionnaire_error_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong"
+          }
+        }
+      }
+    },
+    "questionnaire_error_try_again_button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Try again"
+          }
+        }
+      }
+    },
     "questionnaire_next_button" : {
       "extractionState" : "manual",
       "localizations" : {
