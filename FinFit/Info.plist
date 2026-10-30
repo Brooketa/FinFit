@@ -4,5 +4,12 @@
 <dict>
 	<key>APIBaseURL</key>
 	<string>https://api.peakers.workers.dev</string>
+	<key>UILaunchScreen</key>
+	<dict>
+		<key>UIColorName</key>
+		<string>launch_background</string>
+		<key>UIImageName</key>
+		<string>launch_logo</string>
+	</dict>
 </dict>
 </plist>
