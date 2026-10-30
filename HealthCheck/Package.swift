@@ -26,6 +26,6 @@ let package = Package(
             resources: [.process("Resources")]),
         .testTarget(
             name: "HealthCheckTests",
-            dependencies: ["HealthCheck"])
+            dependencies: ["HealthCheck", "Core"])
     ]
 )
