@@ -8,6 +8,7 @@ final class AppRouter {
 
     enum Destination: Hashable {
 
+        case continueSession(sessionID: UUID)
         case questionnaire(sessionID: UUID)
         case result(HealthCheckResult)
 
@@ -33,6 +34,10 @@ extension AppRouter: HealthCheckRoutingProtocol {
 
     func navigateToIntro() {
         path.removeAll()
+    }
+
+    func navigateToContinueSession(sessionID: UUID) {
+        path.append(.continueSession(sessionID: sessionID))
     }
 
     func navigateToQuestionnaire(sessionID: UUID) {

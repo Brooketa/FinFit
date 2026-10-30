@@ -9,6 +9,7 @@ The design system every feature draws with.
 | `Spacing` | The design's spacing scale on a 4pt grid; applied with `.padding(_:)` — see **Spacing** below |
 | `CornerRadius` | The design's corner radii — see **Spacing** below |
 | Alignment | `alignLeading/Trailing/HorizontalCenter`, `alignTop/Bottom/VerticalCenter`, the four corners and `alignCenter` — each expands the view and pins it |
+| `backButton(action:)` | Replaces the navigation bar's system back button with a chevron that runs the action; swiping back is turned off |
 | `enabled(_:)` | Enables the view's controls while the flag is true and disables them otherwise — the positive form of `.disabled(_:)` |
 | `ActionButton` | Full-width capsule button in a primary, secondary or destructive style — see **Buttons** below |
 | `TextInput` | Full-width text field with an optional label and prefix, and a normal or error status — see **Text Input** below |

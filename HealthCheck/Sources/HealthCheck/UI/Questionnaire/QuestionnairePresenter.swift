@@ -81,6 +81,10 @@ public final class QuestionnairePresenter {
         answerSelection.enter(numberText: text)
     }
 
+    func onBackTapped() {
+        router.navigateToIntro()
+    }
+
     func onNextTapped() async {
         guard
             !isSubmitting,

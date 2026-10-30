@@ -14,7 +14,12 @@ public final class IntroPresenter {
     }
 
     func onStartTapped() {
-        router.navigateToQuestionnaire(sessionID: sessionStore.sessionID ?? UUID())
+        guard let savedSessionID = sessionStore.sessionID else {
+            router.navigateToQuestionnaire(sessionID: UUID())
+            return
+        }
+
+        router.navigateToContinueSession(sessionID: savedSessionID)
     }
 
 }

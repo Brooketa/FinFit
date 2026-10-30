@@ -13,6 +13,16 @@ extension Container {
     }
 
     @MainActor
+    public var continueSessionPresenter: ParameterFactory<UUID, ContinueSessionPresenter> {
+        self { sessionID in
+            ContinueSessionPresenter(
+                sessionID: sessionID,
+                sessionStore: self.sessionStore,
+                router: self.healthCheckRouting()!)
+        }
+    }
+
+    @MainActor
     public var questionnairePresenter: ParameterFactory<UUID, QuestionnairePresenter> {
         self { sessionID in
             QuestionnairePresenter(
