@@ -12,6 +12,7 @@ public struct QuestionnaireView: View {
 
     public var body: some View {
         content
+            .animation(.smooth(duration: Constants.transitionDuration), value: questionID)
             .background(Palette.background)
             .backButton(action: presenter.onBackTapped)
             .task {
@@ -26,9 +27,17 @@ public struct QuestionnaireView: View {
             ProgressView()
                 .tint(Palette.primary)
                 .alignCenter()
+                .transition(.opacity)
         case .loaded(let question):
             loadedContent(for: question)
+                .transition(.opacity)
         }
+    }
+
+    private var questionID: String? {
+        guard case .loaded(let question) = presenter.state else { return nil }
+
+        return question.id
     }
 
     private func loadedContent(for question: Question) -> some View {
@@ -44,6 +53,7 @@ public struct QuestionnaireView: View {
                 .padding(.horizontal, .extraLarge2)
                 .padding(.vertical, .extraLarge2)
             }
+            .slideTransition(id: question.id)
         }
         .safeAreaInset(edge: .bottom) {
             footer
@@ -102,6 +112,16 @@ public struct QuestionnaireView: View {
         .enabled(presenter.isNextEnabled)
         .padding(.horizontal, .extraLarge2)
         .padding(.top, .large)
+    }
+
+}
+
+private extension QuestionnaireView {
+
+    enum Constants {
+
+        static let transitionDuration = 0.35
+
     }
 
 }

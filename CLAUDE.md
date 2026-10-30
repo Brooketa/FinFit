@@ -25,7 +25,7 @@ and nothing else.
 
 | Location | Tier | Holds | Depends on |
 |---|---|---|---|
-| `CoreUI/` | CoreUI | `Palette`, `TextStyle`, `Spacing`, `CornerRadius`, alignment and padding helpers, `enabled(_:)`, `backButton(action:)`, `ActionButton`, `TextInput`, `SingleSelectGroup`, `MultiSelectGroup`, `ViewState` | — |
+| `CoreUI/` | CoreUI | `Palette`, `TextStyle`, `Spacing`, `CornerRadius`, alignment and padding helpers, `enabled(_:)`, `backButton(action:)`, `slideTransition(id:)`, `ActionButton`, `TextInput`, `SingleSelectGroup`, `MultiSelectGroup`, `ViewState` | — |
 | `Core/` | Core | `Bundle.marketingVersion`, `UserDefaultsService` | — |
 | `Networking/` | Networking | `Endpoint`, `HTTPMethod`, `APIError`, `BaseNetworkClient` | — |
 | `HealthCheck/` | Feature | The health-check flow: `IntroView`, `ContinueSessionView`, `QuestionnaireView` and `ResultView` with their presenters, the questionnaire data stack, the session store, `HealthCheckRoutingProtocol` | `Core`, `CoreUI`, `Networking` |
