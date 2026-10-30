@@ -33,7 +33,25 @@ Each screen's behaviour is specified in its module's `Docs/` folder.
 
 ## Testing
 
-No testing policy has been set. Ask before writing any tests.
+Unit tests use **Swift Testing** (`import Testing`, `@Suite`, `@Test`, `#expect`).
+
+- **What is tested:** every module with logic has its own test target — the services in `Core`, the base network
+  client in `Networking`, every layer of the `HealthCheck` data stack, its session store and its presenters, and the
+  app's router. `CoreUI` holds tokens and views only and is not unit tested.
+- **Where:** a package's tests live in `Tests/<Module>Tests/`, declared as a `.testTarget` in its `Package.swift`, and
+  every test target is added to the `FinFit` scheme's test action, so ⌘U and `xcodebuild test -scheme FinFit` run
+  them all. Inside it, each subject gets its own folder, `<Subject>Tests/`, holding `<Subject>Tests.swift` and, as
+  needed, `Fixtures/`, `Mocks/` and `Models/` (types that exist only for the tests).
+- **Shape:** a test is a `final class <Subject>Tests` marked `@Suite("<Subject>")`. Its `init` builds the subject
+  and any throwaway resources, its `deinit` cleans them up, and each `@Test("…")` describes the behaviour it checks
+  in a sentence.
+- **Isolation:** each layer is tested against fakes of the protocol below it. No test talks to the real network or
+  to `UserDefaults.standard`; storage tests use a throwaway `UserDefaults` suite, created in `init` and deleted in
+  `deinit`.
+- **Fixtures:** test data comes from fixtures, one file per type named `<Type>+Fixtures.swift`, holding an
+  `extension <Type>` with a `static func fixture(…)` that has a default for every parameter. A test writes
+  `.fixture()` and overrides only what it is about. Fixtures used by one subject sit in its `Fixtures/`; fixtures
+  shared by several subjects move up to `Tests/<Module>Tests/Fixtures/`.
 
 ---
 

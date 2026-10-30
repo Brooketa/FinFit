@@ -161,6 +161,14 @@ Every package has the same outer shape:
 <Module>/
 ├── Package.swift
 ├── Docs/                               # Behavioural specs — see workflow.md → Feature Spec Files
+├── Tests/
+│   └── <Module>Tests/                  # The module's test target
+│       ├── Fixtures/                   # Fixtures shared by several subjects
+│       └── <Subject>Tests/             # One folder per subject under test
+│           ├── <Subject>Tests.swift
+│           ├── Fixtures/               # <Type>+Fixtures.swift
+│           ├── Mocks/
+│           └── Models/                 # Types that exist only for the tests
 └── Sources/
     └── <Module>/
         ├── Module+Factory.swift        # The module's own registrations, if it has any
