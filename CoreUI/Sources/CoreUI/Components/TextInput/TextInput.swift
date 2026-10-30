@@ -6,29 +6,33 @@ public struct TextInput: View {
     private let label: LocalizedStringResource?
     private let prefix: String?
     private let status: Status
+    private let externalFocus: FocusState<Bool>.Binding?
 
     @Binding private var text: String
 
-    @FocusState private var isFocused: Bool
+    @FocusState private var defaultFocus: Bool
 
     @Environment(\.isEnabled) private var isEnabled
 
     /// A full-width text field editing `text`, showing `placeholder` while empty. An optional `label` sits above
     /// the field and an optional `prefix` before the text. An `.error` `status` outlines the field in the error color
-    /// and shows its message below it. Takes `.keyboardType(_:)`, `.textContentType(_:)` and `.disabled(_:)` like a
-    /// system text field.
+    /// and shows its message below it. Pass `isFocused` to read or change the field's focus from outside, for example
+    /// to hide the keyboard. Takes `.keyboardType(_:)`, `.textContentType(_:)` and `.disabled(_:)` like a system text
+    /// field.
     public init(
         text: Binding<String>,
         placeholder: LocalizedStringResource,
         label: LocalizedStringResource? = nil,
         prefix: String? = nil,
-        status: Status = .normal
+        status: Status = .normal,
+        isFocused: FocusState<Bool>.Binding? = nil
     ) {
         _text = text
         self.placeholder = placeholder
         self.label = label
         self.prefix = prefix
         self.status = status
+        self.externalFocus = isFocused
     }
 
     public var body: some View {
@@ -66,7 +70,7 @@ public struct TextInput: View {
             .textStyle(.bodyLarge)
             .foregroundStyle(Palette.textPrimary)
             .tint(Palette.primary)
-            .focused($isFocused)
+            .focused(focus)
         }
         .padding(.horizontal, .large)
         .frame(minHeight: Constants.minimumHeight)
@@ -77,8 +81,12 @@ public struct TextInput: View {
         }
         .contentShape(.rect(cornerRadius: CornerRadius.large))
         .onTapGesture {
-            isFocused = true
+            focus.wrappedValue = true
         }
+    }
+
+    private var focus: FocusState<Bool>.Binding {
+        externalFocus ?? $defaultFocus
     }
 
     private var prompt: Text {
@@ -89,7 +97,7 @@ public struct TextInput: View {
     private var borderColor: Color {
         switch status {
         case .normal:
-            isFocused ? Palette.primary : Palette.border
+            focus.wrappedValue ? Palette.primary : Palette.border
         case .error:
             Palette.error
         }
@@ -98,7 +106,7 @@ public struct TextInput: View {
     private var borderWidth: CGFloat {
         switch status {
         case .normal:
-            isFocused ? Constants.highlightedBorderWidth : Constants.borderWidth
+            focus.wrappedValue ? Constants.highlightedBorderWidth : Constants.borderWidth
         case .error:
             Constants.highlightedBorderWidth
         }

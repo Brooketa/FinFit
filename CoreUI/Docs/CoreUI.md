@@ -107,6 +107,9 @@ It fills the available width and is at least 60pt tall, growing if its title wra
 optional `String` prefix and a `Status`: `.normal` (the default) or `.error(message)`. It fills the available
 width and the field is at least 56pt tall.
 
+An optional `isFocused` focus binding lets the screen read or change the field's focus, for example to hide the
+keyboard; without one, the field manages its focus itself.
+
 The input only draws the status it is given. Whether a value is valid, and when to start showing the error, is
 decided by the screen using it.
 
