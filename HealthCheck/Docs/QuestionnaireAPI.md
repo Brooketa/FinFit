@@ -93,7 +93,8 @@ It is built on Core's `UserDefaultsService` and shared by the module's screens.
 | `save(sessionID:)` | Saves the id, replacing any saved one |
 | `removeSessionID()` | Removes the saved id |
 
-- **Saved:** once the server has started or resumed the session
+- **Saved:** once the server has accepted an answer for the session, so a session left before its first answer is
+  not saved
 - **Removed:** when the session completes, so a saved id always means an unfinished session
 
 The store is registered privately in the `HealthCheck` container.

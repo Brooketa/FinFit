@@ -60,7 +60,6 @@ public final class QuestionnairePresenter {
 
         do {
             let session = try await questionnaireUseCase.startOrResumeSession(id: sessionID)
-            sessionStore.save(sessionID: sessionID)
             handle(session: session)
         } catch {
             state = .error
@@ -101,6 +100,7 @@ public final class QuestionnairePresenter {
             answer: answer)
         guard let session else { return }
 
+        sessionStore.save(sessionID: sessionID)
         handle(session: session)
     }
 

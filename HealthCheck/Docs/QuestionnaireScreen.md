@@ -8,9 +8,9 @@ session with a fresh id itself.
 ## Loading
 
 Opening the screen starts or resumes the session it was given (see **Session store** in `QuestionnaireAPI.md`), and
-shows a centered spinner in `primary` until the server sends the current question. Once the server has started the
-session, its id is saved. If the request fails, the spinner stays and nothing is saved. If the session comes back
-already completed, its id is removed and the Result screen opens.
+shows a centered spinner in `primary` until the server sends the current question. Starting a session saves nothing.
+If the request fails, the spinner stays. If the session comes back already completed, its id is removed and the
+Result screen opens.
 
 ## Question
 
@@ -28,8 +28,9 @@ already completed, its id is removed and the Result screen opens.
   except the progress bar has 24pt side padding on a `background` fill
 - **Next:** enabled only while the answer is acceptable (see below); disabled, it dims to half opacity
 - **Submitting:** tapping Next sends the answer to the server. While it is being sent, a spinner replaces the button's
-  title and further taps are ignored. The server replies with the next question, which replaces the current one with
-  nothing selected, or with the result after the last question
+  title and further taps are ignored. Once the server accepts the answer, the session's id is saved, so a session is
+  only remembered after its first answer. The server replies with the next question, which replaces the current one
+  with nothing selected, or with the result after the last question
 - **Finishing:** once the server returns the result, the Result screen is pushed on top of the questionnaire, showing
   the score and category
 - **Submit failure:** the answer stays as it was and Next can be tapped again
