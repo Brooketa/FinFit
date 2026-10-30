@@ -199,6 +199,8 @@ FeatureName/Sources/FeatureName/
 │   │   │   │   └── Components/
 │   │   │   │       └── ChildComponent.swift
 │   │   │   └── Dialogs/                # Presented over the screen
+│   │   ├── Models/                     # The screen's standalone view models
+│   │   ├── Utilities/                  # The screen's non-view logic, e.g. state being edited
 │   │   └── UseCase/                    # Used by this screen only
 │   │       ├── DomainUseCase.swift
 │   │       ├── DomainUseCaseProtocol.swift

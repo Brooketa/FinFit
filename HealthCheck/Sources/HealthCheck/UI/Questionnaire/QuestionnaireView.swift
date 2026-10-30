@@ -9,34 +9,81 @@ public struct QuestionnaireView: View {
     public init() {}
 
     public var body: some View {
+        content
+            .background(Palette.background)
+            .task {
+                await presenter.startOrResumeSession()
+            }
+    }
+
+    @ViewBuilder
+    private var content: some View {
+        switch presenter.state {
+        case .idle, .loading, .error:
+            ProgressView()
+                .tint(Palette.primary)
+                .alignCenter()
+        case .loaded(let question):
+            loadedContent(for: question)
+        }
+    }
+
+    private func loadedContent(for question: Question) -> some View {
         VStack(spacing: 0) {
-            ProgressBar(progress: presenter.model.progress)
+            ProgressBar(progress: question.progress)
 
             ScrollView {
-                header
-                    .padding(.horizontal, .extraLarge2)
-                    .padding(.vertical, .extraLarge2)
+                VStack(spacing: Spacing.extraLarge3.value) {
+                    header(for: question)
+
+                    answer(question.answer)
+                }
+                .padding(.horizontal, .extraLarge2)
+                .padding(.vertical, .extraLarge2)
             }
         }
         .safeAreaInset(edge: .bottom) {
             footer
         }
-        .background(Palette.background)
     }
 
-    private var header: some View {
+    private func header(for question: Question) -> some View {
         VStack(alignment: .leading, spacing: Spacing.medium.value) {
-            Text(presenter.model.title)
+            Text(question.title)
                 .textStyle(.headingSmall)
                 .foregroundStyle(Palette.textPrimary)
 
-            if let description = presenter.model.description {
+            if let description = question.description {
                 Text(description)
                     .textStyle(.bodyMedium)
                     .foregroundStyle(Palette.textSecondary)
             }
         }
         .alignLeading()
+    }
+
+    @ViewBuilder
+    private func answer(_ answer: Question.Answer) -> some View {
+        switch answer {
+        case .singleChoice(let options):
+            SingleSelectGroup(
+                options: options.map { SingleSelectGroup.Option(id: $0.id, title: $0.title) },
+                selection: presenter.answerSelection.selectedAnswerID,
+                onSelect: presenter.onSingleChoiceAnswerSelected(answerID:))
+        case .multipleChoice(let options, _):
+            MultiSelectGroup(
+                options: options.map { MultiSelectGroup.Option(id: $0.id, title: $0.title) },
+                selection: presenter.answerSelection.selectedAnswerIDs,
+                onToggle: presenter.onMultipleChoiceAnswerToggled(answerID:))
+        case .number(let valueRange):
+            TextInput(
+                text: Binding(
+                    get: { presenter.answerSelection.numberText },
+                    set: presenter.onNumberAnswerChanged(text:)),
+                placeholder: .questionnaireNumberPlaceholder,
+                status: presenter.isNumberAnswerOutOfRange ? .error(rangeMessage(for: valueRange)) : .normal)
+            .keyboardType(.decimalPad)
+        }
     }
 
     private var footer: some View {
@@ -46,20 +93,23 @@ public struct QuestionnaireView: View {
             trailingIcon: Image(.arrowRight)) {
             presenter.onNextTapped()
         }
+        .enabled(presenter.isNextEnabled)
         .padding(.horizontal, .extraLarge2)
         .padding(.top, .large)
     }
 
-}
+    private func rangeMessage(for valueRange: ClosedRange<Double>) -> LocalizedStringResource {
+        let minimum = valueRange.lowerBound.formatted()
+        let maximum = valueRange.upperBound.formatted()
 
-extension QuestionnaireView {
-
-    struct Model {
-
-        let progress: Double
-        let title: String
-        let description: String?
-
+        switch (valueRange.lowerBound.isFinite, valueRange.upperBound.isFinite) {
+        case (true, true):
+            return .questionnaireNumberRangeError(minimum: minimum, maximum: maximum)
+        case (true, false):
+            return .questionnaireNumberMinimumError(minimum: minimum)
+        default:
+            return .questionnaireNumberMaximumError(maximum: maximum)
+        }
     }
 
 }

@@ -250,6 +250,12 @@ Example:
 
 ### View Model & Action Extensions
 - Every view that receives data defines its own `Model` as a nested struct inside an extension on the view.
+- **A screen's models are the exception: they are standalone types.** The models a Presenter holds and
+  hands to its screen's View are top-level types named for what they describe (`Question`, not
+  `QuestionModel`), one per file in the screen's `Models/` folder — never nested in the screen's View.
+  Their own nested types are declared in an extension of them. Components keep their nested `Model`.
+- A screen that loads what it shows holds it in CoreUI's `ViewState` (`idle`, `loading`, `error`,
+  `loaded`) — `ViewState<Question>` — rather than a loading enum of its own.
 - Every view that produces user interactions defines its own `Action` as a nested enum inside an extension on the view.
 - The Presenter is responsible for constructing the `Model` with all the data the view needs to render.
 - **A View never sees a domain or data-layer model. Never.** Not as a property of its `Model`, not as
@@ -312,7 +318,7 @@ Example:
 
 Example:
 
-    func onAppear() async throws {
+    func loadItems() async throws {
         items = try await itemUseCase.fetchItems()
             .map { ItemCard.Model(from: $0) }
     }
