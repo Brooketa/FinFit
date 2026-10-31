@@ -60,6 +60,20 @@ final class QuestionnairePresenterTests {
         #expect(routerSpy.calls == [.result(HealthCheckResult(score: 64, category: .fair))])
     }
 
+    @Test("The question id follows the loaded question and is absent otherwise")
+    func questionIDFollowsLoadedQuestion() async {
+        #expect(questionnairePresenter.questionID == nil)
+
+        questionnaireUseCaseMock.startResult = .success(.fixture(question: .fixture(id: "income_stability")))
+        await questionnairePresenter.startOrResumeSession()
+        #expect(questionnairePresenter.questionID == "income_stability")
+
+        questionnairePresenter.onSingleChoiceAnswerSelected(answerID: "option_1")
+        questionnaireUseCaseMock.submitResult = .failure(TestError.fixture())
+        await questionnairePresenter.onNextTapped()
+        #expect(questionnairePresenter.questionID == nil)
+    }
+
     @Test("Next is enabled only once the loaded question has a complete answer")
     func nextIsEnabledWhenAnswerIsComplete() async {
         #expect(!questionnairePresenter.isNextEnabled)
@@ -288,11 +302,87 @@ final class QuestionnairePresenterTests {
         #expect(questionnairePresenter.state.loadedContent != nil)
     }
 
-    @Test("Tapping Back navigates to the intro")
-    func backNavigatesToIntro() {
+    @Test("Tapping Back before any answer is accepted navigates to the intro without asking")
+    func backBeforeAnswerNavigatesToIntro() async {
+        await questionnairePresenter.startOrResumeSession()
+
         questionnairePresenter.onBackTapped()
 
+        #expect(!questionnairePresenter.shouldPresentLeaveConfirmation)
         #expect(routerSpy.calls == [.intro])
+    }
+
+    @Test("Tapping Back on the error screen navigates to the intro without asking")
+    func backOnErrorNavigatesToIntro() async {
+        questionnaireUseCaseMock.startResult = .failure(TestError.fixture())
+        await questionnairePresenter.startOrResumeSession()
+
+        questionnairePresenter.onBackTapped()
+
+        #expect(!questionnairePresenter.shouldPresentLeaveConfirmation)
+        #expect(routerSpy.calls == [.intro])
+    }
+
+    @Test("Tapping Back after an answer is accepted asks for confirmation and stays")
+    func backAfterAnswerAsksForConfirmation() async {
+        await answerFirstQuestion()
+
+        questionnairePresenter.onBackTapped()
+
+        #expect(questionnairePresenter.shouldPresentLeaveConfirmation)
+        #expect(routerSpy.calls.isEmpty)
+    }
+
+    @Test("Tapping Back on a resumed session past its first question asks for confirmation")
+    func backOnResumedSessionAsksForConfirmation() async {
+        questionnaireUseCaseMock.startResult = .success(.fixture(progress: .fixture(current: 3, total: 5)))
+        await questionnairePresenter.startOrResumeSession()
+
+        questionnairePresenter.onBackTapped()
+
+        #expect(questionnairePresenter.shouldPresentLeaveConfirmation)
+        #expect(routerSpy.calls.isEmpty)
+    }
+
+    @Test("Saving and leaving navigates to the intro and keeps the session saved")
+    func saveAndLeaveKeepsSession() async {
+        await answerFirstQuestion()
+        questionnairePresenter.onBackTapped()
+
+        questionnairePresenter.onLeaveConfirmationAction(.saveAndLeave)
+
+        #expect(!questionnairePresenter.shouldPresentLeaveConfirmation)
+        #expect(sessionStoreMock.removeCount == 0)
+        #expect(sessionStoreMock.sessionID == sessionID)
+        #expect(routerSpy.calls == [.intro])
+    }
+
+    @Test("Discarding and leaving removes the saved session and navigates to the intro")
+    func discardAndLeaveRemovesSession() async {
+        await answerFirstQuestion()
+        questionnairePresenter.onBackTapped()
+
+        questionnairePresenter.onLeaveConfirmationAction(.discardAndLeave)
+
+        #expect(!questionnairePresenter.shouldPresentLeaveConfirmation)
+        #expect(sessionStoreMock.removeCount == 1)
+        #expect(sessionStoreMock.sessionID == nil)
+        #expect(routerSpy.calls == [.intro])
+    }
+
+    @Test("Cancelling dismisses the confirmation and keeps the question and its selection")
+    func cancelKeepsQuestionAndSelection() async {
+        await answerFirstQuestion()
+        questionnairePresenter.onSingleChoiceAnswerSelected(answerID: "option_2")
+        questionnairePresenter.onBackTapped()
+
+        questionnairePresenter.onLeaveConfirmationAction(.cancel)
+
+        #expect(!questionnairePresenter.shouldPresentLeaveConfirmation)
+        #expect(questionnairePresenter.state.loadedContent?.id == "monthly_income")
+        #expect(questionnairePresenter.answerSelection.selectedAnswerID == "option_2")
+        #expect(sessionStoreMock.removeCount == 0)
+        #expect(routerSpy.calls.isEmpty)
     }
 
     @Test("The number input shows the out-of-range error only for an out-of-range number")
@@ -308,6 +398,15 @@ final class QuestionnairePresenterTests {
 
         questionnairePresenter.onNumberAnswerChanged(text: "twenty")
         #expect(questionnairePresenter.numberAnswerStatus == .normal)
+    }
+
+    private func answerFirstQuestion() async {
+        await questionnairePresenter.startOrResumeSession()
+        questionnairePresenter.onSingleChoiceAnswerSelected(answerID: "option_1")
+        questionnaireUseCaseMock.submitResult = .success(.fixture(
+            question: .fixture(id: "monthly_income"),
+            progress: .fixture(current: 2, total: 5)))
+        await questionnairePresenter.onNextTapped()
     }
 
 }

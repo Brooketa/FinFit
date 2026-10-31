@@ -7,6 +7,8 @@ import CoreUI
 @Observable
 public final class QuestionnairePresenter {
 
+    var shouldPresentLeaveConfirmation = false
+
     private(set) var state = ViewState<Question>.idle
     private(set) var answerSelection = AnswerSelection()
     private(set) var isSubmitting = false
@@ -16,7 +18,7 @@ public final class QuestionnairePresenter {
     private let router: any HealthCheckRoutingProtocol
 
     private var sessionID: UUID
-    private var isSessionCompleted = false
+	private var sessionStatus: SessionStatus = .new
 
     init(
         sessionID: UUID,
@@ -28,6 +30,12 @@ public final class QuestionnairePresenter {
         self.questionnaireUseCase = questionnaireUseCase
         self.sessionStore = sessionStore
         self.router = router
+    }
+
+    var questionID: String? {
+        guard case .loaded(let question) = state else { return nil }
+
+        return question.id
     }
 
     var isNextEnabled: Bool {
@@ -52,7 +60,7 @@ public final class QuestionnairePresenter {
     }
 
     private var sessionIDToResume: UUID {
-        isSessionCompleted ? UUID() : sessionID
+        sessionStatus == .completed ? UUID() : sessionID
     }
 
     func startOrResumeSession() async {
@@ -86,7 +94,29 @@ public final class QuestionnairePresenter {
     }
 
     func onBackTapped() {
-        router.navigateToIntro()
+        guard
+            case .loaded = state,
+            sessionStatus == .inProgress
+        else {
+            router.navigateToIntro()
+            return
+        }
+
+        shouldPresentLeaveConfirmation = true
+    }
+
+    func onLeaveConfirmationAction(_ action: LeaveConfirmation.Action) {
+        shouldPresentLeaveConfirmation = false
+
+        switch action {
+        case .saveAndLeave:
+            router.navigateToIntro()
+        case .discardAndLeave:
+            sessionStore.removeSessionID()
+            router.navigateToIntro()
+        case .cancel:
+            break
+        }
     }
 
     func onNextTapped() async {
@@ -130,7 +160,6 @@ public final class QuestionnairePresenter {
             if loadedSessionID != sessionID {
                 sessionStore.removeSessionID()
                 sessionID = loadedSessionID
-                isSessionCompleted = false
             }
             handle(session: session)
         } catch {
@@ -142,9 +171,10 @@ public final class QuestionnairePresenter {
         switch session {
         case .inProgress(let question, let progress):
             state = .loaded(Question(from: question, progress: progress))
+            sessionStatus = progress.current > 1 ? .inProgress : .new
             answerSelection = AnswerSelection()
         case .completed(let result):
-            isSessionCompleted = true
+            sessionStatus = .completed
             sessionStore.removeSessionID()
             router.navigateToResult(HealthCheckResult(from: result))
         }

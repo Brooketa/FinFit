@@ -122,6 +122,61 @@
         }
       }
     },
+    "questionnaire_leave_cancel_button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
+    "questionnaire_leave_discard_button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Discard and leave"
+          }
+        }
+      }
+    },
+    "questionnaire_leave_message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save your progress to continue later, or discard it and start over next time."
+          }
+        }
+      }
+    },
+    "questionnaire_leave_save_button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save and leave"
+          }
+        }
+      }
+    },
+    "questionnaire_leave_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leave questionnaire?"
+          }
+        }
+      }
+    },
     "questionnaire_next_button" : {
       "extractionState" : "manual",
       "localizations" : {
