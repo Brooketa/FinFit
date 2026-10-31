@@ -14,9 +14,12 @@ public struct QuestionnaireView: View {
 
     public var body: some View {
         content
-            .animation(.smooth(duration: Constants.transitionDuration), value: questionID)
+            .animation(.smooth(duration: Constants.transitionDuration), value: presenter.questionID)
             .background(Palette.background)
             .backButton(action: presenter.onBackTapped)
+            .leaveConfirmationAlert(
+                isPresented: $presenter.shouldPresentLeaveConfirmation,
+                action: presenter.onLeaveConfirmationAction)
             .task {
                 await presenter.startOrResumeSession()
             }
@@ -37,12 +40,6 @@ public struct QuestionnaireView: View {
             loadedContent(for: question)
                 .transition(.opacity)
         }
-    }
-
-    private var questionID: String? {
-        guard case .loaded(let question) = presenter.state else { return nil }
-
-        return question.id
     }
 
     private func loadedContent(for question: Question) -> some View {

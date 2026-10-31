@@ -122,6 +122,61 @@
         }
       }
     },
+    "questionnaire_leave_discard_button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Discard and leave"
+          }
+        }
+      }
+    },
+    "questionnaire_leave_message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save your progress to continue later, or discard your answers."
+          }
+        }
+      }
+    },
+    "questionnaire_leave_save_button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save and leave"
+          }
+        }
+      }
+    },
+    "questionnaire_leave_stay_button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stay"
+          }
+        }
+      }
+    },
+    "questionnaire_leave_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leave the health check?"
+          }
+        }
+      }
+    },
     "questionnaire_next_button" : {
       "extractionState" : "manual",
       "localizations" : {
