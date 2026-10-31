@@ -24,13 +24,6 @@ The whole flow, against the live API:
 | Questionnaire | Shows the server's questions one at a time (single choice, multiple choice and number) with validation, progress, transitions and error recovery. Asks before leaving a session in progress |
 | Result | Shows the result of the questionnaire: the user's financial health score and what it means |
 
-Each module has a `Docs/` folder containing short specifications describing what it does and how it behaves.
-Feature modules have one specification per screen, while other modules have a single specification. Documentation is
-written alongside the code and updated in the same change to ensure it always reflects what is actually implemented.
-
-These specifications also serve as onboarding material, allowing developers new to the project to quickly understand
-its functionality without having to read through the code first.
-
 <table>
   <tr>
     <td align="center" width="33%"><img src="Screenshots/intro.png" alt="Intro screen" width="260"><br>Intro</td>
@@ -207,6 +200,13 @@ screen recordings.
 | Epic branch | `feat/OFN-100-questionnaire` |
 | Task branch | `feat/OFN-123-questionnaire-number-input` |
 | Commit | `feat(HealthCheck)[OFN-123]: Added number input to the questionnaire` |
+
+Each module has a `Docs/` folder containing short specifications describing what it does and how it behaves.
+Feature modules have one specification per screen, while other modules have a single specification. Documentation is
+written alongside the code and updated in the same change to ensure it always reflects what is actually implemented.
+
+These specifications also serve as onboarding material, allowing developers new to the project to quickly understand
+its functionality without having to read through the code first.
 
 ## Time spent
 
