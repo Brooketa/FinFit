@@ -66,8 +66,7 @@ I chose Clean Architecture for two reasons:
 - **Testability**\
   Each layer can be unit tested on its own, against mocks of the layer below.
 
-The code is organised in three layers. Data starts in the data layer, passes through the domain layer, and is
-converted into the presentation layer's models that views use. Each layer has its own models.
+The code is organized into three layers, each with its own responsibilities and models.
 
 | Layer | Holds |
 |---|---|
@@ -171,8 +170,8 @@ In order of value to the user:
    needs it to accept a changed answer to an earlier one.
 3. **Better error handling**: tell failures apart and recover where possible: watch the connection with
    `NWPathMonitor` and retry automatically when it returns, instead of waiting for Try again.
-4. **More animation and clearer states**: the flow works, but it could feel better. More animation through the
-   flow, and some screens should say more about what is happening.
+4. **More UI animations**: enhance the user experience with additional animations and transitions to make the app
+   feel more polished and engaging.
 5. **Haptic feedback** when a retry fails, so the unchanged error screen doesn't read as nothing happening.
 6. **UI tests** for the happy path and resume-after-force-quit, against a stubbed server.
 
