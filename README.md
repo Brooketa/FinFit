@@ -33,30 +33,31 @@ Each screen's behaviour is specified in `HealthCheck/Docs/`, and every shared pa
   The module structure, architecture and design system were set up before any screen, so every
   screen after them was built the same way, on the same building blocks.
 - **UI and UX**\
-  A navigation flow that makes sense at every step, and animations that show the user what is going on: the logo
-  welcomes them on the Intro screen, each new question slides in, the progress bar at the top fills with every
-  answer so the user can see they are moving forward, and on the Result screen the score
-  counts up as it fills the ring, building anticipation for the moment the user has been waiting for since the first
-  question. Every animation highlights a change the user should notice. The Continue session screen
-  only appears once the user has answered a question, so it never gets in the way of a health check that hasn't
-  really started.
+  I focused on creating a smooth, intuitive experience where animations serve a purpose rather than just adding
+  visual flair. Transitions guide users through the questionnaire, while the animated score reveal builds
+  anticipation and makes the final result feel rewarding. I also paid attention to navigation and session recovery,
+  ensuring users can pick up where they left off without unnecessary interruptions like alert popups.
 - **Tests**\
   Building a highly modular architecture with testing in mind: every dependency sits behind a protocol, so each
   layer can be swapped for a mock and tested on its own.
 
 ## Architecture
 
-The app target is thin: the entry point, the root `NavigationStack`, the router and the dependency wiring. Everything
-else lives in local Swift packages, referenced directly in the project file:
+I chose Clean Architecture for two reasons:
 
-| Package | Holds | Depends on |
-|---|---|---|
-| `Core` | `UserDefaultsService`, small Foundation helpers | None |
-| `CoreUI` | The design system: palette, typography, spacing, radii, layout helpers and components (`ActionButton`, `TextInput`, `SingleSelectGroup`, `MultiSelectGroup`, `ProgressBar`, `ViewState`) | None |
-| `Networking` | `BaseNetworkClient` over `URLSession`, `Endpoint`, `APIError` | None |
-| `HealthCheck` | The four screens, the questionnaire data stack, the session store and the module's routing protocol | `Core`, `CoreUI`, `Networking` |
+- **Separation of concerns.** Each layer has one job, so when building a feature it is always clear what goes where.
+- **Testability.** Each layer can be unit tested on its own, against mocks of the layer below.
 
-Inside `HealthCheck`, each screen is a View and a Presenter, and gets only the layers below it that have a job:
+The code is organised in three layers. Data starts in the data layer, passes through the domain layer, and is
+converted into the presentation layer's models that views use. Each layer has its own models.
+
+| Layer | Holds |
+|---|---|
+| Presentation | View and Presenter |
+| Domain | Use case and Repository |
+| Data | Data source and Client |
+
+For the Questionnaire screen:
 
 ```
 QuestionnaireView → QuestionnairePresenter → QuestionnaireUseCase → QuestionnaireRepository
@@ -65,25 +66,37 @@ QuestionnaireView → QuestionnairePresenter → QuestionnaireUseCase → Questi
                                                                        → BaseNetworkClient
 ```
 
+The code is split into local Swift packages:
+
+| Package | Holds | Depends on |
+|---|---|---|
+| `Core` | `UserDefaultsService`, small Foundation helpers | None |
+| `CoreUI` | The design system: palette, typography, spacing, radii, layout helpers and components (`ActionButton`, `TextInput`, `SingleSelectGroup`, `MultiSelectGroup`, `ProgressBar`, `ViewState`) | None |
+| `Networking` | `BaseNetworkClient` over `URLSession`, `Endpoint`, `APIError` | None |
+| `HealthCheck` | The whole health-check flow: the Intro, Continue session, Questionnaire and Result screens, the questionnaire data stack, the session store and the module's routing protocol | `Core`, `CoreUI`, `Networking` |
+
 ### Key decisions
 
-- **Modules with a strict dependency direction.** Features never import each other and lower modules never import
+- **Modules with a strict dependency direction**\
+  Features never import each other and lower modules never import
   higher ones. It keeps the design system reusable and the feature deletable, and makes build boundaries match
   ownership boundaries.
-- **Data flows up through three layers.** It starts in the data layer (client and data source), passes through the
-  domain layer (repository and use case), and is converted into the presentation layer's models that views use. Each
-  layer has its own models, so API changes stop at the data layer.
-- **Views never see domain models.** Presenters build each view's `Model` from plain values and get `Action`s back, so
+- **Views never see domain models**\
+  Presenters build each view's `Model` from plain values and get `Action`s back, so
   views are passive and presenters are unit-testable without SwiftUI.
-- **Centralized navigation.** One router in the app target owns the navigation stack. Each module declares its own
+- **Centralized navigation**\
+  One router in the app target owns the navigation stack. Each module declares its own
   route destinations, and the router conforms to them, so modules never navigate or know about each other.
-- **Dependency injection with Factory.** Every dependency is passed in through the initializer behind a protocol, so
+- **Dependency injection with Factory**\
+  Every dependency is passed in through the initializer behind a protocol, so
   each layer can be tested in isolation against fakes and swapped without touching its neighbours. Every module
   keeps its registrations in its own `Module+Factory.swift`, so there is always one place to look to see what a module
   provides, and removing a module takes its registrations with it.
-- **Design system first.** Every color, text style, spacing and radius from Figma is a token in `CoreUI`, and the
+- **Design system first**\
+  Every color, text style, spacing and radius from Figma is a token in `CoreUI`, and the
   components are built on them. Feature code never uses raw colors or magic numbers.
-- **Swift 6 strict concurrency.** Presenters and the router are `@MainActor`; everything below is `Sendable`.
+- **Swift 6 strict concurrency**\
+  Presenters and the router are `@MainActor`; everything below is `Sendable`.
 
 ### Surviving a force quit
 
