@@ -33,12 +33,16 @@ Each screen's behaviour is specified in `HealthCheck/Docs/`, and every shared pa
   The module structure, architecture and design system were set up before any screen, so every
   screen after them was built the same way, on the same building blocks.
 - **UI and UX**\
-  A navigation flow that makes sense at every step, and animations that show the user what is going
-  on: a subtle breathing logo on the Intro screen, transitions from one question to the next, and the score filling
-  the ring on the Result screen. Every animation highlights a change the user should notice.
+  A navigation flow that makes sense at every step, and animations that show the user what is going on: the logo
+  welcomes them on the Intro screen, each new question slides in, the progress bar at the top fills with every
+  answer so the user can see they are moving forward, and on the Result screen the score
+  counts up as it fills the ring, building anticipation for the moment the user has been waiting for since the first
+  question. Every animation highlights a change the user should notice. The Continue session screen
+  only appears once the user has answered a question, so it never gets in the way of a health check that hasn't
+  really started.
 - **Tests**\
-  A highly modular architecture with every dependency behind a protocol, so each layer can be swapped for a
-  mock and tested on its own.
+  Building a highly modular architecture with testing in mind: every dependency sits behind a protocol, so each
+  layer can be swapped for a mock and tested on its own.
 
 ## Architecture
 
