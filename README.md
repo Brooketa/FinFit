@@ -24,23 +24,28 @@ The whole flow, against the live API:
 | Questionnaire | Shows the server's questions one at a time (single choice, multiple choice and number) with validation, progress, transitions and error recovery. Asks before leaving a session in progress |
 | Result | Shows the result of the questionnaire: the user's financial health score and what it means |
 
+Each module has a `Docs/` folder containing short specifications describing what it does and how it behaves.
+Feature modules have one specification per screen, while other modules have a single specification. Documentation is
+written alongside the code and updated in the same change to ensure it always reflects what is actually implemented.
+
+These specifications also serve as onboarding material, allowing developers new to the project to quickly understand
+its functionality without having to read through the code first.
+
 <table>
   <tr>
     <td align="center" width="33%"><img src="Screenshots/intro.png" alt="Intro screen" width="260"><br>Intro</td>
     <td align="center" width="33%"><img src="Screenshots/continue_session.png" alt="Continue session screen" width="260"><br>Continue session</td>
-    <td align="center" width="33%"><img src="Screenshots/result.png" alt="Result screen" width="260"><br>Result</td>
+    <td align="center" width="33%"><img src="Screenshots/questionnaire_single_choice.png" alt="Questionnaire: single choice screen" width="260"><br>Questionnaire: single choice</td>
   </tr>
 </table>
 
 <table>
   <tr>
-    <td align="center" width="33%"><img src="Screenshots/questionnaire_single_choice.png" alt="Questionnaire: single choice screen" width="260"><br>Questionnaire: single choice</td>
     <td align="center" width="33%"><img src="Screenshots/questionnaire_multiple_choice.png" alt="Questionnaire: multiple choice screen" width="260"><br>Questionnaire: multiple choice</td>
     <td align="center" width="33%"><img src="Screenshots/questionnaire_number.png" alt="Questionnaire: number screen" width="260"><br>Questionnaire: number</td>
+    <td align="center" width="33%"><img src="Screenshots/result.png" alt="Result screen" width="260"><br>Result</td>
   </tr>
 </table>
-
-Each screen's behaviour is specified in `HealthCheck/Docs/`, and every shared package has a spec in its own `Docs/`.
 
 ## Where I focused
 
