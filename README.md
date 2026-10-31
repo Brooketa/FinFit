@@ -152,12 +152,15 @@ In order of value to the user:
 1. **Accessibility**: VoiceOver labels and traits on the custom components, and Dynamic Type for the text styles.
    The EU requires it, and it's the biggest gap for real users. Most of the work is in the design system rather
    than the feature.
-2. **Better error handling**: tell failures apart and recover where possible: watch the connection with
+2. **Going back to change an answer**: keep the answers the user has given and let them step back to an answered
+   question, see their answer and change it. Today the API only accepts an answer to the current question, so this
+   needs it to accept a changed answer to an earlier one.
+3. **Better error handling**: tell failures apart and recover where possible: watch the connection with
    `NWPathMonitor` and retry automatically when it returns, instead of waiting for Try again.
-3. **More animation and clearer states**: the flow works, but it could feel better. More animation through the
+4. **More animation and clearer states**: the flow works, but it could feel better. More animation through the
    flow, and some screens should say more about what is happening.
-4. **Haptic feedback** when a retry fails, so the unchanged error screen doesn't read as nothing happening.
-5. **UI tests** for the happy path and resume-after-force-quit, against a stubbed server.
+5. **Haptic feedback** when a retry fails, so the unchanged error screen doesn't read as nothing happening.
+6. **UI tests** for the happy path and resume-after-force-quit, against a stubbed server.
 
 ## Libraries
 
@@ -175,9 +178,8 @@ library.
 
 Every feature was planned in Jira as an epic and split into tasks. Each epic has a feature branch off `develop`.
 Each task is built on its own branch off the epic's branch and merged back into it through its own pull request;
-once the epic is done, its branch is merged into `develop`. Claude Code worked to the rules checked into this
-repository: `CLAUDE.md` is the entry point, and `.claude/rules/` holds the code style, architecture, project
-structure and workflow.
+once the epic is done, its branch is merged into `develop`. Pull requests that carry UI changes have screenshots or
+screen recordings.
 
 | | Example |
 |---|---|
@@ -187,4 +189,4 @@ structure and workflow.
 
 ## Time spent
 
-About 10-12 hours, spread over two days (29-30 October 2026).
+About 11-13 hours, spread over three days (29-31 October 2026).
