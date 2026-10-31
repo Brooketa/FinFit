@@ -61,7 +61,21 @@ question. The navigation bar's back button stays.
   the score and category
 - **Submit failure:** the error screen replaces the question (see **Errors**)
 - **Back:** a back button in the navigation bar, in place of the system one, returns straight to the Intro screen,
-  skipping any screen between them such as Continue session. Swiping back is turned off
+  skipping any screen between them such as Continue session. Swiping back is turned off. While a question is shown in
+  a session that already has an accepted answer (any question after the first, including in a resumed session), the
+  leave confirmation opens instead (see **Leave confirmation**). On the first question, while loading and on the
+  error screen, it leaves without asking
+
+## Leave confirmation
+
+A system alert titled "Leave questionnaire?" with the message "Save your progress to continue later, or discard it
+and start over next time."
+
+| Button | Role | Effect |
+|---|---|---|
+| Save and leave | Default | Returns to the Intro screen. The session stays saved, so the next Start offers to continue it |
+| Discard and leave | Destructive | Removes the saved session's id and returns to the Intro screen, so the next Start begins a new session |
+| Cancel | Cancel | Closes the alert, leaving the current question and its selection as they were |
 
 ## Answers by question type
 
