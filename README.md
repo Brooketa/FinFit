@@ -117,11 +117,9 @@ navigate away. Continuing sends the saved ID to the server, which returns the qu
 
 ## Assumptions and trade-offs
 
-- **No going back to an answered question**\
-  The API only accepts an answer to the current question, so back leaves the questionnaire for the Intro screen.
-  Once the user has answered a question, back first asks them to confirm: **Save and leave** keeps the session so
-  it can be continued, **Discard and leave** removes it, and **Cancel** keeps them on the question. Before the
-  first answer there's nothing to lose, so back leaves without asking.
+- **Answers cannot be changed**\
+  The API only accepts answers to the current question, so users cannot go back and correct previous answers. This
+  is a limitation of the current flow, as a wrong answer cannot be corrected without starting a new session.
 - **A session starts with the first answer**\
   Sessions are only saved after the first answer, avoiding unnecessary recovery prompts for questionnaires opened but
   never started.
@@ -144,18 +142,18 @@ Swift Testing. `CoreUI` only holds design tokens and views, so it has none.
 
 In order of value to the user:
 
-1. **Accessibility**: VoiceOver labels and traits on the custom components, and Dynamic Type for the text styles.
-   The EU requires it, and it's the biggest gap for real users. Most of the work is in the design system rather
-   than the feature.
-2. **Going back to change an answer**: keep the answers the user has given and let them step back to an answered
+1. **Going back to change an answer**: keep the answers the user has given and let them step back to an answered
    question, see their answer and change it. Today the API only accepts an answer to the current question, so this
    needs it to accept a changed answer to an earlier one.
-3. **Better error handling**: tell failures apart and recover where possible: watch the connection with
+2. **Better error handling**: tell failures apart and recover where possible: watch the connection with
    `NWPathMonitor` and retry automatically when it returns, instead of waiting for Try again.
-4. **More UI animations**: enhance the user experience with additional animations and transitions to make the app
+3. **More UI animations**: enhance the user experience with additional animations and transitions to make the app
    feel more polished and engaging.
-5. **Haptic feedback** when a retry fails, so the unchanged error screen doesn't read as nothing happening.
-6. **UI tests** for the happy path and resume-after-force-quit, against a stubbed server.
+4. **Haptic feedback** when a retry fails, so the unchanged error screen doesn't read as nothing happening.
+5. **UI tests** for the happy path and resume-after-force-quit, against a stubbed server.
+6. **Accessibility**: VoiceOver labels and traits on the custom components, and Dynamic Type for the text styles.
+   The EU requires it, and it's the biggest gap for real users. Most of the work is in the design system rather
+   than the feature.
 
 ## Libraries
 
@@ -187,4 +185,13 @@ helping new developers understand the project without reading through the implem
 
 ## Time spent
 
-About 11-13 hours, spread over three days (29-31 October 2026).
+Approximately **12–13 hours**, spread over three days (29–31 October 2026).
+
+| Activity | Time |
+|---|---|
+| Planning and Jira task breakdown | 2 hours |
+| Development | 6 hours |
+| UI/UX improvements (navigation, animations, quality of life) | 2–3 hours |
+| Bug fixing | ~1 hour |
+| PR screenshots and screen recordings | ~1 hour |
+| **Total** | **12–13 hours** |
