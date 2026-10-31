@@ -53,12 +53,12 @@ Tests: ⌘U.
 
 ## Architecture
 
-I chose Clean Architecture for two reasons:
+Clean Architecture was chosen for two main reasons:
 
 - **Separation of concerns**\
-  Each layer has one job, so when building a feature it is always clear what goes where.
+  Each layer has a clear responsibility, making it easier to organize and maintain code.
 - **Testability**\
-  Each layer can be unit tested on its own, against mocks of the layer below.
+  Each layer can be tested independently using mocks of its dependencies.
 
 The code is organized into three layers, each with its own responsibilities and models.
 
