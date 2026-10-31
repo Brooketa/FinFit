@@ -26,11 +26,17 @@ The whole flow, against the live API:
 
 <table>
   <tr>
-    <td align="center"><img src="Screenshots/intro.png" alt="Intro screen" width="160"><br>Intro</td>
-    <td align="center"><img src="Screenshots/continue_session.png" alt="Continue session screen" width="160"><br>Continue session</td>
-    <td align="center"><img src="Screenshots/questionnaire_number.png" alt="Questionnaire: number screen" width="160"><br>Questionnaire: number</td>
-    <td align="center"><img src="Screenshots/questionnaire_multiple_choice.png" alt="Questionnaire: multiple choice screen" width="160"><br>Questionnaire: multiple choice</td>
-    <td align="center"><img src="Screenshots/result.png" alt="Result screen" width="160"><br>Result</td>
+    <td align="center" width="33%"><img src="Screenshots/intro.png" alt="Intro screen" width="260"><br>Intro</td>
+    <td align="center" width="33%"><img src="Screenshots/continue_session.png" alt="Continue session screen" width="260"><br>Continue session</td>
+    <td align="center" width="33%"><img src="Screenshots/result.png" alt="Result screen" width="260"><br>Result</td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td align="center" width="33%"><img src="Screenshots/questionnaire_single_choice.png" alt="Questionnaire: single choice screen" width="260"><br>Questionnaire: single choice</td>
+    <td align="center" width="33%"><img src="Screenshots/questionnaire_multiple_choice.png" alt="Questionnaire: multiple choice screen" width="260"><br>Questionnaire: multiple choice</td>
+    <td align="center" width="33%"><img src="Screenshots/questionnaire_number.png" alt="Questionnaire: number screen" width="260"><br>Questionnaire: number</td>
   </tr>
 </table>
 
