@@ -43,19 +43,15 @@ The whole flow, against the live API:
 ## Where I focused
 
 - **Planning**\
-  Every feature was written up as a Jira epic and split into tasks with a clear scope, so the work was
-  planned up front and implementation could focus on building one well-defined piece at a time.
+  Features were organized into Jira epics and smaller tasks with clear scopes, making implementation easier to manage.
 - **Foundation**\
-  The module structure, architecture and design system were set up before any screen, so every
-  screen after them was built the same way, on the same building blocks.
+  The architecture, modules and design system were established before building screens to ensure consistency across
+  the app.
 - **UI and UX**\
-  I focused on creating a smooth, intuitive experience where animations serve a purpose rather than just adding
-  visual flair. Transitions guide users through the questionnaire, while the animated score reveal builds
-  anticipation and makes the final result feel rewarding. I also paid attention to navigation and session recovery,
-  ensuring users can pick up where they left off without unnecessary interruptions like alert popups.
+  I focused on making the app intuitive, with purposeful animations, smooth navigation and session recovery. The
+  animated score reveal also builds anticipation and makes the final result more rewarding.
 - **Tests**\
-  Building a highly modular architecture with testing in mind: every dependency sits behind a protocol, so each
-  layer can be swapped for a mock and tested on its own.
+  Dependencies are defined through protocols, allowing each layer to be mocked and tested independently.
 
 ## Architecture
 
@@ -94,33 +90,30 @@ The code is split into local Swift packages:
 
 ### Key decisions
 
-- **Modules with a strict dependency direction**\
-  Features never import each other and lower modules never import
-  higher ones. It keeps the design system reusable and the feature deletable, and makes build boundaries match
-  ownership boundaries.
+- **Strict module dependencies**\
+  Features never import each other, and lower-level modules never depend on higher-level ones. This keeps modules
+  independent, reusable and easy to remove.
 - **Views never see domain models**\
-  Presenters build each view's `Model` from plain values and get `Action`s back, so
-  views are passive and presenters are unit-testable without SwiftUI.
+  Presenters convert data into view-specific `Model`s and handle `Action`s, keeping views passive and presenters
+  testable without SwiftUI.
 - **Centralized navigation**\
-  One router in the app target owns the navigation stack. Each module declares its own
-  route destinations, and the router conforms to them, so modules never navigate or know about each other.
+  A single router in the app target manages navigation. Modules declare their destinations without knowing about
+  each other.
 - **Dependency injection with Factory**\
-  Every dependency is passed in through the initializer behind a protocol, so
-  each layer can be tested in isolation against fakes and swapped without touching its neighbours. Every module
-  keeps its registrations in its own `Module+Factory.swift`, so there is always one place to look to see what a module
-  provides, and removing a module takes its registrations with it.
+  Dependencies are injected through protocols, making them easy to replace or mock. Each module manages its
+  registrations in `Module+Factory.swift`.
 - **Design system first**\
-  Every color, text style, spacing and radius from Figma is a token in `CoreUI`, and the
-  components are built on them. Feature code never uses raw colors or magic numbers.
-- **Swift 6 strict concurrency**\
-  Presenters and the router are `@MainActor`; everything below is `Sendable`.
+  Colors, typography, spacing and radii are defined as tokens in `CoreUI`. Features use these tokens instead of
+  hardcoded values.
+- **Swift 6 strict concurrency**
 
 ### Surviving a force quit
 
-The server already keeps the session; the client only has to remember the **session id**. `SessionStore` saves it in
-`UserDefaults` (through Core's `UserDefaultsService`) once the server has accepted the first answer, and removes it
-when the session completes or the user discards it on leaving. On the next launch, Start sees the saved id and
-offers **Continue** or **Start over**; continuing posts the same id and the server returns the current question.
+The server manages sessions, so the app only needs to persist the session ID. `SessionStore` saves it in
+`UserDefaults` after the first successful answer and removes it when the session is completed or discarded.
+
+Users can continue their session whenever they return to the questionnaire, whether they leave the app, close it, or
+navigate away. Continuing sends the saved ID to the server, which returns the question user stopped at.
 
 ## Assumptions and trade-offs
 
