@@ -151,8 +151,10 @@ In order of value to the user:
    `NWPathMonitor` and retry automatically when it returns, instead of waiting for Try again.
 3. **More animation and clearer states**: the flow works, but it could feel better. More animation through the
    flow, and some screens should say more about what is happening.
-4. **Haptic feedback** when a retry fails, so the unchanged error screen doesn't read as nothing happening.
-5. **UI tests** for the happy path and resume-after-force-quit, against a stubbed server.
+4. **Confirm leaving a session in progress**: once the user has answered a question, tapping back asks if they
+   really want to quit, so an accidental tap doesn't pull them out of the health check.
+5. **Haptic feedback** when a retry fails, so the unchanged error screen doesn't read as nothing happening.
+6. **UI tests** for the happy path and resume-after-force-quit, against a stubbed server.
 
 ## Libraries
 
