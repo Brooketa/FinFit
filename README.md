@@ -123,28 +123,17 @@ navigate away. Continuing sends the saved ID to the server, which returns the qu
   it can be continued, **Discard and leave** removes it, and **Cancel** keeps them on the question. Before the
   first answer there's nothing to lose, so back leaves without asking.
 - **A session starts with the first answer**\
-  The session is only saved once the user answers the first question. A user who taps Start and goes straight back
-  probably tapped it by mistake. When they later tap Start for real, they want a fresh health check, not a Continue
-  session screen asking about the one they opened by accident.
-- **Every question needs an answer**\
-  Even one the server marks as not required. The API has no way to send "no
-  answer" for a question, so skipping isn't possible without guessing at the server's behaviour.
+  Sessions are only saved after the first answer, avoiding unnecessary recovery prompts for questionnaires opened but
+  never started.
 - **Score categories are fixed in the app**\
-  The server decides the category, but the app knows the four categories and their titles and subtitles. A new
-  category from the backend would fail to decode until the app is updated and released again. Ideally the server
-  would send the title and subtitle with the result, so the backend could change categories without an app release.
-- **Validation follows the backend, with open defaults**\
-  The app validates answers with the rules the backend sends: selection limits for multiple choice, a minimum and
-  maximum for numbers. Every rule is optional in the API, so when one is missing the app doesn't invent a limit:
-  any number of options can be checked, and a number without a minimum or maximum accepts any value on that side.
+  The app defines the four categories and their descriptions. New categories require an app update. Ideally, the
+  backend would provide these descriptions.
+- **Validation follows the backend**\
+  Selection limits and numeric ranges come from the API. Missing rules are treated as unrestricted rather than
+  introducing arbitrary limits.
 - **Simple error handling**\
-  Whether the user is offline, the server returns an error, or something unexpected happens, they always see the
-  same error screen with two options: Try again or Start a new session. There's no need to show technical error
-  messages that users can't act on. Starting a new session only removes the previous one after the server
-  successfully creates a new one, so no progress is lost if something goes wrong.
-- **No accessibility support yet**\
-  Text uses fixed sizes, and the custom components have no VoiceOver support. This is the biggest gap, since the
-  European Accessibility Act requires it (see below).
+  All failures show the same error screen with Try again and Start a new session. Technical error messages are hidden
+  since users cannot act on them. The previous session is only removed after a new one is successfully created.
 
 ## Testing
 
@@ -170,11 +159,11 @@ In order of value to the user:
 
 ## Libraries
 
-**[Factory](https://github.com/hmlongco/Factory) 3.5.1** is the only dependency. It gives compile-time-checked,
-per-module registrations with little ceremony, works with `@Observable` presenters through `@InjectedObservable`, and
-supports `promised()` registrations, which is exactly what a feature module needs for a router it can't see.
-Everything else (networking, persistence, the design system) is plain Foundation and SwiftUI; none of it needed a
-library.
+**[Factory](https://github.com/hmlongco/Factory) 3.5.1** is the only external dependency. It provides type-safe
+dependency registration, supports `@Observable` presenters through `@InjectedObservable`, and allows modules to
+register dependencies through `promised()` without importing their implementations.
+
+Networking, persistence and UI components use Foundation and SwiftUI without additional libraries.
 
 ## Tools and workflow
 
@@ -182,10 +171,9 @@ library.
 - **Jira**: planning and tracking work
 - **Figma**: the design system and screens
 
-Every feature was planned in Jira as an epic and split into tasks. Each epic has a feature branch off `develop`.
-Each task is built on its own branch off the epic's branch and merged back into it through its own pull request;
-once the epic is done, its branch is merged into `develop`. Pull requests that carry UI changes have screenshots or
-screen recordings.
+Each feature is planned as a Jira epic with its own branch from `develop`. Tasks have separate branches and pull
+requests that merge into the epic branch. Completed epics are merged into `develop`. UI changes include screenshots
+or screen recordings in their pull requests.
 
 | | Example |
 |---|---|
@@ -193,12 +181,9 @@ screen recordings.
 | Task branch | `feat/OFN-123-questionnaire-number-input` |
 | Commit | `feat(HealthCheck)[OFN-123]: Added number input to the questionnaire` |
 
-Each module has a `Docs/` folder containing short specifications describing what it does and how it behaves.
-Feature modules have one specification per screen, while other modules have a single specification. Documentation is
-written alongside the code and updated in the same change to ensure it always reflects what is actually implemented.
-
-These specifications also serve as onboarding material, allowing developers new to the project to quickly understand
-its functionality without having to read through the code first.
+Each module has a `Docs/` folder with specifications describing its functionality and behavior. Feature modules
+have one specification per screen, while other modules have one per module. These are maintained alongside the code,
+helping new developers understand the project without reading through the implementation.
 
 ## Time spent
 
