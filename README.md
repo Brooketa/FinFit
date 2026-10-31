@@ -45,8 +45,10 @@ Each screen's behaviour is specified in `HealthCheck/Docs/`, and every shared pa
 
 I chose Clean Architecture for two reasons:
 
-- **Separation of concerns.** Each layer has one job, so when building a feature it is always clear what goes where.
-- **Testability.** Each layer can be unit tested on its own, against mocks of the layer below.
+- **Separation of concerns**\
+  Each layer has one job, so when building a feature it is always clear what goes where.
+- **Testability**\
+  Each layer can be unit tested on its own, against mocks of the layer below.
 
 The code is organised in three layers. Data starts in the data layer, passes through the domain layer, and is
 converted into the presentation layer's models that views use. Each layer has its own models.
@@ -107,39 +109,37 @@ continuing posts the same id and the server returns the current question.
 
 ## Assumptions and trade-offs
 
-- **The id is saved after the first answer, not when the session starts.** A session abandoned before answering
-  anything has nothing to resume, so offering to continue it would be noise.
-- **Every question needs an answer**, even one the server marks as not required. The API has no way to send "no
-  answer" for a question, so skipping isn't possible without guessing at the server's behaviour.
-- **The category comes from the server.** The client shows what it is sent and never derives it from the score.
-- **Missing validation limits are filled in sensibly:** a multiple-choice question allows 1 (or 0 if optional) up to
-  all of its options; a number question without `min` or `max` is unbounded on that side. Number input accepts
-  decimals in the user's locale; whole numbers are sent without a decimal point.
-- **One error screen for every failure.** Whatever goes wrong while loading or submitting (offline, a 4xx or 5xx, an
-  unreadable response), the user gets **Try again** (same session) or **Start a new session**. The specific API error
-  codes aren't shown: none of them is something the user can fix by reading it, and the two recovery paths cover them
-  all. Starting a new session only drops the saved one once the server has accepted the new one, so a failure there
-  loses nothing.
-- **No going back to an answered question.** The API only accepts an answer to the current question, so back leaves
+- **No going back to an answered question**\
+  The API only accepts an answer to the current question, so back leaves
   the questionnaire for the Intro screen; the session is kept and can be continued.
-- **Light mode, portrait, iPhone only**, matching the design. Text uses fixed sizes; Dynamic Type and VoiceOver are
+- **A session starts with the first answer**\
+  The session is only saved once the user answers the first question. A user who taps Start and goes straight back
+  probably tapped it by mistake. When they later tap Start for real, they want a fresh health check, not a Continue
+  session screen asking about the one they opened by accident.
+- **Every question needs an answer**\
+  Even one the server marks as not required. The API has no way to send "no
+  answer" for a question, so skipping isn't possible without guessing at the server's behaviour.
+- **Score categories are fixed in the app**\
+  The server decides the category, but the app knows the four categories and their titles and subtitles. A new
+  category from the backend would fail to decode until the app is updated and released again. Ideally the server
+  would send the title and subtitle with the result, so the backend could change categories without an app release.
+- **Validation follows the backend, with open defaults**\
+  The app validates answers with the rules the backend sends: selection limits for multiple choice, a minimum and
+  maximum for numbers. Every rule is optional in the API, so when one is missing the app doesn't invent a limit:
+  any number of options can be checked, and a number without a minimum or maximum accepts any value on that side.
+- **Simple error handling**\
+  Whether the user is offline, the server returns an error, or something unexpected happens, they always see the
+  same error screen with two options: Try again or Start a new session. There's no need to show technical error
+  messages that users can't act on. Starting a new session only removes the previous one after the server
+  successfully creates a new one, so no progress is lost if something goes wrong.
+- **Light mode, portrait, iPhone only**\
+  Matching the design. Text uses fixed sizes; Dynamic Type and VoiceOver are
   not done (see below).
 
 ## Testing
 
-The architecture is what makes testing easy. Every module is self-contained and every dependency sits behind a
-protocol, so any layer can be swapped for a mock. Services, use cases, repositories, data sources and clients are
-each tested on their own, against mocks of whatever sits below them.
-
-113 tests in Swift Testing, one target per package plus the app's router tests, all in the `FinFit` scheme:
-
-- every layer of the questionnaire stack (client, decoded from captured API responses in JSON fixtures, data
-  source, repository and use case), each against fakes of the layer below;
-- the session store, on a throwaway `UserDefaults` suite;
-- every presenter, including answer validation, submission, errors and retry;
-- `BaseNetworkClient` with a stubbed `URLProtocol`, `UserDefaultsService`, and `AppRouter`.
-
-`CoreUI` holds only tokens and views and has no unit tests; the screens were verified by running the app.
+Every module with logic (`Core`, `Networking`, `HealthCheck` and the app target) has its own unit tests, written with
+Swift Testing. `CoreUI` only holds design tokens and views, so it has none.
 
 ## What I would do next
 
