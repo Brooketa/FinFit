@@ -24,6 +24,16 @@ The whole flow, against the live API:
 | Questionnaire | Shows the server's questions one at a time (single choice, multiple choice and number) with validation, progress, transitions and error recovery. Asks before leaving a session in progress |
 | Result | Shows the result of the questionnaire: the user's financial health score and what it means |
 
+<table>
+  <tr>
+    <td align="center"><img src="Screenshots/intro.png" alt="Intro screen" width="160"><br>Intro</td>
+    <td align="center"><img src="Screenshots/continue_session.png" alt="Continue session screen" width="160"><br>Continue session</td>
+    <td align="center"><img src="Screenshots/questionnaire_number.png" alt="Questionnaire: number screen" width="160"><br>Questionnaire: number</td>
+    <td align="center"><img src="Screenshots/questionnaire_multiple_choice.png" alt="Questionnaire: multiple choice screen" width="160"><br>Questionnaire: multiple choice</td>
+    <td align="center"><img src="Screenshots/result.png" alt="Result screen" width="160"><br>Result</td>
+  </tr>
+</table>
+
 Each screen's behaviour is specified in `HealthCheck/Docs/`, and every shared package has a spec in its own `Docs/`.
 
 ## Where I focused
