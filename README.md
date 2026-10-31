@@ -26,14 +26,18 @@ Each screen's behaviour is specified in `HealthCheck/Docs/`, and every shared pa
 
 ## Where I focused
 
-- **Planning.** Every feature was written up as a Jira epic and split into tasks with a clear scope, so the work was
+- **Planning**\
+  Every feature was written up as a Jira epic and split into tasks with a clear scope, so the work was
   planned up front and implementation could focus on building one well-defined piece at a time.
-- **Foundation.** The module structure, architecture and design system were set up before any screen, so every
+- **Foundation**\
+  The module structure, architecture and design system were set up before any screen, so every
   screen after them was built the same way, on the same building blocks.
-- **UI and UX.** A navigation flow that makes sense at every step, and animations that show the user what is going
+- **UI and UX**\
+  A navigation flow that makes sense at every step, and animations that show the user what is going
   on: a subtle breathing logo on the Intro screen, transitions from one question to the next, and the score filling
   the ring on the Result screen. Every animation highlights a change the user should notice.
-- **Tests.** A highly modular architecture with every dependency behind a protocol, so each layer can be swapped for a
+- **Tests**\
+  A highly modular architecture with every dependency behind a protocol, so each layer can be swapped for a
   mock and tested on its own.
 
 ## Architecture
