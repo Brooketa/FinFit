@@ -1,3 +1,5 @@
+<img src="FinFit/Assets.xcassets/AppIcon.appiconset/AppIcon.png" alt="FinFit app icon" width="128">
+
 # FinFit
 
 The iOS client for the Peaks **Financial Health Check**: a server-driven questionnaire that ends in a score
@@ -19,7 +21,7 @@ The whole flow, against the live API:
 |---|---|
 | Intro | Starts a health check, or offers to continue the unfinished one |
 | Continue session | Shown when the user has an unfinished health check. They can continue it from the question they left off at, or discard it and start a new one |
-| Questionnaire | Shows the server's questions one at a time (single choice, multiple choice and number) with validation, progress, transitions and error recovery |
+| Questionnaire | Shows the server's questions one at a time (single choice, multiple choice and number) with validation, progress, transitions and error recovery. Asks before leaving a session in progress |
 | Result | Shows the result of the questionnaire: the user's financial health score and what it means |
 
 Each screen's behaviour is specified in `HealthCheck/Docs/`, and every shared package has a spec in its own `Docs/`.
@@ -102,16 +104,18 @@ The code is split into local Swift packages:
 
 ### Surviving a force quit
 
-The server already keeps the session; the client only has to remember the **session id**. `SessionStore` saves it
-in `UserDefaults` (through Core's `UserDefaultsService`) once the server has accepted the first answer, and removes
-it when the session completes. On the next launch, Start sees the saved id and offers **Continue** or **Start over**;
-continuing posts the same id and the server returns the current question.
+The server already keeps the session; the client only has to remember the **session id**. `SessionStore` saves it in
+`UserDefaults` (through Core's `UserDefaultsService`) once the server has accepted the first answer, and removes it
+when the session completes or the user discards it on leaving. On the next launch, Start sees the saved id and
+offers **Continue** or **Start over**; continuing posts the same id and the server returns the current question.
 
 ## Assumptions and trade-offs
 
 - **No going back to an answered question**\
-  The API only accepts an answer to the current question, so back leaves
-  the questionnaire for the Intro screen; the session is kept and can be continued.
+  The API only accepts an answer to the current question, so back leaves the questionnaire for the Intro screen.
+  Once the user has answered a question, back first asks them to confirm: **Save and leave** keeps the session so
+  it can be continued, **Discard and leave** removes it, and **Cancel** keeps them on the question. Before the
+  first answer there's nothing to lose, so back leaves without asking.
 - **A session starts with the first answer**\
   The session is only saved once the user answers the first question. A user who taps Start and goes straight back
   probably tapped it by mistake. When they later tap Start for real, they want a fresh health check, not a Continue
@@ -152,10 +156,8 @@ In order of value to the user:
    `NWPathMonitor` and retry automatically when it returns, instead of waiting for Try again.
 3. **More animation and clearer states**: the flow works, but it could feel better. More animation through the
    flow, and some screens should say more about what is happening.
-4. **Confirm leaving a session in progress**: once the user has answered a question, tapping back asks if they
-   really want to quit, so an accidental tap doesn't pull them out of the health check.
-5. **Haptic feedback** when a retry fails, so the unchanged error screen doesn't read as nothing happening.
-6. **UI tests** for the happy path and resume-after-force-quit, against a stubbed server.
+4. **Haptic feedback** when a retry fails, so the unchanged error screen doesn't read as nothing happening.
+5. **UI tests** for the happy path and resume-after-force-quit, against a stubbed server.
 
 ## Libraries
 
