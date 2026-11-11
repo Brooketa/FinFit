@@ -1,6 +1,6 @@
-# FinFit — Project Overview
+# OnlyFunds — Project Overview
 
-FinFit is an iPhone app built with SwiftUI.
+OnlyFunds is an iPhone app built with SwiftUI.
 
 This document describes **what is built**, and nothing else. It is the only project-specific rule
 file; the other four are shared across projects.
@@ -39,9 +39,9 @@ Unit tests use **Swift Testing** (`import Testing`, `@Suite`, `@Test`, `#expect`
   client in `Networking`, every layer of the `HealthCheck` data stack, its session store and its presenters, and the
   app's router. `CoreUI` holds tokens and views only and is not unit tested.
 - **Where:** a package's tests live in `Tests/<Module>Tests/`, declared as a `.testTarget` in its `Package.swift`, and
-  every test target is added to the `FinFit` scheme's test action, so ⌘U and `xcodebuild test -scheme FinFit` run
-  them all. The app target's tests live in `FinFitTests/` at the repository root, a unit-test target hosted by the
-  app, so they can `@testable import FinFit`. Inside a test target, each subject gets its own folder,
+  every test target is added to the `OnlyFunds` scheme's test action, so ⌘U and `xcodebuild test -scheme OnlyFunds`
+  run them all. The app target's tests live in `OnlyFundsTests/` at the repository root, a unit-test target hosted by
+  the app, so they can `@testable import OnlyFunds`. Inside a test target, each subject gets its own folder,
   `<Subject>Tests/`, holding `<Subject>Tests.swift` and, as needed, `Fixtures/`, `Mocks/` and `Models/` (types that
   exist only for the tests).
 - **Shape:** a test is a `final class <Subject>Tests` marked `@Suite("<Subject>")`. Its `init` builds the subject
@@ -76,13 +76,13 @@ Board: **OnlyFunds** — project `OFN`, <https://thorssons.atlassian.net/browse/
 
   | Scheme | Target | Bundle id | Purpose |
   |---|---|---|---|
-  | `FinFit` | FinFit | `com.thorssons.finfit` | Development and release |
-  | `FinFit` | FinFitTests | `com.thorssons.finfitTests` | Unit tests for the app target, hosted by the app |
+  | `OnlyFunds` | OnlyFunds | `com.thorssons.onlyfunds` | Development and release |
+  | `OnlyFunds` | OnlyFundsTests | `com.thorssons.onlyfundsTests` | Unit tests for the app target, hosted by the app |
 
 - DEBUG-only launch arguments: none
-- Launch screen: the `UILaunchScreen` entry in `FinFit/Info.plist` shows the `launch_logo` image (the purple F) centered
-  on `launch_background`. Both live in the app target's `Assets.xcassets`, because iOS reads the launch screen only from
-  the app bundle; `launch_background` is a copy of CoreUI's `background` (white), so the hand-off to the Intro screen
+- Launch screen: the `UILaunchScreen` entry in `OnlyFunds/Info.plist` shows the `launch_logo` image (the purple F)
+  centered on `launch_background`. Both live in the app target's `Assets.xcassets`, because iOS reads the launch screen
+  only from the app bundle; `launch_background` is a copy of CoreUI's `background` (white), so the hand-off to the Intro screen
   doesn't flash. `INFOPLIST_KEY_UILaunchScreen_Generation` is off so the entry isn't replaced by a generated one
-- API base URL: the `APIBaseURL` key in `FinFit/Info.plist`, which Xcode merges with the generated Info.plist.
-  `Info.plist` is excluded from the `FinFit` folder's target membership so it is not also copied as a resource
+- API base URL: the `APIBaseURL` key in `OnlyFunds/Info.plist`, which Xcode merges with the generated Info.plist.
+  `Info.plist` is excluded from the `OnlyFunds` folder's target membership so it is not also copied as a resource

@@ -21,7 +21,7 @@ final class BaseNetworkClientTests {
         let url = try #require(StubURLProtocol.receivedRequest?.url)
         let components = try #require(URLComponents(url: url, resolvingAgainstBaseURL: false))
         #expect(components.scheme == "https")
-        #expect(components.host == "api.finfit.test")
+        #expect(components.host == "api.onlyfunds.test")
         #expect(components.path == "/sessions/1")
         #expect(Set(components.queryItems ?? []) == [
             URLQueryItem(name: "page", value: "2"),
@@ -128,7 +128,7 @@ private extension BaseNetworkClientTests {
 
     enum Constants {
 
-        static let baseURL = "https://api.finfit.test"
+        static let baseURL = "https://api.onlyfunds.test"
         static let invalidBaseURL = "http://[::1"
 
     }

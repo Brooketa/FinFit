@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "A10000000000000000000002"
-               BuildableName = "FinFit.app"
-               BlueprintName = "FinFit"
-               ReferencedContainer = "container:FinFit.xcodeproj">
+               BuildableName = "OnlyFunds.app"
+               BlueprintName = "OnlyFunds"
+               ReferencedContainer = "container:OnlyFunds.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -63,9 +63,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "A10000000000000000000070"
-               BuildableName = "FinFitTests.xctest"
-               BlueprintName = "FinFitTests"
-               ReferencedContainer = "container:FinFit.xcodeproj">
+               BuildableName = "OnlyFundsTests.xctest"
+               BlueprintName = "OnlyFundsTests"
+               ReferencedContainer = "container:OnlyFunds.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -85,9 +85,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A10000000000000000000002"
-            BuildableName = "FinFit.app"
-            BlueprintName = "FinFit"
-            ReferencedContainer = "container:FinFit.xcodeproj">
+            BuildableName = "OnlyFunds.app"
+            BlueprintName = "OnlyFunds"
+            ReferencedContainer = "container:OnlyFunds.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -102,9 +102,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A10000000000000000000002"
-            BuildableName = "FinFit.app"
-            BlueprintName = "FinFit"
-            ReferencedContainer = "container:FinFit.xcodeproj">
+            BuildableName = "OnlyFunds.app"
+            BlueprintName = "OnlyFunds"
+            ReferencedContainer = "container:OnlyFunds.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
