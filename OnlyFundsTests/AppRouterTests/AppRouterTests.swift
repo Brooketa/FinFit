@@ -1,6 +1,6 @@
 import Foundation
 import Testing
-@testable import FinFit
+@testable import OnlyFunds
 @testable import HealthCheck
 
 @MainActor

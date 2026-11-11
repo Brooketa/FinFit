@@ -20,13 +20,13 @@
 			containerPortal = A10000000000000000000000 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = A10000000000000000000002;
-			remoteInfo = FinFit;
+			remoteInfo = OnlyFunds;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		A10000000000000000000003 /* FinFit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FinFit.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		A10000000000000000000007 /* FinFitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FinFitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A10000000000000000000003 /* OnlyFunds.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnlyFunds.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A10000000000000000000007 /* OnlyFundsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OnlyFundsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A10000000000000000000011 /* Core */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Core; sourceTree = "<group>"; };
 		A10000000000000000000012 /* CoreUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = CoreUI; sourceTree = "<group>"; };
 		A10000000000000000000013 /* HealthCheck */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = HealthCheck; sourceTree = "<group>"; };
@@ -34,27 +34,27 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		A10000000000000000000006 /* Exceptions for "FinFit" folder in "FinFit" target */ = {
+		A10000000000000000000006 /* Exceptions for "OnlyFunds" folder in "OnlyFunds" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = A10000000000000000000002 /* FinFit */;
+			target = A10000000000000000000002 /* OnlyFunds */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		A10000000000000000000005 /* FinFit */ = {
+		A10000000000000000000005 /* OnlyFunds */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				A10000000000000000000006 /* Exceptions for "FinFit" folder in "FinFit" target */,
+				A10000000000000000000006 /* Exceptions for "OnlyFunds" folder in "OnlyFunds" target */,
 			);
-			path = FinFit;
+			path = OnlyFunds;
 			sourceTree = "<group>";
 		};
-		A10000000000000000000008 /* FinFitTests */ = {
+		A10000000000000000000008 /* OnlyFundsTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = FinFitTests;
+			path = OnlyFundsTests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -85,8 +85,8 @@
 		A10000000000000000000001 = {
 			isa = PBXGroup;
 			children = (
-				A10000000000000000000005 /* FinFit */,
-				A10000000000000000000008 /* FinFitTests */,
+				A10000000000000000000005 /* OnlyFunds */,
+				A10000000000000000000008 /* OnlyFundsTests */,
 				A10000000000000000000011 /* Core */,
 				A10000000000000000000012 /* CoreUI */,
 				A10000000000000000000013 /* HealthCheck */,
@@ -101,8 +101,8 @@
 		A10000000000000000000004 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A10000000000000000000003 /* FinFit.app */,
-				A10000000000000000000007 /* FinFitTests.xctest */,
+				A10000000000000000000003 /* OnlyFunds.app */,
+				A10000000000000000000007 /* OnlyFundsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -110,9 +110,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A10000000000000000000002 /* FinFit */ = {
+		A10000000000000000000002 /* OnlyFunds */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A10000000000000000000062 /* Build configuration list for PBXNativeTarget "FinFit" */;
+			buildConfigurationList = A10000000000000000000062 /* Build configuration list for PBXNativeTarget "OnlyFunds" */;
 			buildPhases = (
 				A10000000000000000000040 /* Sources */,
 				A10000000000000000000041 /* Frameworks */,
@@ -123,9 +123,9 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				A10000000000000000000005 /* FinFit */,
+				A10000000000000000000005 /* OnlyFunds */,
 			);
-			name = FinFit;
+			name = OnlyFunds;
 			packageProductDependencies = (
 				A10000000000000000000031 /* Core */,
 				A10000000000000000000032 /* CoreUI */,
@@ -133,13 +133,13 @@
 				A10000000000000000000036 /* Networking */,
 				A10000000000000000000034 /* FactoryKit */,
 			);
-			productName = FinFit;
-			productReference = A10000000000000000000003 /* FinFit.app */;
+			productName = OnlyFunds;
+			productReference = A10000000000000000000003 /* OnlyFunds.app */;
 			productType = "com.apple.product-type.application";
 		};
-		A10000000000000000000070 /* FinFitTests */ = {
+		A10000000000000000000070 /* OnlyFundsTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A10000000000000000000078 /* Build configuration list for PBXNativeTarget "FinFitTests" */;
+			buildConfigurationList = A10000000000000000000078 /* Build configuration list for PBXNativeTarget "OnlyFundsTests" */;
 			buildPhases = (
 				A10000000000000000000071 /* Sources */,
 				A10000000000000000000072 /* Frameworks */,
@@ -151,11 +151,11 @@
 				A10000000000000000000075 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				A10000000000000000000008 /* FinFitTests */,
+				A10000000000000000000008 /* OnlyFundsTests */,
 			);
-			name = FinFitTests;
-			productName = FinFitTests;
-			productReference = A10000000000000000000007 /* FinFitTests.xctest */;
+			name = OnlyFundsTests;
+			productName = OnlyFundsTests;
+			productReference = A10000000000000000000007 /* OnlyFundsTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -177,7 +177,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A10000000000000000000060 /* Build configuration list for PBXProject "FinFit" */;
+			buildConfigurationList = A10000000000000000000060 /* Build configuration list for PBXProject "OnlyFunds" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -194,8 +194,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A10000000000000000000002 /* FinFit */,
-				A10000000000000000000070 /* FinFitTests */,
+				A10000000000000000000002 /* OnlyFunds */,
+				A10000000000000000000070 /* OnlyFundsTests */,
 			);
 		};
 /* End PBXProject section */
@@ -237,7 +237,7 @@
 /* Begin PBXTargetDependency section */
 		A10000000000000000000075 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = A10000000000000000000002 /* FinFit */;
+			target = A10000000000000000000002 /* OnlyFunds */;
 			targetProxy = A10000000000000000000074 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -310,8 +310,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4KC5LNQ77T;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = FinFit/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = FinFit;
+				INFOPLIST_FILE = OnlyFunds/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = OnlyFunds;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = NO;
@@ -322,7 +322,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.thorssons.finfit;
+				PRODUCT_BUNDLE_IDENTIFIER = com.thorssons.onlyfunds;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -337,8 +337,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4KC5LNQ77T;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = FinFit/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = FinFit;
+				INFOPLIST_FILE = OnlyFunds/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = OnlyFunds;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = NO;
@@ -349,7 +349,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.thorssons.finfit;
+				PRODUCT_BUNDLE_IDENTIFIER = com.thorssons.onlyfunds;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -365,11 +365,11 @@
 				DEVELOPMENT_TEAM = 4KC5LNQ77T;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.thorssons.finfitTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.thorssons.onlyfundsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				TARGETED_DEVICE_FAMILY = 1;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FinFit.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/FinFit";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OnlyFunds.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/OnlyFunds";
 			};
 			name = Debug;
 		};
@@ -382,18 +382,18 @@
 				DEVELOPMENT_TEAM = 4KC5LNQ77T;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.thorssons.finfitTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.thorssons.onlyfundsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				TARGETED_DEVICE_FAMILY = 1;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FinFit.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/FinFit";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OnlyFunds.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/OnlyFunds";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A10000000000000000000060 /* Build configuration list for PBXProject "FinFit" */ = {
+		A10000000000000000000060 /* Build configuration list for PBXProject "OnlyFunds" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A10000000000000000000050 /* Debug */,
@@ -402,7 +402,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A10000000000000000000062 /* Build configuration list for PBXNativeTarget "FinFit" */ = {
+		A10000000000000000000062 /* Build configuration list for PBXNativeTarget "OnlyFunds" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A10000000000000000000052 /* Debug */,
@@ -411,7 +411,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A10000000000000000000078 /* Build configuration list for PBXNativeTarget "FinFitTests" */ = {
+		A10000000000000000000078 /* Build configuration list for PBXNativeTarget "OnlyFundsTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A10000000000000000000076 /* Debug */,

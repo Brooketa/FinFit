@@ -1,14 +1,14 @@
-<img src="FinFit/Assets.xcassets/AppIcon.appiconset/AppIcon.png" alt="FinFit app icon" width="128">
+<img src="OnlyFunds/Assets.xcassets/AppIcon.appiconset/AppIcon.png" alt="OnlyFunds app icon" width="128">
 
-# FinFit
+# OnlyFunds
 
 The iOS client for the Peaks **Financial Health Check**: a server-driven questionnaire that ends in a score
 and a category. Built with SwiftUI on a modular, Clean Architecture codebase.
 
 ## How to run
 
-1. Open `FinFit.xcodeproj` in **Xcode 26** or later.
-2. Select the `FinFit` scheme and an iPhone simulator running iOS 26.
+1. Open `OnlyFunds.xcodeproj` in **Xcode 26** or later.
+2. Select the `OnlyFunds` scheme and an iPhone simulator running iOS 26.
 3. Run (⌘R). Swift Package Manager resolves Factory on the first build.
 
 Tests: ⌘U.
